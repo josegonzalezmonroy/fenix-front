@@ -1,0 +1,49 @@
+<nz-layout>
+  <nz-header>
+    <h1>Projeto Final</h1>
+  </nz-header>
+  <nz-content>
+    <h2>Fazer login</h2>
+    <form
+      nz-form
+      [formGroup]="formulario"
+      class="login-form"
+      (ngSubmit)="onSubmit()"
+    >
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Por favor, insira seu e-mail!">
+          <nz-input-group nzSize="large" nzPrefixIcon="user">
+            <input
+              type="email"
+              nz-input
+              formControlName="usuario"
+              placeholder="E-mail"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Por favor, insira sua senha!">
+          <nz-input-group nzSize="large" nzPrefixIcon="lock">
+            <input
+              type="password"
+              nz-input
+              formControlName="senha"
+              placeholder="Senha"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <button
+        nz-button
+        nzSize="large"
+        class="login-form-button login-form-margin"
+        [nzType]="'primary'"
+        [disabled]="!formulario.valid"
+      >
+        Log in
+      </button>
+    </form>
+  </nz-content>
+  <nz-footer>Footer</nz-footer>
+</nz-layout>

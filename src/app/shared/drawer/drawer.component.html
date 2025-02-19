@@ -1,0 +1,14 @@
+<button nz-button nzType="primary" (click)="open()">Open</button>
+<nz-drawer
+  nzPlacement="left"
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  (nzOnClose)="close()"
+>
+  <ng-container *nzDrawerContent>
+    <button nz-button nzType="primary" (click)="close()">Close</button>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+  </ng-container>
+</nz-drawer>

@@ -1,0 +1,23 @@
+<nz-table
+  #headerTable
+  [nzData]="listaDeProjetos"
+  [nzPageSize]="50"
+  [nzScroll]="{ y: '200px' }"
+>
+  <thead>
+    <tr>
+      <th nzWidth="60px">#</th>
+      <th>Nome</th>
+      <th>Estatus</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of listaDeProjetos; track data) {
+    <tr>
+      <td><button nz-button nzType="primary" [routerLink]="['/admin/projects', data.id]">{{ data.id }}</button></td>
+      <td>{{ data.nome }}</td>
+      <td>{{ data.status }}</td>
+    </tr>
+    }
+  </tbody>
+</nz-table>
