@@ -1,0 +1,29 @@
+<h2>Profiles list</h2>
+<nz-table
+  #headerTable
+  [nzData]="profilesData"
+  [nzPageSize]="50"
+  [nzScroll]="{ y: '200px' }"
+>
+  <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Perfil</th>
+        <th nzWidth="80px"></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of profilesData; track data) {
+    <tr>
+      <td>{{ data.nome }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.perfil }}</td>
+      <td id="icons">
+        <nz-icon nzType="edit" nzTheme="outline" />
+        <nz-icon nzType="delete" nzTheme="outline" />
+      </td>
+    </tr>
+    }
+  </tbody></nz-table
+>

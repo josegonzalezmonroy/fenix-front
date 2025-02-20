@@ -18,6 +18,6 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(pt_BR), 
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(), 
-    provideHttpClient()
+    provideHttpClient(),
   ]
 };

@@ -1,6 +1,7 @@
+<h2>Project-list</h2>
 <nz-table
   #headerTable
-  [nzData]="listaDeProjetos"
+  [nzData]="projectsData"
   [nzPageSize]="50"
   [nzScroll]="{ y: '200px' }"
 >
@@ -12,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (data of listaDeProjetos; track data) {
+    @for (data of projectsData; track data) {
     <tr>
       <td><button nz-button nzType="primary" [routerLink]="['/admin/projects', data.id]">{{ data.id }}</button></td>
       <td>{{ data.nome }}</td>

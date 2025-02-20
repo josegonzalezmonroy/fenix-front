@@ -1,0 +1,22 @@
+<form nz-form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <input type="text" nz-input formControlName="nome" placeholder="Nome" />
+  <input type="email" nz-input formControlName="email" placeholder="Email" />
+  <input
+    type="password"
+    nz-input
+    formControlName="senha"
+    #senhaInput
+    placeholder="Senha"
+  />
+  <nz-form-control>
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="round"
+      [disabled]="profileForm.invalid"
+      [nzLoading]="isConfirmLoading"
+    >
+      Cadastrar
+    </button>
+  </nz-form-control>
+</form>
