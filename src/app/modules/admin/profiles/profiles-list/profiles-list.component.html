@@ -3,27 +3,47 @@
   #headerTable
   [nzData]="profilesData"
   [nzPageSize]="50"
-  [nzScroll]="{ y: '200px' }"
+  [nzBordered]="true"
 >
   <thead>
     <tr>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Perfil</th>
-        <th nzWidth="80px"></th>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Perfil</th>
+      <th nzWidth="80px"></th>
     </tr>
   </thead>
   <tbody>
     @for (data of profilesData; track data) {
     <tr>
+      <td>{{ data.id }}</td>
       <td>{{ data.nome }}</td>
       <td>{{ data.email }}</td>
       <td>{{ data.perfil }}</td>
       <td id="icons">
-        <nz-icon nzType="edit" nzTheme="outline" />
-        <nz-icon nzType="delete" nzTheme="outline" />
+        <button (click)="showModal(data)">
+          <nz-icon nzType="edit" />
+        </button>
+        <button id="deleteButton" (click)="deleteUser(data.id)">
+          <nz-icon nzType="delete" />
+        </button>
       </td>
     </tr>
     }
   </tbody></nz-table
 >
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="null"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-template #modalTitle>Editar Usuario</ng-template>
+
+  <ng-template #modalContent>
+    <app-edit-usuario [userEdit]="selectedUser" />
+  </ng-template>
+</nz-modal>

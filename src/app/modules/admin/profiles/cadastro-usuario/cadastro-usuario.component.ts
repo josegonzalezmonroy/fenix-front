@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ProfilesService } from '../../../../services/profiles/profiles.service';
-import { GetAllUsersResponse } from '../../../../models/interfaces/users/response/GetAllUsersResponse';
+import { UsersModel } from '../../../../models/interfaces/users/response/UsersModel'
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -37,9 +37,11 @@ export class CadastroUsuarioComponent {
   onSubmit(): void {
     if (this.profileForm.valid) {
       this.profilesService
-        .registerUser(this.profileForm.value as GetAllUsersResponse)
+        .registerUser(this.profileForm.value as UsersModel)
         .subscribe((response) => {
-          console.log(response.nome + ' cadastrado com sucesso');
+          console.log(
+            `ID: ${response.id}, ${response.nome} cadastrado com sucesso`
+          );
           this.isConfirmLoading = true;
           setTimeout(() => {
             this.profileForm.reset();

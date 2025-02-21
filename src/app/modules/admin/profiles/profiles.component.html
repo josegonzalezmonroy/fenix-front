@@ -3,6 +3,8 @@
   [nzTitle]="modalTitle"
   [nzContent]="modalContent"
   [nzFooter]="null"
+  (nzOnCancel)="handleCancel()"
+
 >
   <ng-template #modalTitle>Cadastro de usuario</ng-template>
 

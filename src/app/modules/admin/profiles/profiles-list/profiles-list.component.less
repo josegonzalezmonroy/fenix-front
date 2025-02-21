@@ -1,19 +1,32 @@
 nz-icon {
     font-size: 28px;
-    transition: all 0.3s;
+
   }
 
-
-  nz-icon[nzType="edit"]:hover {
-    color: aqua;
-}
-
-nz-icon[nzType="delete"]:hover {
-    color: red;
-}
 #icons{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%;
 }
+
+button {
+    border-radius: 8px; 
+    padding: 8px 16px; 
+    border: none; 
+    background-color: #007bff; 
+    color: white; 
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  #deleteButton {
+    background-color: red;
+  }
+
+  #deleteButton:hover {
+    background-color: darkred;
+  }

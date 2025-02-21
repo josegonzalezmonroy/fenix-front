@@ -1,4 +1,4 @@
-export interface GetAllUsersResponse {
+export interface UsersModel {
     id: number
     nome: string
     email: string 
