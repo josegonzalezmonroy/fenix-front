@@ -4,18 +4,20 @@
   [nzData]="profilesData"
   [nzPageSize]="50"
   [nzBordered]="true"
->
+  [nzShowSizeChanger]="true"
+  [nzScroll]="{ y: '240px' }"
+  >
   <thead>
     <tr>
       <th>ID</th>
       <th>Nome</th>
       <th>Email</th>
       <th>Perfil</th>
-      <th nzWidth="80px"></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    @for (data of profilesData; track data) {
+    @for (data of profilesData; track data.id) {
     <tr>
       <td>{{ data.id }}</td>
       <td>{{ data.nome }}</td>
@@ -44,6 +46,6 @@
   <ng-template #modalTitle>Editar Usuario</ng-template>
 
   <ng-template #modalContent>
-    <app-edit-usuario [userEdit]="selectedUser" />
+    <app-edit-usuario (closeModal)="handleCancel()" [userEdit]="selectedUser" />
   </ng-template>
 </nz-modal>

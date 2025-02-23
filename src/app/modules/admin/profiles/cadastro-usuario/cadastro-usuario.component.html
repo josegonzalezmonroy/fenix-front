@@ -1,22 +1,50 @@
-<form nz-form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-  <input type="text" nz-input formControlName="nome" placeholder="Nome" />
-  <input type="email" nz-input formControlName="email" placeholder="Email" />
-  <input
-    type="password"
-    nz-input
-    formControlName="senha"
-    #senhaInput
-    placeholder="Senha"
-  />
-  <nz-form-control>
-    <button
-      nz-button
-      nzType="primary"
-      nzShape="round"
-      [disabled]="profileForm.invalid"
-      [nzLoading]="isConfirmLoading"
+<form nz-form [formGroup]="profileForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nome"
+      >Nome</nz-form-label
     >
-      Cadastrar
-    </button>
-  </nz-form-control>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
+      <input
+        nz-input
+        formControlName="nome"
+        id="name"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email"
+      >E-mail</nz-form-label
+    >
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Formato de email não valido"
+    >
+      <input
+        nz-input
+        formControlName="email"
+        id="email"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="senha"
+      >Senha</nz-form-label
+    >
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
+      <input
+        nz-input
+        formControlName="senha"
+        id="password"
+      />
+    </nz-form-control>
+  </nz-form-item>
+ 
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary" type="button" [disabled]="!profileForm.valid" [nzLoading]="isConfirmLoading"(click)="onSubmit()">
+        Confirmar
+      </button>
+    </nz-form-control>
+  </nz-form-item>
 </form>

@@ -1,4 +1,71 @@
-<p>{{ userEdit.id }}</p>
-<p>{{ userEdit.nome }}</p>
-<p>{{ userEdit.email }}</p>
+<form nz-form [formGroup]="profileEditForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nome"
+      >Nome</nz-form-label
+    >
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
+      <input
+        nz-input
+        formControlName="nome"
+        id="name"
+        value="{{ userEdit.nome }}"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email"
+      >E-mail</nz-form-label
+    >
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Formato de email não valido"
+    >
+      <input
+        nz-input
+        formControlName="email"
+        id="email"
+        value="{{ userEdit.email }}"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="senha"
+      >Senha</nz-form-label
+    >
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
+      <input
+        nz-input
+        formControlName="senha"
+        id="password"
+        value="{{ userEdit.senha }}"
+      />
+    </nz-form-control>
+  </nz-form-item>
 
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="perfil"
+    >Perfil</nz-form-label
+  >
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+    >
+      <nz-input-group>
+        <nz-select formControlName="perfil">
+          <nz-option nzLabel="USUARIO" nzValue="USUARIO"></nz-option>
+          <nz-option nzLabel="ADMIN" nzValue="ADMIN"></nz-option>
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
+  
+  </nz-form-item>
+ 
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary" type="button" [nzLoading]="isConfirmLoading"(click)="onSubmit()">
+        Confirmar
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

@@ -19,7 +19,7 @@ export class ProfilesListComponent implements OnInit, OnDestroy {
 
   isVisible = false;
   isConfirmLoading = false;
-  selectedUser: UsersModel | any;
+  selectedUser!: UsersModel;
 
   constructor(private profilesService: ProfilesService) {}
 

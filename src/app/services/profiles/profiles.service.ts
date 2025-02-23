@@ -27,18 +27,31 @@ export class ProfilesService {
         const currentUsers = this.usersSubject.getValue();
         const updatedUsers = [...currentUsers, response];
         this.usersSubject.next(updatedUsers);
-        console.log('usuario cadastrdo', response)
+        console.log('usuario cadastrado', response)
       })
     );
   }
 
-  deleteUser(id: number) {
+  updateUser(id: number, user: UsersModel): Observable<UsersModel> {
+    return this.http.patch<UsersModel>(`${this.apiUrl}/${id}`, user).pipe(
+      tap(()=>{
+        this.getAllUsers().subscribe(
+          (response) => {
+            console.log(`ID: ${id}, ${user.email} atualizado com sucesso`);
+          }
+        );
+      })
+    );
+  }
+
+  deleteUser(id: number) {  
     return this.http.delete(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
-        const currentUsers = this.usersSubject.getValue();
-        const updatedUsers = currentUsers.filter((user) => user.id !== id);
-        this.usersSubject.next(updatedUsers);
-        console.log(`Usuário com ID: ${id} deletado com sucesso`);
+        this.getAllUsers().subscribe(
+          () => {
+            console.log(`ID: ${id} deletado com sucesso`);
+          }
+        )
       })
     );
   }
