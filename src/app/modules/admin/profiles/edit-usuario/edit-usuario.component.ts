@@ -3,9 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
-  Output,
-  TemplateRef,
-  ViewChild,
+  Output
 } from '@angular/core';
 import { UsersModel } from '../../../../models/interfaces/users/response/UsersModel';
 import {
@@ -39,9 +37,6 @@ export class EditUsuarioComponent {
   @Input() userEdit!: UsersModel;
   @Output() closeModal = new EventEmitter<void>();
 
-  @ViewChild('alertNotification', { static: false })
-  alertNotification!: TemplateRef<any>;
-
   profileEditForm!: FormGroup;
   isConfirmLoading = false;
 
@@ -64,25 +59,26 @@ export class EditUsuarioComponent {
 
   onSubmit() {
     if (this.profileEditForm.valid) {
+      this.isConfirmLoading = true;
+      setTimeout(() => {
       this.profilesService
         .updateUser(this.userEdit.id, this.profileEditForm.value)
         .subscribe({
           next: () => {
-            this.isConfirmLoading = true;
-            setTimeout(() => {
               this.profileEditForm.reset();
               this.closeModal.emit();
               this.notification.successNotification(
                 'Usuário atualizado com sucesso'
               );
-            }, 700);
-          },
-          error: () => {
-            this.notification.errorNotification(
-              'Erro ao atualizar usuário, tente novamente'
-            );
-          },
-        });
+            },
+            error: () => {
+              this.isConfirmLoading = false;
+              this.notification.errorNotification(
+                'Erro ao atualizar usuário, tente novamente'
+              );
+            },
+          });
+        }, 500);
     }
   }
 }

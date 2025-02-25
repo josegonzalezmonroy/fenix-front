@@ -1,19 +1,18 @@
 <form nz-form [formGroup]="profileEditForm">
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nome"
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
       >Nome</nz-form-label
     >
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
       <input
         nz-input
         formControlName="nome"
-        id="name"
         value="{{ userEdit.nome }}"
       />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email"
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
       >E-mail</nz-form-label
     >
     <nz-form-control
@@ -24,27 +23,25 @@
       <input
         nz-input
         formControlName="email"
-        id="email"
         value="{{ userEdit.email }}"
       />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="senha"
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
       >Senha</nz-form-label
     >
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
       <input
         nz-input
         formControlName="senha"
-        id="password"
         value="{{ userEdit.senha }}"
       />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="perfil"
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
     >Perfil</nz-form-label
   >
     <nz-form-control
@@ -63,7 +60,14 @@
  
   <nz-form-item nz-row class="register-area">
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <button nz-button nzType="primary" type="button" [nzLoading]="isConfirmLoading"(click)="onSubmit()">
+      <button 
+      nz-button 
+      nzType="primary" 
+      type="button"
+      nzShape="round" 
+      [nzLoading]="isConfirmLoading"
+      (click)="onSubmit()"
+      >
         Confirmar
       </button>
     </nz-form-control>

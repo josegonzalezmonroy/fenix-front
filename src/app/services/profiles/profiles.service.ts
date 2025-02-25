@@ -23,35 +23,28 @@ export class ProfilesService {
 
   registerUser(user: UsersModel): Observable<RegisterResponse> {
     return this.http.post<UsersModel>(this.apiUrl, user).pipe(
-      tap((response) => {
-        const currentUsers = this.usersSubject.getValue();
-        const updatedUsers = [...currentUsers, response];
-        this.usersSubject.next(updatedUsers);
-        console.log('usuario cadastrado', response)
+      tap(() => {
+        this.getAllUsers().subscribe();
       })
     );
   }
 
-  updateUser(id: number, user: UsersModel): Observable<UsersModel> {
+  updateUser(id: string, user: UsersModel): Observable<UsersModel> {
     return this.http.patch<UsersModel>(`${this.apiUrl}/${id}`, user).pipe(
-      tap(()=>{
-        this.getAllUsers().subscribe(
-          (response) => {
-            console.log(`ID: ${id}, ${user.email} atualizado com sucesso`);
-          }
-        );
+      tap(() => {
+        this.getAllUsers().subscribe(() => {
+          console.log(`ID: ${id}, ${user.email} atualizado com sucesso`);
+        });
       })
     );
   }
 
-  deleteUser(id: number) {  
+  deleteUser(id: string) {
     return this.http.delete(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
-        this.getAllUsers().subscribe(
-          () => {
-            console.log(`ID: ${id} deletado com sucesso`);
-          }
-        )
+        this.getAllUsers().subscribe(() => {
+          console.log(`ID: ${id} deletado com sucesso`);
+        });
       })
     );
   }

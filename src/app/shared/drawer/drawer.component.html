@@ -4,11 +4,16 @@
   [nzClosable]="false"
   [nzVisible]="visible"
   (nzOnClose)="close()"
+  [nzBodyStyle]="{
+    'padding-top': '10px',
+    'padding-right': '0px',
+    'padding-bottom': '10px',
+    'padding-left': '0px'
+  }"
+  [nzWidth]="300"
 >
   <ng-container *nzDrawerContent>
     <button nz-button nzType="primary" (click)="close()">Close</button>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
+    <app-menu />
   </ng-container>
 </nz-drawer>

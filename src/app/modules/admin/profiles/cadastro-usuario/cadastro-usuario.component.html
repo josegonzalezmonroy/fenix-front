@@ -1,18 +1,17 @@
 <form nz-form [formGroup]="profileForm">
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nome"
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
       >Nome</nz-form-label
     >
-    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
       <input
         nz-input
         formControlName="nome"
-        id="name"
       />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email"
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
       >E-mail</nz-form-label
     >
     <nz-form-control
@@ -23,26 +22,26 @@
       <input
         nz-input
         formControlName="email"
-        id="email"
       />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="senha"
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
       >Senha</nz-form-label
     >
-    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
       <input
         nz-input
         formControlName="senha"
-        id="password"
       />
     </nz-form-control>
   </nz-form-item>
  
   <nz-form-item nz-row class="register-area">
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <button nz-button nzType="primary" type="button" [disabled]="!profileForm.valid" [nzLoading]="isConfirmLoading"(click)="onSubmit()">
+      <button nz-button nzType="primary" type="button" [disabled]="!profileForm.valid" [nzLoading]="isConfirmLoading"
+      nzShape="round"
+      (click)="onSubmit()">
         Confirmar
       </button>
     </nz-form-control>

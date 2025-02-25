@@ -1,0 +1,39 @@
+<ul nz-menu nzMode="inline">
+  <li nz-submenu nzTitle="Usuarios" nzIcon="user">
+    <ul>
+      <li nz-menu-item nzSelected (click)="showModal('cadastroUsuario')">
+        <nz-icon nzType="user-add" nzTheme="outline" /> Cadastrar Usuário
+      </li>
+      <li nz-menu-item [routerLink]="'/admin/profiles'">
+        <nz-icon nzType="team" nzTheme="outline" /> Ver Usuários
+      </li>
+    </ul>
+  </li>
+  <li nz-submenu nzTitle="Projetos" nzIcon="project">
+    <ul>
+      <li nz-menu-item nzSelected (click)="showModal('cadastroProjeto')">
+        <nz-icon nzType="plus" nzTheme="outline" /> Cadastrar Projeto
+      </li>
+      <li nz-menu-item [routerLink]="'/admin/projects'">
+        <nz-icon nzType="profile" nzTheme="outline" /> Ver Projetos
+      </li>
+    </ul>
+  </li>
+
+  <nz-modal
+    [(nzVisible)]="isModalVisible"
+    [nzTitle]="modalTitle"
+    [nzContent]="modalContent"
+    [nzFooter]="null"
+    (nzOnCancel)="handleCancel()"
+  >
+    <ng-container *ngTemplateOutlet="modalContent"></ng-container>
+  </nz-modal>
+
+  <ng-template #cadastroUsuario>
+    <app-cadastro-usuario (closeModal)="handleCancel()"/>
+  </ng-template>
+  <ng-template #cadastroProjeto>
+    <app-cadastro-projects (closeModal)="handleCancel()"/>
+  </ng-template>
+</ul>

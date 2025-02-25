@@ -22,13 +22,23 @@
       <td>{{ data.id }}</td>
       <td>{{ data.nome }}</td>
       <td>{{ data.email }}</td>
-      <td>{{ data.perfil }}</td>
+      @if (data.perfil === 'ADMIN') {
+        <td><nz-tag [nzColor]="presetColors[8]">{{ data.perfil }}</nz-tag></td>
+      }@else{
+        <td><nz-tag [nzColor]="presetColors[5]">{{ data.perfil }}</nz-tag></td>
+      }
       <td id="icons">
-        <button (click)="showModal(data)">
+        <button nz-button nzType="primary" nzSize="large" nzShape="circle" (click)="showModal(data)">
           <nz-icon nzType="edit" />
         </button>
-        <button id="deleteButton" (click)="deleteUser(data.id)">
-          <nz-icon nzType="delete" />
+        <button nz-button nzType="primary" nzSize="large" nzShape="circle" 
+        nzDanger
+        [nzLoading]="loadingUsers[data.id]"
+        nz-popconfirm
+        nzPopconfirmTitle="Deseja realmente excluir este usuário?"
+        (nzOnConfirm)="deleteUser(data.id)"
+        >
+          <nz-icon nzType="delete"/>
         </button>
       </td>
     </tr>

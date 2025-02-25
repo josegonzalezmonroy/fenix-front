@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ProjectsService } from '../../../services/projects/projects.service';
-import { GetAllProjectsResponse } from '../../../models/interfaces/projects/response/GetAllProjectsResponse';
+import { ProjectsModel } from '../../../models/interfaces/projects/response/ProjectsModel';
 
 
 @Component({
@@ -19,7 +19,7 @@ import { GetAllProjectsResponse } from '../../../models/interfaces/projects/resp
 
 export class ProjectListComponent implements OnInit{
 
-  projectsData: GetAllProjectsResponse[] = []
+  projectsData: ProjectsModel[] = []
 
   constructor(private projectService: ProjectsService) { }
 

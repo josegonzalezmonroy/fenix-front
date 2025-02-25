@@ -1,18 +1,1 @@
-<nz-modal
-  [(nzVisible)]="isVisible"
-  [nzTitle]="modalTitle"
-  [nzContent]="modalContent"
-  [nzFooter]="null"
-  (nzOnCancel)="handleCancel()"
-
->
-  <ng-template #modalTitle>Cadastrar usuario</ng-template>
-
-  <ng-template #modalContent>
-    <app-cadastro-usuario (closeModal)="handleCancel()"/>
-  </ng-template>
-</nz-modal>
-<button nz-button nzType="primary" (click)="showModal()">
-  <span>Cadastrar usuario</span>
-</button>
 <app-profiles-list/>

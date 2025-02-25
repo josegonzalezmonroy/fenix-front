@@ -9,7 +9,6 @@ import { ProfilesListComponent } from "./profiles-list/profiles-list.component";
   imports: [
     NzButtonModule,
     NzModalModule,
-    CadastroUsuarioComponent,
     ProfilesListComponent
 ],
   templateUrl: './profiles.component.html',

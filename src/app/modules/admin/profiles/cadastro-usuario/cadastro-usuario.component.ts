@@ -11,18 +11,30 @@ import {
   Validators,
 } from '@angular/forms';
 import { ProfilesService } from '../../../../services/profiles/profiles.service';
-import { UsersModel } from '../../../../models/interfaces/users/response/UsersModel'
+import { UsersModel } from '../../../../models/interfaces/users/response/UsersModel';
+import { NotificationService } from '../../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-cadastro-usuario',
-  imports: [NzFormModule, NzButtonModule, NzInputModule, NzSelectModule, ReactiveFormsModule],
+  imports: [
+    NzFormModule,
+    NzButtonModule,
+    NzInputModule,
+    NzSelectModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './cadastro-usuario.component.html',
   styleUrl: './cadastro-usuario.component.less',
 })
 export class CadastroUsuarioComponent {
-  isConfirmLoading = false; 
+  isConfirmLoading = false;
 
   @Output() closeModal = new EventEmitter<void>();
+
+  constructor(
+    private profilesService: ProfilesService,
+    private notification: NotificationService
+  ) {}
 
   profileForm = new FormGroup({
     nome: new FormControl('', [Validators.required]),
@@ -35,25 +47,28 @@ export class CadastroUsuarioComponent {
     perfil: new FormControl('USUARIO', [Validators.required]),
   });
 
-  constructor(private profilesService: ProfilesService) {}
-
   onSubmit(): void {
     if (this.profileForm.valid) {
+      this.isConfirmLoading = true;
+
       this.profilesService
         .registerUser(this.profileForm.value as UsersModel)
-        .subscribe((response) => {
-          console.log(
-            `ID: ${response.id}, ${response.nome} cadastrado com sucesso`
-          );
-          this.isConfirmLoading = true;
-          setTimeout(() => {
-            this.profileForm.reset();
-            this.closeModal.emit();
+        .subscribe({
+          next: () => {
+            setTimeout(() => {
+              this.profileForm.reset();
+              this.closeModal.emit();
+              this.notification.successNotification(
+                'Usuario criado com sucesso'
+              );
+              this.isConfirmLoading = false;
+            }, 500);
+          },
+          error: () => {
             this.isConfirmLoading = false;
-          }, 1000);
+            this.notification.errorNotification('Erro ao criar usuário');
+          },
         });
-    } else {
-      console.log('Formulário inválido');
     }
   }
 }

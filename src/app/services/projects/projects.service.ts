@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { GetAllProjectsResponse } from '../../models/interfaces/projects/response/GetAllProjectsResponse';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { ProjectsModel } from '../../models/interfaces/projects/response/ProjectsModel';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,22 @@ import { GetAllProjectsResponse } from '../../models/interfaces/projects/respons
 export class ProjectsService {
 
   private apiUrl = 'http://localhost:3000/projetos';
+  private projectsSubject = new BehaviorSubject<ProjectsModel[]>([]);
+  public projects$ = this.projectsSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  getAllProjects(): Observable<Array<GetAllProjectsResponse>> { 
-    return this.http.get<Array<GetAllProjectsResponse>>(this.apiUrl);
+  getAllProjects(): Observable<Array<ProjectsModel>> { 
+    return this.http.get<Array<ProjectsModel>>(this.apiUrl)
+    .pipe(tap((projects) => this.projectsSubject.next(projects)));
   }
+
+  registerProject(project: ProjectsModel): Observable<ProjectsModel> {
+    return this.http.post<ProjectsModel>(this.apiUrl, project).pipe(
+      tap(() => {
+        this.getAllProjects().subscribe();
+      })
+    );
+  }
+
 }

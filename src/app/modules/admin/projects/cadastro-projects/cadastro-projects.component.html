@@ -1,0 +1,89 @@
+<form nz-form [formGroup]="projectForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+        >Nome</nz-form-label
+      >
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+        <input
+          nz-input
+          formControlName="nome"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+        >Descrição</nz-form-label
+      >
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+        nzErrorTip="Obrigatório"
+      >
+        <input
+          nz-input
+          formControlName="descricao"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
+        >Data de inicio</nz-form-label
+      >
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+        <nz-date-picker 
+        formControlName="data_inicio"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+        >Data final</nz-form-label
+      >
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+        <nz-date-picker 
+        formControlName="data_fim"
+        />
+      </nz-form-control>
+    </nz-form-item>   
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
+        >Estatus</nz-form-label
+      >
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+        <nz-input-group>
+          <nz-select formControlName="status">
+            <nz-option nzLabel="Planejado" nzValue="PLANEJADO"></nz-option>
+            <nz-option nzLabel="En andamento" nzValue="EM_ANDAMENTO"></nz-option>
+            <nz-option nzLabel="Concluído" nzValue="CONCLUIDO"></nz-option>
+            <nz-option nzLabel="Cancelado" nzValue="CANCELADO"></nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
+        >Prioridade</nz-form-label
+      >
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+        <nz-input-group>
+          <nz-select formControlName="prioridade">
+            <nz-option nzLabel="Alta" nzValue="ALTA"></nz-option>
+            <nz-option nzLabel="Média" nzValue="MEDIA"></nz-option>
+            <nz-option nzLabel="Baixa" nzValue="BAIXA"></nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary" type="button" [disabled]="!projectForm.valid" [nzLoading]="isConfirmLoading"
+        nzShape="round"
+        (click)="onSubmit()"
+        >
+          Confirmar
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  
