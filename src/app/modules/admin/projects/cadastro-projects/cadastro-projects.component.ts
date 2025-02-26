@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormControl,
@@ -75,8 +74,6 @@ export class CadastroProjectsComponent implements OnInit{
   onSubmit(): void {
     if (this.projectForm.valid) {
       this.isConfirmLoading = true;
-      console.log(this.projectForm.value);
-
       this.projectsService
         .registerProject(this.projectForm.value as ProjectsModel)
         .subscribe({
@@ -96,9 +93,5 @@ export class CadastroProjectsComponent implements OnInit{
           },
         });
     }
-  }
-
-  onChange(result: Date): void {
-    console.log('onChange: ', result.toLocaleDateString());
   }
 }

@@ -4,7 +4,7 @@
       <li nz-menu-item nzSelected (click)="showModal('cadastroUsuario')">
         <nz-icon nzType="user-add" nzTheme="outline" /> Cadastrar Usuário
       </li>
-      <li nz-menu-item [routerLink]="'/admin/profiles'">
+      <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/profiles'">
         <nz-icon nzType="team" nzTheme="outline" /> Ver Usuários
       </li>
     </ul>
@@ -12,10 +12,20 @@
   <li nz-submenu nzTitle="Projetos" nzIcon="project">
     <ul>
       <li nz-menu-item nzSelected (click)="showModal('cadastroProjeto')">
-        <nz-icon nzType="plus" nzTheme="outline" /> Cadastrar Projeto
+        <nz-icon nzType="plus" nzTheme="outline" /> Novo Projeto
       </li>
-      <li nz-menu-item [routerLink]="'/admin/projects'">
+      <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/projects'">
         <nz-icon nzType="profile" nzTheme="outline" /> Ver Projetos
+      </li>
+    </ul>
+  </li>
+  <li nz-submenu nzTitle="Atividades" nzIcon="carry-out">
+    <ul>
+      <li nz-menu-item nzSelected (click)="showModal('cadastroTask')">
+        <nz-icon nzType="plus" nzTheme="outline" /> Nova atividade
+      </li>
+      <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/tasks'">
+        <nz-icon nzType="schedule" nzTheme="outline" /> Ver Atividades
       </li>
     </ul>
   </li>
@@ -35,5 +45,8 @@
   </ng-template>
   <ng-template #cadastroProjeto>
     <app-cadastro-projects (closeModal)="handleCancel()"/>
+  </ng-template>
+  <ng-template #cadastroTask>
+    <app-cadastro-task (closeModal)="handleCancel()"/>
   </ng-template>
 </ul>

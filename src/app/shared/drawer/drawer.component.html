@@ -14,6 +14,6 @@
 >
   <ng-container *nzDrawerContent>
     <button nz-button nzType="primary" (click)="close()">Close</button>
-    <app-menu />
+    <app-menu (closedMenu)="close()"/>
   </ng-container>
 </nz-drawer>

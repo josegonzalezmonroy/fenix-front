@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { ProjectsModel } from '../../models/interfaces/projects/response/ProjectsModel';
+import { ProjectsNameModel } from '../../models/interfaces/projects/response/ProjectsNameModel';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,14 @@ export class ProjectsService {
     return this.http
       .get<Array<ProjectsModel>>(this.apiUrl)
       .pipe(tap((projects) => this.projectsSubject.next(projects)));
+  }
+
+  getAllProjectsName(): Observable<Array<ProjectsNameModel>> {
+    return this.http
+      .get<Array<ProjectsNameModel>>(this.apiUrl)
+      .pipe(
+        map((projects) => projects.sort((a, b) => a.nome.localeCompare(b.nome)))
+      );
   }
 
   registerProject(project: ProjectsModel): Observable<ProjectsModel> {
