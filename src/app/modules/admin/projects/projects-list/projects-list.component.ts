@@ -58,7 +58,7 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
   }
 
   getUserName(userId: string): string {
-    const user = this.usersData.find((response) => response.id === userId);
+    const user = this.usersData?.find((response) => response.id === userId);
     return user ? user.nome : 'Usuário não encontrado';
   }
 

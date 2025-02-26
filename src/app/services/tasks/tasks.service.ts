@@ -18,10 +18,18 @@ export class TasksService {
       .get<Array<TasksModel>>(this.apiUrl)
       .pipe(tap((tasks) => this.tasksSubject.next(tasks)));
   }
-  
+
   registerTask(task: TasksModel): Observable<TasksModel> {
     return this.http
       .post<TasksModel>(this.apiUrl, task)
       .pipe(tap(() => this.getAllTasks().subscribe()));
+  }
+
+  deleteTask(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => {
+        this.getAllTasks().subscribe();
+      })
+    );
   }
 }
