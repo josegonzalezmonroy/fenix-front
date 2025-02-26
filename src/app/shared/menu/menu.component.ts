@@ -7,6 +7,7 @@ import { CadastroUsuarioComponent } from '../../modules/admin/profiles/cadastro-
 import { CadastroProjectsComponent } from './../../modules/admin/projects/cadastro-projects/cadastro-projects.component';
 import { CommonModule } from '@angular/common';
 import { CadastroTaskComponent } from '../../modules/admin/tasks/cadastro-task/cadastro-task.component';
+import { CadastroHoursComponent } from './../../modules/admin/hours/cadastro-hours/cadastro-hours.component';
 
 @Component({
   selector: 'app-menu',
@@ -19,7 +20,8 @@ import { CadastroTaskComponent } from '../../modules/admin/tasks/cadastro-task/c
     CadastroProjectsComponent,
     CommonModule,
     CadastroTaskComponent,
-  ],
+    CadastroHoursComponent
+],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.less',
 })
@@ -36,6 +38,9 @@ export class MenuComponent {
   CadastroProjectsComponent!: TemplateRef<any>;
   @ViewChild('cadastroTask', { static: true })
   CadastroTaskComponent!: TemplateRef<any>;
+  @ViewChild('cadastroHour', { static: true })
+  CadastroHoursComponent!: TemplateRef<any>;
+  
 
   showModal(tipo: string): void {
     this.isModalVisible = true;
@@ -55,6 +60,11 @@ export class MenuComponent {
         this.modalTitle = 'Cadastrar Atividade';
         this.modalContent = this.CadastroTaskComponent;
         break;
+
+        case 'cadastroHour':
+          this.modalTitle = 'Lançar horas';
+          this.modalContent = this.CadastroHoursComponent;
+          break;
     }
   }
 

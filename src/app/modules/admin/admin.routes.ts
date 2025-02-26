@@ -4,6 +4,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { TasksListComponent } from './tasks/tasks-list/tasks-list.component';
 import { ProfilesListComponent } from './profiles/profiles-list/profiles-list.component';
+import { HoursListComponent } from './hours/hours-list/hours-list.component';
 
 export const ADMIN: Routes = [
   {
@@ -14,6 +15,7 @@ export const ADMIN: Routes = [
       { path: 'projects', component: ProjectsListComponent },
       { path: 'profiles', component: ProfilesListComponent },
       { path: 'tasks', component: TasksListComponent },
+      { path: 'hours', component: HoursListComponent }
     ],
   },
 ];

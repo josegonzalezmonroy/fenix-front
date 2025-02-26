@@ -29,6 +29,16 @@
       </li>
     </ul>
   </li>
+  <li nz-submenu nzTitle="Horas" nzIcon="clock-circle">
+    <ul>
+      <li nz-menu-item nzSelected (click)="showModal('cadastroHour')">
+        <nz-icon nzType="plus" nzTheme="outline" /> Novo lançamento
+      </li>
+      <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/hours'">
+        <nz-icon nzType="field-time" nzTheme="outline" /> Ver Lançamentos
+      </li>
+    </ul>
+  </li>
 
   <nz-modal
     [(nzVisible)]="isModalVisible"
@@ -46,7 +56,7 @@
   <ng-template #cadastroProjeto>
     <app-cadastro-projects (closeModal)="handleCancel()"/>
   </ng-template>
-  <ng-template #cadastroTask>
-    <app-cadastro-task (closeModal)="handleCancel()"/>
+  <ng-template #cadastroHours>
+    <app-cadastro-hours (closeModal)="handleCancel()"/>
   </ng-template>
 </ul>
