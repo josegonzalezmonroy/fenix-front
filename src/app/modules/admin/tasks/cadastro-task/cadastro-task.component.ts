@@ -3,7 +3,13 @@ import { UsersNameModel } from '../../../../models/interfaces/users/response/Use
 import { ProjectsService } from '../../../../services/projects/projects.service';
 import { ProfilesService } from '../../../../services/profiles/profiles.service';
 import { NotificationService } from '../../../../services/notification/notification.service';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ProjectsNameModel } from '../../../../models/interfaces/projects/response/ProjectsNameModel';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -23,16 +29,16 @@ import { TasksModel } from '../../../../models/interfaces/tasks/TasksModel';
     NzSelectModule,
     NzDatePickerModule,
     ReactiveFormsModule,
-  ],  templateUrl: './cadastro-task.component.html',
+  ],
+  templateUrl: './cadastro-task.component.html',
   styleUrl: './cadastro-task.component.less',
 })
-export class CadastroTaskComponent implements OnInit{
+export class CadastroTaskComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
 
   isConfirmLoading = false;
-  date!: Date;
   profilesName: Array<UsersNameModel> = [];
-  projectsName: Array<ProjectsNameModel> = []
+  projectsName: Array<ProjectsNameModel> = [];
 
   constructor(
     private projectsService: ProjectsService,
@@ -52,7 +58,7 @@ export class CadastroTaskComponent implements OnInit{
     data_criacao: new FormControl(new Date().toISOString(), [
       Validators.required,
     ]),
-  })
+  });
 
   ngOnInit(): void {
     this.profilesService.getAllUsersName().subscribe({
@@ -65,33 +71,36 @@ export class CadastroTaskComponent implements OnInit{
     });
 
     this.projectsService.getAllProjectsName().subscribe({
-      next: projects=>{
-        this.projectsName = projects
+      next: (projects) => {
+        this.projectsName = projects;
       },
-      error: ()=>{
-        this.notification.errorNotification('Erro ao carregar projetos')
-      }
-    })
+      error: () => {
+        this.notification.errorNotification('Erro ao carregar projetos');
+      },
+    });
   }
 
-  onSubmit():void{
-    if(this.taskForm.valid)
-    {
-      this.isConfirmLoading=true
-      this.tasksService.registerTask(this.taskForm.value as TasksModel).subscribe({
-        next:()=>{
-          setTimeout(()=>{
-            this.taskForm.reset()
-            this.closeModal.emit()
-            this.notification.successNotification('Atividade criada com sucesso')
-            this.isConfirmLoading=false
-          },500)
-        },
-        error:()=>{
-          this.isConfirmLoading=false
-          this.notification.errorNotification('Erro ao criar atividade')
-        }
-      })
+  onSubmit(): void {
+    if (this.taskForm.valid) {
+      this.isConfirmLoading = true;
+      this.tasksService
+        .registerTask(this.taskForm.value as TasksModel)
+        .subscribe({
+          next: () => {
+            setTimeout(() => {
+              this.taskForm.reset();
+              this.closeModal.emit();
+              this.notification.successNotification(
+                'Atividade criada com sucesso'
+              );
+              this.isConfirmLoading = false;
+            }, 500);
+          },
+          error: () => {
+            this.isConfirmLoading = false;
+            this.notification.errorNotification('Erro ao criar atividade');
+          },
+        });
     }
   }
 }

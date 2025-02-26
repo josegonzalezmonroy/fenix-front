@@ -2,7 +2,7 @@
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Nome</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
-      <input nz-input formControlName="nome" value="{{ projectEdit.nome }}" />
+      <input nz-input formControlName="nome"/>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -12,7 +12,6 @@
         [nzAutosize]="{ minRows: 2, maxRows: 6 }"
         nz-input
         formControlName="descricao"
-        value="{{ projectEdit.descricao }}"
       ></textarea>
     </nz-form-control>
   </nz-form-item>

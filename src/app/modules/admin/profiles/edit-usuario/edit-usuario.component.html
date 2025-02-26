@@ -1,53 +1,30 @@
 <form nz-form [formGroup]="profileEditForm">
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
-      >Nome</nz-form-label
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Nome</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
-      <input
-        nz-input
-        formControlName="nome"
-        value="{{ userEdit.nome }}"
-      />
+      <input nz-input formControlName="nome" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-      >E-mail</nz-form-label
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>E-mail</nz-form-label>
     <nz-form-control
       [nzSm]="14"
       [nzXs]="24"
       nzErrorTip="Formato de email não valido"
     >
-      <input
-        nz-input
-        formControlName="email"
-        value="{{ userEdit.email }}"
-      />
+      <input nz-input formControlName="email" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-      >Senha</nz-form-label
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Senha</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
-      <input
-        nz-input
-        formControlName="senha"
-        value="{{ userEdit.senha }}"
-      />
+      <input nz-input formControlName="senha"/>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-    >Perfil</nz-form-label
-  >
-    <nz-form-control
-      [nzSm]="14"
-      [nzXs]="24"
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Perfil</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
       <nz-input-group>
         <nz-select formControlName="perfil">
           <nz-option nzLabel="USUARIO" nzValue="USUARIO"></nz-option>
@@ -56,16 +33,16 @@
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
- 
+
   <nz-form-item nz-row class="register-area">
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <button 
-      nz-button 
-      nzType="primary" 
-      type="button"
-      nzShape="round" 
-      [nzLoading]="isConfirmLoading"
-      (click)="onSubmit()"
+      <button
+        nz-button
+        nzType="primary"
+        type="button"
+        nzShape="round"
+        [nzLoading]="isConfirmLoading"
+        (click)="onSubmit()"
       >
         Confirmar
       </button>

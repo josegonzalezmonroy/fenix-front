@@ -25,6 +25,14 @@ export class TasksService {
       .pipe(tap(() => this.getAllTasks().subscribe()));
   }
 
+    updateTask(id: string, task: TasksModel): Observable<TasksModel> {
+      return this.http.patch<TasksModel>(`${this.apiUrl}/${id}`, task).pipe(
+        tap(() => {
+          this.getAllTasks().subscribe();
+        })
+      );
+    }
+
   deleteTask(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {

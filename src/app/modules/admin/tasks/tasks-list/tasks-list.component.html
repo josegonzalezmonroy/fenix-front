@@ -55,7 +55,7 @@
           nzDanger
           [nzLoading]="loadingTasks[data.id]"
           nz-popconfirm
-          nzPopconfirmTitle="Deseja realmente excluir este projeto?"
+          nzPopconfirmTitle="Deseja realmente excluir esta atividade?"
           (nzOnConfirm)="deleteTask(data.id)"
         >
           <nz-icon nzType="delete" />
@@ -73,7 +73,7 @@
   [nzFooter]="null"
   (nzOnCancel)="handleCancel()"
 >
-  <ng-template #modalTitle>Editar Projeto</ng-template>
+  <ng-template #modalTitle>Editar Atividade</ng-template>
 
   <ng-template #modalContent>
     <app-edit-task
