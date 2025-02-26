@@ -4,19 +4,19 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ProjectsModel } from '../../models/interfaces/projects/response/ProjectsModel';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProjectsService {
-
   private apiUrl = 'http://localhost:3000/projetos';
   private projectsSubject = new BehaviorSubject<ProjectsModel[]>([]);
   public projects$ = this.projectsSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getAllProjects(): Observable<Array<ProjectsModel>> { 
-    return this.http.get<Array<ProjectsModel>>(this.apiUrl)
-    .pipe(tap((projects) => this.projectsSubject.next(projects)));
+  getAllProjects(): Observable<Array<ProjectsModel>> {
+    return this.http
+      .get<Array<ProjectsModel>>(this.apiUrl)
+      .pipe(tap((projects) => this.projectsSubject.next(projects)));
   }
 
   registerProject(project: ProjectsModel): Observable<ProjectsModel> {
@@ -27,4 +27,19 @@ export class ProjectsService {
     );
   }
 
+  updateProject(id: string, project: ProjectsModel): Observable<ProjectsModel> {
+    return this.http.patch<ProjectsModel>(`${this.apiUrl}/${id}`, project).pipe(
+      tap(() => {
+        this.getAllProjects().subscribe();
+      })
+    );
+  }
+
+  deleteProject(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => {
+        this.getAllProjects().subscribe();
+      })
+    );
+  }
 }

@@ -1,10 +1,5 @@
 import { NotificationService } from './../../../../services/notification/notification.service';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UsersModel } from '../../../../models/interfaces/users/response/UsersModel';
 import {
   FormControl,
@@ -33,7 +28,7 @@ import { ProfilesService } from '../../../../services/profiles/profiles.service'
   templateUrl: './edit-usuario.component.html',
   styleUrl: './edit-usuario.component.less',
 })
-export class EditUsuarioComponent {
+export class EditUsuarioComponent implements OnInit {
   @Input() userEdit!: UsersModel;
   @Output() closeModal = new EventEmitter<void>();
 
@@ -57,14 +52,14 @@ export class EditUsuarioComponent {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.profileEditForm.valid) {
       this.isConfirmLoading = true;
       setTimeout(() => {
-      this.profilesService
-        .updateUser(this.userEdit.id, this.profileEditForm.value)
-        .subscribe({
-          next: () => {
+        this.profilesService
+          .updateUser(this.userEdit.id, this.profileEditForm.value)
+          .subscribe({
+            next: () => {
               this.profileEditForm.reset();
               this.closeModal.emit();
               this.notification.successNotification(
@@ -78,7 +73,7 @@ export class EditUsuarioComponent {
               );
             },
           });
-        }, 500);
+      }, 500);
     }
   }
 }

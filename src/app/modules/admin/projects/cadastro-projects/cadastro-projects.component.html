@@ -19,10 +19,11 @@
         [nzXs]="24"
         nzErrorTip="Obrigatório"
       >
-        <input
+        <textarea
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"
           nz-input
           formControlName="descricao"
-        />
+        ></textarea>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -31,6 +32,7 @@
       >
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
         <nz-date-picker 
+        [nzFormat]="'dd/MM/yyyy'"
         formControlName="data_inicio"
         />
       </nz-form-control>
@@ -41,6 +43,7 @@
       >
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
         <nz-date-picker 
+        [nzFormat]="'dd/MM/yyyy'"
         formControlName="data_fim"
         />
       </nz-form-control>
@@ -75,6 +78,29 @@
       </nz-form-control>
     </nz-form-item>
 
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
+      >Responsável</nz-form-label
+    >
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+      >
+        <nz-input-group>
+          <nz-select 
+          formControlName="id_usuario_responsavel" 
+          nzShowSearch 
+          nzAllowClear 
+          nzPlaceHolder="Selecione o usuário">
+            @for(usuario of profilesName; track usuario.id)
+            {
+              <nz-option [nzLabel]="usuario.nome" [nzValue]="usuario.id"></nz-option>
+            }
+          </nz-select>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  
     <nz-form-item nz-row class="register-area">
       <nz-form-control [nzSpan]="14" [nzOffset]="6">
         <button nz-button nzType="primary" type="button" [disabled]="!projectForm.valid" [nzLoading]="isConfirmLoading"
