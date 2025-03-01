@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { HoursModel } from '../../../../models/interfaces/hours/HoursModel';
 
 @Component({
   selector: 'app-edit-hours',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './edit-hours.component.less'
 })
 export class EditHoursComponent {
-
+@Input() hourEdit!: HoursModel;
 }

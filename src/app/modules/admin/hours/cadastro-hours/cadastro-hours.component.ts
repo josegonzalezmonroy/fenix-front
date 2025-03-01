@@ -48,7 +48,7 @@ export class CadastroHoursComponent implements OnInit {
   tasksName: Array<TasksNameModel> = [];
 
   selectedDate: Date | null = null;
-  tempoTotal: string = ''
+  tempoTotal: string = '';
 
   constructor(
     private projectsService: ProjectsService,
@@ -65,7 +65,7 @@ export class CadastroHoursComponent implements OnInit {
     descricao: new FormControl('', [Validators.required]),
     data_inicio: new FormControl<Date | null>(null, [Validators.required]),
     data_fim: new FormControl<Date | null>(null, [Validators.required]),
-    segundos_totais: new FormControl(0, [Validators. required]),
+    segundos_totais: new FormControl(0, [Validators.required]),
     data_registro: new FormControl(new Date(), [Validators.required]),
   });
 
@@ -159,11 +159,14 @@ export class CadastroHoursComponent implements OnInit {
     if (dataInicio && dataFim) {
       if (dataInicio > dataFim) {
         this.hoursForm.get('data_inicio')?.setValue(null, { emitEvent: false });
-        this.tempoTotal = ''
-      } else 
-      {
-        this.hoursForm.get('segundos_totais')?.setValue(this.horasTotais(dataInicio!, dataFim!))
-        this.tempoTotal = this.segundosParaHHmm(this.horasTotais(dataInicio!, dataFim!))
+        this.tempoTotal = '';
+      } else {
+        this.hoursForm
+          .get('segundos_totais')
+          ?.setValue(this.horasTotais(dataInicio!, dataFim!));
+        this.tempoTotal = this.segundosParaHHmm(
+          this.horasTotais(dataInicio!, dataFim!)
+        );
       }
     }
   }

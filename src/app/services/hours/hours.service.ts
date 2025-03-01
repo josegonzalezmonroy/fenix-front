@@ -22,6 +22,14 @@ export class HoursService {
   registerHour(hour: HoursModel): Observable<HoursModel> {
     return this.http
       .post<HoursModel>(this.apiUrl, hour)
-      .pipe(tap(() => this.getAllHours()));
+      .pipe(tap(() => this.getAllHours().subscribe()))
+  }
+
+  deleteHour(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => {
+        this.getAllHours().subscribe();
+      })
+    );
   }
 }

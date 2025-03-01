@@ -1,1 +1,76 @@
-<p>hours-list works!</p>
+<nz-table
+  #headerTable
+  [nzData]="hoursData"
+  [nzPageSize]="15"
+  [nzBordered]="true"
+  [nzShowSizeChanger]="true"
+  [nzScroll]="{ y: '340px' }"
+>
+  <thead>
+    <tr>
+      <th rowspan="2">Descrição</th>
+      <th rowspan="2">Responsável</th>
+      <th rowspan="2">Data</th>
+      <th colspan="3">Hora</th>
+      <th rowspan="2">Ações</th>
+    </tr>
+    <tr>
+        <th rowspan="1">Início</th>
+        <th rowspan="1">Final</th>
+        <th rowspan="1">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of hoursData; track data.id) {
+    <tr>
+      <td>{{ data.descricao }}</td>
+      <td>{{ getUserName(data.id_usuario) }}</td>
+      <td>{{ dateFormater(data.data_inicio) }}</td>
+      <td>{{ hourFormater(data.data_inicio) }}</td>
+      <td>{{ hourFormater(data.data_fim) }}</td>
+      <td>{{ segundosParaHHmm(data.segundos_totais) }}</td>
+      <td id="botoes">
+        <button
+          nz-button
+          nzType="primary"
+          nzSize="large"
+          nzShape="circle"
+          (click)="showModal(data)"
+        >
+          <nz-icon nzType="edit" />
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          nzSize="large"
+          nzShape="circle"
+          nzDanger
+          [nzLoading]="loadingHours[data.id]"
+          nz-popconfirm
+          nzPopconfirmTitle="Deseja realmente excluir esta atividade?"
+          (nzOnConfirm)="deleteHour(data.id)"
+        >
+          <nz-icon nzType="delete" />
+        </button>
+      </td>
+    </tr>
+    }
+  </tbody></nz-table
+>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="null"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-template #modalTitle>Editar Lançamento</ng-template>
+
+  <ng-template #modalContent>
+    <app-edit-hours
+      (closeModal)="handleCancel()"
+      [hourEdit]="selectedHour"
+    />
+  </ng-template>
+</nz-modal>

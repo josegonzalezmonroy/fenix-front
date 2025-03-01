@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProjectsService } from '../../../../services/projects/projects.service';
 import { NotificationService } from '../../../../services/notification/notification.service';
 import { ProjectsModel } from '../../../../models/interfaces/projects/response/ProjectsModel';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { EditProjectComponent } from '../edit-project/edit-project.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
