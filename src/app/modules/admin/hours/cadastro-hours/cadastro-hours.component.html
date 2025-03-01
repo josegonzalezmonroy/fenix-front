@@ -1,1 +1,114 @@
-<p>cadastro-hours works!</p>
+<form nz-form [formGroup]="hoursForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
+    >Usuário</nz-form-label
+  >
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+    >
+      <nz-input-group>
+        <nz-select 
+        formControlName="id_usuario" 
+        nzShowSearch 
+        nzAllowClear 
+        nzPlaceHolder="Selecione o usuário">
+          @for(users of profilesName; track users.id)
+          {
+            <nz-option [nzLabel]="users.nome" [nzValue]="users.id"></nz-option>
+          }
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>  
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Atividade</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-input-group>
+        <nz-select
+          formControlName="id_atividade"
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="Selecione a atividade"
+        >
+          @for(task of tasksName; track task.id) {
+          <nz-option [nzLabel]="task.nome" [nzValue]="task.id"></nz-option>
+          }
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Descrição</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+      <textarea
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+        nz-input
+        formControlName="descricao"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+      >Data</nz-form-label
+    >
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+      <nz-date-picker
+      [(ngModel)]="selectedDate"
+      [ngModelOptions]="{standalone: true}"
+      nzFormat="dd/MM/yyyy" 
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Horário</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <div style="display: flex; gap: 8px;">
+        <nz-time-picker
+          style="flex: 1;"
+          [nzFormat]="'HH:mm'"
+          formControlName="data_inicio"
+          [nzPlaceHolder]="'Inicio'"
+          (nzOpenChange)="onTimePickerChange('data_inicio', $event)"
+        ></nz-time-picker>
+
+        <nz-time-picker
+          style="flex: 1;"
+          [nzFormat]="'HH:mm'"
+          formControlName="data_fim"
+          [nzPlaceHolder]="'Fim'"
+          (nzOpenChange)="onTimePickerChange('data_fim', $event)"
+        ></nz-time-picker>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">Tempo total</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input
+      [(ngModel)]="tempoTotal"
+      [ngModelOptions]="{standalone: true}"
+      disabled
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button
+        nz-button
+        nzType="primary"
+        type="button"
+        [disabled]="!hoursForm.valid || !selectedDate"
+        [nzLoading]="isConfirmLoading"
+        nzShape="round"
+        (click)="onSubmit()"
+      >
+        Confirmar
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

@@ -56,7 +56,10 @@
   <ng-template #cadastroProjeto>
     <app-cadastro-projects (closeModal)="handleCancel()"/>
   </ng-template>
-  <ng-template #cadastroHours>
+  <ng-template #cadastroTask>
+    <app-cadastro-task (closeModal)="handleCancel()"/>
+  </ng-template>
+  <ng-template #cadastroHour>
     <app-cadastro-hours (closeModal)="handleCancel()"/>
   </ng-template>
 </ul>

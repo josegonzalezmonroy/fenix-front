@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { RouterModule } from '@angular/router';
@@ -20,8 +26,8 @@ import { CadastroHoursComponent } from './../../modules/admin/hours/cadastro-hou
     CadastroProjectsComponent,
     CommonModule,
     CadastroTaskComponent,
-    CadastroHoursComponent
-],
+    CadastroHoursComponent,
+  ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.less',
 })
@@ -29,9 +35,9 @@ export class MenuComponent {
   isModalVisible = false;
   modalTitle = 'Usuário';
   modalContent!: TemplateRef<any>;
-  
+
   @Output() closedMenu = new EventEmitter<void>();
-  
+
   @ViewChild('cadastroUsuario', { static: true })
   CadastroUsuarioComponent!: TemplateRef<any>;
   @ViewChild('cadastroProjeto', { static: true })
@@ -40,7 +46,6 @@ export class MenuComponent {
   CadastroTaskComponent!: TemplateRef<any>;
   @ViewChild('cadastroHour', { static: true })
   CadastroHoursComponent!: TemplateRef<any>;
-  
 
   showModal(tipo: string): void {
     this.isModalVisible = true;
@@ -57,24 +62,23 @@ export class MenuComponent {
         break;
 
       case 'cadastroTask':
-        this.modalTitle = 'Cadastrar Atividade';
+        this.modalTitle = 'Cadastrar Atividades';
         this.modalContent = this.CadastroTaskComponent;
         break;
 
-        case 'cadastroHour':
-          this.modalTitle = 'Lançar horas';
-          this.modalContent = this.CadastroHoursComponent;
-          break;
+      case 'cadastroHour':
+        this.modalTitle = 'Lançar horas';
+        this.modalContent = this.CadastroHoursComponent;
+        break;
     }
   }
 
-  closeMenu():void
-  {
-    this.closedMenu.emit()
+  closeMenu(): void {
+    this.closedMenu.emit();
   }
-  
+
   handleCancel(): void {
     this.isModalVisible = false;
-    this.closeMenu()
+    this.closeMenu();
   }
 }
