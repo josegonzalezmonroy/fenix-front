@@ -3,7 +3,6 @@ import { TasksModel } from '../../../../models/interfaces/tasks/TasksModel';
 import {
   FormControl,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';

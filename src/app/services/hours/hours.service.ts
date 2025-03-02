@@ -25,6 +25,14 @@ export class HoursService {
       .pipe(tap(() => this.getAllHours().subscribe()))
   }
 
+  updateHour(id: string, hour: HoursModel): Observable<HoursModel> {
+      return this.http.patch<HoursModel>(`${this.apiUrl}/${id}`, hour).pipe(
+        tap(() => {
+          this.getAllHours().subscribe();
+        })
+      );
+    }
+
   deleteHour(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {

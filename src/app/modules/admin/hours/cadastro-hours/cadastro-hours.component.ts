@@ -21,7 +21,6 @@ import { NotificationService } from '../../../../services/notification/notificat
 import { HoursModel } from '../../../../models/interfaces/hours/HoursModel';
 import { HoursService } from '../../../../services/hours/hours.service';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cadastro-hours',
@@ -35,7 +34,6 @@ import { DatePipe } from '@angular/common';
     NzTimePickerModule,
     ReactiveFormsModule,
   ],
-  providers: [DatePipe],
   templateUrl: './cadastro-hours.component.html',
   styleUrl: './cadastro-hours.component.less',
 })
@@ -55,7 +53,6 @@ export class CadastroHoursComponent implements OnInit {
     private profilesService: ProfilesService,
     private tasksService: TasksService,
     private hoursService: HoursService,
-    private datePipe: DatePipe,
     private notification: NotificationService
   ) {}
 
