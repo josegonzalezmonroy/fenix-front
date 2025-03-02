@@ -8,6 +8,7 @@
 >
   <thead>
     <tr>
+      <th rowspan="2">Atividade</th>
       <th rowspan="2">Descrição</th>
       <th rowspan="2">Responsável</th>
       <th rowspan="2">Data</th>
@@ -23,6 +24,7 @@
   <tbody>
     @for (data of hoursData; track data.id) {
     <tr>
+      <td>{{ getTaskName(data.id_atividade) }}</td>
       <td>{{ data.descricao }}</td>
       <td>{{ getUserName(data.id_usuario) }}</td>
       <td>{{ dateFormater(data.data_inicio) }}</td>
