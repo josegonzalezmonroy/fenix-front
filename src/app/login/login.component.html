@@ -11,12 +11,12 @@
       (ngSubmit)="onSubmit()"
     >
       <nz-form-item>
-        <nz-form-control nzErrorTip="Por favor, insira seu e-mail!">
+        <nz-form-control nzErrorTip="Formato de email não valido">
           <nz-input-group nzSize="large" nzPrefixIcon="user">
             <input
               type="email"
               nz-input
-              formControlName="usuario"
+              formControlName="email"
               placeholder="E-mail"
             />
           </nz-input-group>
