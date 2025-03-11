@@ -29,6 +29,8 @@ import { NotificationService } from '../services/notification/notification.servi
   styleUrl: './login.component.less',
 })
 export class LoginComponent {
+  isConfirmLoading = false;
+
   formulario = new FormGroup({
     email: new FormControl('', {
       validators: [Validators.required, Validators.email],
@@ -45,6 +47,8 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.formulario.valid) {
+      this.isConfirmLoading = true;
+
       const { email, senha } = this.formulario.value;
 
       if (email && senha) {
@@ -53,6 +57,7 @@ export class LoginComponent {
             if (typeof response === 'object') {
               const token = response.accessToken;
               localStorage.setItem('jwtToken', token);
+              const nome = response.nome;
 
               const scope = this.authService.getScope();
               console.log('scope', scope);
@@ -62,13 +67,17 @@ export class LoginComponent {
               } else if (scope === 'USUARIO') {
                 this.router.navigate(['/user']);
               }
-              this.notification.successNotification(
-                'Login realizado com sucesso!'
-              );
+              setTimeout(() => {
+                this.isConfirmLoading = false;
+                this.notification.successNotification(
+                  `Seja bem-vindo, ${nome}!`
+                );
+                this.formulario.reset();
+              },500) 
             }
-            this.formulario.reset();
           },
           error: (error) => {
+            this.isConfirmLoading = false;
             this.notification.errorNotification(error);
           },
         });

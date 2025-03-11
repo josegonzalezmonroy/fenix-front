@@ -8,7 +8,7 @@
       nz-form
       [formGroup]="formulario"
       class="login-form"
-      (ngSubmit)="onSubmit()"
+      (keyup.enter)="onSubmit()"
     >
       <nz-form-item>
         <nz-form-control nzErrorTip="Formato de email não valido">
@@ -34,13 +34,9 @@
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
-      <button
-        nz-button
-        nzSize="large"
-        class="login-form-button login-form-margin"
-        [nzType]="'primary'"
-        [disabled]="!formulario.valid"
-      >
+      <button nz-button nzType="primary" type="button" [disabled]="!formulario.valid" [nzLoading]="isConfirmLoading"
+      nzShape="round"
+      (click)="onSubmit()">
         Log in
       </button>
     </form>

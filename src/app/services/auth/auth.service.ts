@@ -17,9 +17,9 @@ export class AuthService {
   login(
     email: string,
     senha: string
-  ): Observable<{ accessToken: string; expiresIn: number } | string> {
+  ): Observable<{ accessToken: string; expiresIn: number; nome:string } | string> {
     return this.http
-      .post<{ accessToken: string; expiresIn: number }>(
+      .post<{ accessToken: string; expiresIn: number; nome:string }>(
         this.API_URL + '/login',
         { email, senha }
       )
