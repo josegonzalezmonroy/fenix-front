@@ -83,7 +83,7 @@ export class EditTaskComponent implements OnInit {
       this.isConfirmLoading = true;
       setTimeout(() => {
         this.tasksService
-          .updateTask(this.taskEdit.id, this.taskEditForm.value)
+          .updateTask(this.taskEdit.id!, this.taskEditForm.value)
           .subscribe({
             next: () => {
               this.taskEditForm.reset();

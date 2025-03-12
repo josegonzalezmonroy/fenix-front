@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { ProjectsModel } from '../../models/interfaces/projects/response/ProjectsModel';
 import { ProjectsNameModel } from '../../models/interfaces/projects/response/ProjectsNameModel';
+import { environment } from '../../../environments/environment';
+import { ResponseMessage } from '../../models/interfaces/ResponseMessage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectsService {
-  private apiUrl = 'http://localhost:3000/projetos';
+  private apiUrl = environment.apiUrl + '/projetos';
   private projectsSubject = new BehaviorSubject<ProjectsModel[]>([]);
   public projects$ = this.projectsSubject.asObservable();
 
@@ -17,7 +19,8 @@ export class ProjectsService {
   getAllProjects(): Observable<Array<ProjectsModel>> {
     return this.http
       .get<Array<ProjectsModel>>(this.apiUrl)
-      .pipe(tap((projects) => this.projectsSubject.next(projects)));
+      .pipe(tap((projects) => {
+        this.projectsSubject.next(projects)}));
   }
 
   getAllProjectsName(): Observable<Array<ProjectsNameModel>> {
@@ -36,15 +39,15 @@ export class ProjectsService {
     );
   }
 
-  updateProject(id: string, project: ProjectsModel): Observable<ProjectsModel> {
-    return this.http.patch<ProjectsModel>(`${this.apiUrl}/${id}`, project).pipe(
+  updateProject(id: number, project: ProjectsModel): Observable<ResponseMessage> {
+    return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, project).pipe(
       tap(() => {
         this.getAllProjects().subscribe();
       })
     );
   }
 
-  deleteProject(id: string): Observable<void> {
+  deleteProject(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         this.getAllProjects().subscribe();

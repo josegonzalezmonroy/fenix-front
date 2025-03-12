@@ -1,11 +1,11 @@
 export interface TasksModel{
-    id: string
-    id_projeto: string
+    id: number
+    id_projeto: number
     nome: string
     descricao: string
-    data_inicio: string
-    data_fim: string
+    data_inicio: Date
+    data_fim: Date
     status:string
-    id_usuario_responsavel: string
-    data_criacao: string
+    id_usuario_responsavel: number 
+    data_criacao: Date
 }

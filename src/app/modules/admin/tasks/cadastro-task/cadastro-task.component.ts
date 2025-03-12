@@ -48,16 +48,16 @@ export class CadastroTaskComponent implements OnInit {
   ) {}
 
   taskForm = new FormGroup({
-    id_projeto: new FormControl('', [Validators.required]),
-    nome: new FormControl('', [Validators.required]),
+    id_projeto: new FormControl<number | null>(null, [Validators.required]),
+    nome: new FormControl<string>('', [Validators.required]),
     descricao: new FormControl('', [Validators.required]),
-    data_inicio: new FormControl('', [Validators.required]),
-    data_fim: new FormControl('', [Validators.required]),
+    data_inicio: new FormControl<Date | null>(null, [Validators.required]),
+    data_fim: new FormControl<Date | null>(null, [Validators.required]),
     status: new FormControl('', [Validators.required]),
-    id_usuario_responsavel: new FormControl('', [Validators.required]),
-    data_criacao: new FormControl(new Date().toISOString(), [
+    id_usuario_responsavel: new FormControl<number | null>(null, [
       Validators.required,
     ]),
+    data_criacao: new FormControl<Date>(new Date(), [Validators.required]),
   });
 
   ngOnInit(): void {

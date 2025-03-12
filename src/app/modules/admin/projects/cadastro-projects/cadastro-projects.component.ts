@@ -47,16 +47,16 @@ export class CadastroProjectsComponent implements OnInit{
   }
 
   projectForm = new FormGroup({
-    nome: new FormControl('', [Validators.required]),
-    descricao: new FormControl('', [Validators.required]),
-    data_inicio: new FormControl('', [Validators.required]),
-    data_fim: new FormControl('', [Validators.required]),
-    status: new FormControl('', [Validators.required]),
-    id_usuario_responsavel: new FormControl('', [Validators.required]),
-    data_criacao: new FormControl(new Date().toISOString(), [
+    nome: new FormControl<string>('', [Validators.required]),
+    descricao: new FormControl<string>('', [Validators.required]),
+    data_inicio: new FormControl<Date|null>(null, [Validators.required]),
+    data_fim: new FormControl<Date|null>(null, [Validators.required]),
+    status: new FormControl<string>('', [Validators.required]),
+    id_usuario_responsavel: new FormControl<number|null>(null, [Validators.required]),
+    data_criacao: new FormControl<Date>(new Date(), [
       Validators.required,
     ]),
-    prioridade: new FormControl('', [Validators.required]),
+    prioridade: new FormControl<string>('', [Validators.required]),
   });
 
 

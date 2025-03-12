@@ -37,14 +37,12 @@ export class CadastroUsuarioComponent {
   ) {}
 
   profileForm = new FormGroup({
-    nome: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    senha: new FormControl('', [Validators.required]),
-    data_criacao: new FormControl(new Date().toISOString(), [
+    nome: new FormControl<string>('', [Validators.required]),
+    email: new FormControl<string>('', [Validators.required, Validators.email]),
+    senha: new FormControl<string>('', [Validators.required]),
+    data_criacao: new FormControl<Date>(new Date(), [
       Validators.required,
-    ]),
-    ultimo_login: new FormControl(''),
-    perfil: new FormControl('USUARIO', [Validators.required]),
+    ])
   });
 
   onSubmit(): void {

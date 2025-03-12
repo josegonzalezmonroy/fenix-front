@@ -4,12 +4,13 @@ import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { UsersModel } from '../../models/interfaces/users/response/UsersModel';
 import { RegisterResponse } from '../../models/interfaces/users/response/RegisterResponse';
 import { UsersNameModel } from '../../models/interfaces/users/response/UsersNameModel';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfilesService {
-  private apiUrl = 'http://localhost:3000/usuarios';
+  private apiUrl = environment.apiUrl + '/usuarios';
 
   private usersSubject = new BehaviorSubject<UsersModel[]>([]);
   public users$ = this.usersSubject.asObservable();
@@ -23,15 +24,13 @@ export class ProfilesService {
   }
 
   getAllUsersName(): Observable<Array<UsersNameModel>> {
-    return this.http.get<Array<UsersNameModel>>(this.apiUrl)
-    .pipe(
-      map((users) => users.sort((a, b) => a.nome.localeCompare(b.nome)))
-    )
+    return this.http
+      .get<Array<UsersNameModel>>(this.apiUrl)
+      .pipe(map((users) => users.sort((a, b) => a.nome.localeCompare(b.nome))));
   }
 
-  getUserById(id:string): Observable<UsersModel>
-  {
-    return this.http.get<UsersModel>(`${this.apiUrl}/${id}`)
+  getUserById(id: number): Observable<UsersModel> {
+    return this.http.get<UsersModel>(`${this.apiUrl}/${id}`);
   }
 
   registerUser(user: UsersModel): Observable<RegisterResponse> {
@@ -42,7 +41,7 @@ export class ProfilesService {
     );
   }
 
-  updateUser(id: string, user: UsersModel): Observable<UsersModel> {
+  updateUser(id: number, user: UsersModel): Observable<UsersModel> {
     return this.http.patch<UsersModel>(`${this.apiUrl}/${id}`, user).pipe(
       tap(() => {
         this.getAllUsers().subscribe();
@@ -50,7 +49,7 @@ export class ProfilesService {
     );
   }
 
-  deleteUser(id: string) {
+  deleteUser(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         this.getAllUsers().subscribe(() => {

@@ -57,13 +57,12 @@ export class CadastroHoursComponent implements OnInit {
   ) {}
 
   hoursForm = new FormGroup({
-    id_atividade: new FormControl('', [Validators.required]),
-    id_usuario: new FormControl('', [Validators.required]),
-    descricao: new FormControl('', [Validators.required]),
+    id_atividade: new FormControl<number | null>(null, [Validators.required]),
+    id_usuario: new FormControl<number | null>(null, [Validators.required]),
+    descricao: new FormControl<string>('', [Validators.required]),
     data_inicio: new FormControl<Date | null>(null, [Validators.required]),
     data_fim: new FormControl<Date | null>(null, [Validators.required]),
     segundos_totais: new FormControl(0, [Validators.required]),
-    data_registro: new FormControl(new Date(), [Validators.required]),
   });
 
   ngOnInit(): void {

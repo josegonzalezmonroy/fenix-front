@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HoursModel } from '../../models/interfaces/hours/HoursModel';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HoursService {
-  private apiUrl = 'http://localhost:3000/lancamentos_horas';
+  private apiUrl = environment.apiUrl + '/lancamentos';
   private hoursSubject = new BehaviorSubject<HoursModel[]>([]);
   public hours$ = this.hoursSubject.asObservable();
 
@@ -25,7 +26,7 @@ export class HoursService {
       .pipe(tap(() => this.getAllHours().subscribe()))
   }
 
-  updateHour(id: string, hour: HoursModel): Observable<HoursModel> {
+  updateHour(id: number, hour: HoursModel): Observable<HoursModel> {
       return this.http.patch<HoursModel>(`${this.apiUrl}/${id}`, hour).pipe(
         tap(() => {
           this.getAllHours().subscribe();
@@ -33,7 +34,7 @@ export class HoursService {
       );
     }
 
-  deleteHour(id: string): Observable<void> {
+  deleteHour(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         this.getAllHours().subscribe();

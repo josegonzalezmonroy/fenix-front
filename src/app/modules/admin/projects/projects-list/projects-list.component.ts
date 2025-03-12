@@ -49,24 +49,26 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.projectsService.projects$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((projects) => (this.projectsData = projects));
+      .subscribe((projects) => {
+        (this.projectsData = projects)});
 
     this.projectsService.getAllProjects().subscribe();
     this.profilesServices.getAllUsersName().subscribe((users) => {
       this.usersData = users;
     });
+    console.log(this.projectsData);
   }
 
-  getUserName(userId: string): string {
-    const user = this.usersData?.find((response) => response.id === userId);
+  getUserName(userId: number): string {
+    const user = this.usersData.find((response) => response.id === userId);
     return user ? user.nome : 'Usuário não encontrado';
   }
 
-  dateFormater(date: string): string | null {
+  dateFormater(date: Date): string | null {
     return this.datePipe.transform(date, 'dd/MM/yyyy');
   }
 
-  deleteProject(id: string): void {
+  deleteProject(id: number): void {
     this.loadingProjects[id] = true;
     setTimeout(() => {
       this.projectsService.deleteProject(id).subscribe({

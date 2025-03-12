@@ -65,23 +65,23 @@ export class TasksListComponent implements OnInit, OnDestroy {
     });
   }
 
-  getUserName(userId: string): string {
+  getUserName(userId: number): string {
     const user = this.usersData?.find((response) => response.id === userId);
     return user ? user.nome : 'Usuário não encontrado';
   }
 
-  getProjectName(projectId: string): string {
+  getProjectName(projectId: number): string {
     const project = this.projectsData?.find(
       (response) => response.id === projectId
     );
     return project ? project.nome : 'Projeto não encontrado';
   }
 
-  dateFormater(date: string): string | null {
+  dateFormater(date: Date): string | null {
     return this.datePipe.transform(date, 'dd/MM/yyyy');
   }
 
-  deleteTask(id: string): void {
+  deleteTask(id: number): void {
     this.loadingTasks[id] = true;
     setTimeout(() => {
       this.tasksService.deleteTask(id).subscribe({

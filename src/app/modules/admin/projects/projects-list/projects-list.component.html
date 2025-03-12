@@ -27,10 +27,10 @@
     <tr>
       <td>{{ data.nome }}</td>
       <td>{{ data.descricao }}</td>
-      <td>{{ getUserName(data.id_usuario_responsavel) }}</td>
-      <td>{{ dateFormater(data.data_criacao) }}</td>
-      <td>{{ dateFormater(data.data_inicio) }}</td>
-      <td>{{ dateFormater(data.data_fim) }}</td>
+      <td>{{ data.usuarioResponsavel.nome }}</td>
+      <td>{{ dateFormater(data.dataCriacao) }}</td>
+      <td>{{ dateFormater(data.dataInicio) }}</td>
+      <td>{{ dateFormater(data.dataFim) }}</td>
       <td>{{ data.prioridade }}</td>
       @if(data.status === 'EM_ANDAMENTO') {
       <td>EM ANDAMENTO</td>

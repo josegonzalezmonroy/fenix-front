@@ -1,4 +1,4 @@
 export interface TasksNameModel{
-    id: string,
+    id: number,
     nome: string
 }

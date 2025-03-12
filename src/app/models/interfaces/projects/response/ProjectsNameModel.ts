@@ -1,4 +1,4 @@
 export interface ProjectsNameModel{
-    id: string
+    id: number
     nome: string
 }

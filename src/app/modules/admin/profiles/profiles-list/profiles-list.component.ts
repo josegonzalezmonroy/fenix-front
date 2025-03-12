@@ -49,7 +49,7 @@ export class ProfilesListComponent implements OnInit, OnDestroy {
     this.profilesService.getAllUsers().subscribe();
   }
 
-  deleteUser(id: string): void {
+  deleteUser(id: number): void {
     this.loadingUsers[id] = true;
     setTimeout(() => {
     this.profilesService.deleteUser(id).subscribe({

@@ -1,7 +1,7 @@
 export interface HoursModel{
-    id: string
-    id_atividade: string
-    id_usuario: string
+    id: number
+    id_atividade: number
+    id_usuario: number
     descricao: string
     data_inicio: Date
     data_fim: Date

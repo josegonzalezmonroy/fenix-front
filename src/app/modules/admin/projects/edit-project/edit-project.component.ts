@@ -16,6 +16,8 @@ import { ProfilesService } from '../../../../services/profiles/profiles.service'
 import { NotificationService } from '../../../../services/notification/notification.service';
 import { ProjectsService } from '../../../../services/projects/projects.service';
 import { UsersNameModel } from '../../../../models/interfaces/users/response/UsersNameModel';
+import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-project',
@@ -58,10 +60,10 @@ export class EditProjectComponent implements OnInit {
       descricao: new FormControl(this.projectEdit.descricao, [
         Validators.required,
       ]),
-      data_inicio: new FormControl(this.projectEdit.data_inicio, [
+      data_inicio: new FormControl(this.projectEdit.dataInicio, [
         Validators.required,
       ]),
-      data_fim: new FormControl(this.projectEdit.data_fim, [
+      data_fim: new FormControl(this.projectEdit.dataFim, [
         Validators.required,
       ]),
       status: new FormControl(this.projectEdit.status, [Validators.required]),
@@ -69,7 +71,7 @@ export class EditProjectComponent implements OnInit {
         Validators.required,
       ]),
       id_usuario_responsavel: new FormControl(
-        this.projectEdit.id_usuario_responsavel,
+        this.projectEdit.usuarioResponsavel.id,
         [Validators.required]
       ),
     });
@@ -83,20 +85,18 @@ export class EditProjectComponent implements OnInit {
         this.projectsService
           .updateProject(this.projectEdit.id, this.projectEditForm.value)
           .subscribe({
-            next: () => {
+            next: (response: ResponseMessage) => {
               this.projectEditForm.reset();
               this.closeModal.emit();
               this.notification.successNotification(
-                'Projeto atualizado com sucesso'
+                response.message
               );
             },
-            error: () => {
+            error: (error: HttpErrorResponse) => {
               this.isConfirmLoading = false;
-              this.notification.errorNotification(
-                'Erro ao atualizar projeto, tente novamente'
-              );
-            },
-          });
+              this.notification.errorNotification(error.error);
+          },
+        })
       }, 500);
     }
   }

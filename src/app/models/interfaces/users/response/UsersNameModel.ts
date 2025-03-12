@@ -1,4 +1,4 @@
 export interface UsersNameModel {
-    id: string
+    id: number
     nome: string
 }

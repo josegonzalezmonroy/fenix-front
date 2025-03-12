@@ -74,19 +74,19 @@ export class HoursListComponent implements OnInit, OnDestroy {
     });
   }
 
-  getUserName(userId: string): string {
+  getUserName(userId: number): string {
     const user = this.usersData?.find((response) => response.id === userId);
     return user ? user.nome : 'Usuário não encontrado';
   }
 
-  getProjectName(projectId: string): string {
+  getProjectName(projectId: number): string {
     const project = this.projectsData?.find(
       (response) => response.id === projectId
     );
     return project ? project.nome : 'Projeto não encontrado';
   }
 
-  getTaskName(taskId: string): string {
+  getTaskName(taskId: number): string {
     const task = this.tasksData?.find((response) => response.id === taskId);
     return task ? task.nome : 'Atividade não encontrada';
   }
@@ -108,7 +108,7 @@ export class HoursListComponent implements OnInit, OnDestroy {
     return `${horasFormatadas} horas e ${minutosFormatados} minutos`;
   }
 
-  deleteHour(id: string): void {
+  deleteHour(id: number): void {
     this.loadingHours[id] = true;
     setTimeout(() => {
       this.hoursService.deleteHour(id).subscribe({
