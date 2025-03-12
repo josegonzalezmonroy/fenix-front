@@ -17,9 +17,9 @@ export class AuthService {
   login(
     email: string,
     senha: string
-  ): Observable<{ accessToken: string; expiresIn: number; nome:string } | string> {
+  ): Observable<{ accessToken: string; expiresIn: number; nome: string } | string> {
     return this.http
-      .post<{ accessToken: string; expiresIn: number; nome:string }>(
+      .post<{ accessToken: string; expiresIn: number; nome: string }>(
         this.API_URL + '/login',
         { email, senha }
       )
@@ -32,7 +32,20 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem(this.tokenKey);
-    return !!token;
+    if (token) {
+      return !this.isTokenExpired(token);
+    }
+    return false;
+  }
+
+  isTokenExpired(token: string): boolean {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const expiration = payload.exp;
+    if (expiration) {
+      const currentTime = Math.floor(Date.now() / 1000);
+      return currentTime >= expiration;
+    }
+    return false;
   }
 
   getScope(): string | null {
@@ -42,5 +55,10 @@ export class AuthService {
       return payload.scope;
     }
     return null;
+  }
+
+  logout(): void {
+    localStorage.removeItem(this.tokenKey);
+    this.router.navigate(['/login']);
   }
 }

@@ -100,6 +100,26 @@
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
+      >Usuários</nz-form-label
+    >
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+      >
+        <nz-input-group>
+          <nz-select
+          nzMode="multiple"
+          nzPlaceHolder="Seleccione o usuário"
+          [nzOptions]="selectOptions"
+          formControlName="usuarios"
+        ></nz-select>       
+       </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    
   
     <nz-form-item nz-row class="register-area">
       <nz-form-control [nzSpan]="14" [nzOffset]="6">

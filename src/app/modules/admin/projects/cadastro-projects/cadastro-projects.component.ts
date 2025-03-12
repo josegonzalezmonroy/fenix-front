@@ -16,6 +16,8 @@ import { NotificationService } from '../../../../services/notification/notificat
 import { ProjectsModel } from '../../../../models/interfaces/projects/response/ProjectsModel';
 import { ProfilesService } from '../../../../services/profiles/profiles.service';
 import { UsersNameModel } from '../../../../models/interfaces/users/response/UsersNameModel';
+import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-cadastro-projects',
@@ -38,6 +40,7 @@ export class CadastroProjectsComponent implements OnInit{
   isConfirmLoading = false;
   date!: Date;
   profilesName: Array<UsersNameModel> = [];
+  selectOptions: Array<{ label: string; value: number }> = [];
 
   constructor(
     private projectsService: ProjectsService,
@@ -53,10 +56,8 @@ export class CadastroProjectsComponent implements OnInit{
     data_fim: new FormControl<Date|null>(null, [Validators.required]),
     status: new FormControl<string>('', [Validators.required]),
     id_usuario_responsavel: new FormControl<number|null>(null, [Validators.required]),
-    data_criacao: new FormControl<Date>(new Date(), [
-      Validators.required,
-    ]),
     prioridade: new FormControl<string>('', [Validators.required]),
+    usuarios: new FormControl<number[]>([], [Validators.required])
   });
 
 
@@ -64,6 +65,10 @@ export class CadastroProjectsComponent implements OnInit{
     this.profilesService.getAllUsersName().subscribe({
       next: (users) => {
         this.profilesName = users;
+        this.selectOptions = users.map(user => ({
+          label: user.nome,
+          value: user.id // Mantiene 'id' como un número
+        }));
       },
       error: () => {
         this.notification.errorNotification('Erro ao carregar usuarios');
@@ -72,25 +77,25 @@ export class CadastroProjectsComponent implements OnInit{
   }
 
   onSubmit(): void {
+    console.log(this.projectForm.value)
     if (this.projectForm.valid) {
       this.isConfirmLoading = true;
       this.projectsService
         .registerProject(this.projectForm.value as ProjectsModel)
         .subscribe({
-          next: () => {
+          next: (response: ResponseMessage) => {
             setTimeout(() => {
               this.projectForm.reset();
               this.closeModal.emit();
-              this.notification.successNotification(
-                'Projeto criado com sucesso'
-              );
+              this.notification.successNotification(response.message);
               this.isConfirmLoading = false;
             }, 500);
           },
-          error: () => {
-            this.isConfirmLoading = false;
-            this.notification.errorNotification('Erro ao criar projeto');
-          },
+            error: (error: HttpErrorResponse) => {
+              console.log(error.error)
+              this.isConfirmLoading = false;
+              this.notification.errorNotification(error.error);
+            },
         });
     }
   }

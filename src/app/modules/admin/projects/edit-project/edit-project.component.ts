@@ -54,23 +54,27 @@ export class EditProjectComponent implements OnInit {
         this.notification.errorNotification('Erro ao carregar usuarios');
       },
     });
-    
+
     this.projectEditForm = new FormGroup({
-      nome: new FormControl(this.projectEdit.nome, [Validators.required]),
-      descricao: new FormControl(this.projectEdit.descricao, [
+      nome: new FormControl<string>(this.projectEdit.nome, [
         Validators.required,
       ]),
-      data_inicio: new FormControl(this.projectEdit.dataInicio, [
+      descricao: new FormControl<string>(this.projectEdit.descricao, [
         Validators.required,
       ]),
-      data_fim: new FormControl(this.projectEdit.dataFim, [
+      data_inicio: new FormControl<Date>(this.projectEdit.dataInicio, [
         Validators.required,
       ]),
-      status: new FormControl(this.projectEdit.status, [Validators.required]),
-      prioridade: new FormControl(this.projectEdit.prioridade, [
+      data_fim: new FormControl<Date>(this.projectEdit.dataFim, [
         Validators.required,
       ]),
-      id_usuario_responsavel: new FormControl(
+      status: new FormControl<string>(this.projectEdit.status, [
+        Validators.required,
+      ]),
+      prioridade: new FormControl<string>(this.projectEdit.prioridade, [
+        Validators.required,
+      ]),
+      id_usuario_responsavel: new FormControl<number>(
         this.projectEdit.usuarioResponsavel.id,
         [Validators.required]
       ),
@@ -78,7 +82,6 @@ export class EditProjectComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     if (this.projectEditForm.valid) {
       this.isConfirmLoading = true;
       setTimeout(() => {
@@ -88,15 +91,13 @@ export class EditProjectComponent implements OnInit {
             next: (response: ResponseMessage) => {
               this.projectEditForm.reset();
               this.closeModal.emit();
-              this.notification.successNotification(
-                response.message
-              );
+              this.notification.successNotification(response.message);
             },
             error: (error: HttpErrorResponse) => {
               this.isConfirmLoading = false;
               this.notification.errorNotification(error.error);
-          },
-        })
+            },
+          });
       }, 500);
     }
   }

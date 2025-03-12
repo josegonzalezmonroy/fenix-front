@@ -31,24 +31,24 @@ export class ProjectsService {
       );
   }
 
-  registerProject(project: ProjectsModel): Observable<ProjectsModel> {
-    return this.http.post<ProjectsModel>(this.apiUrl, project).pipe(
-      tap(() => {
-        this.getAllProjects().subscribe();
-      })
-    );
-  }
+    registerProject(project: ProjectsModel): Observable<ResponseMessage> {
+      return this.http.post<ResponseMessage>(this.apiUrl, project).pipe(
+        tap(() => {
+          this.getAllProjects().subscribe();
+        })
+      );
+    }
 
-  updateProject(id: number, project: ProjectsModel): Observable<ResponseMessage> {
-    return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, project).pipe(
-      tap(() => {
-        this.getAllProjects().subscribe();
-      })
-    );
-  }
+    updateProject(id: number, project: ProjectsModel): Observable<ResponseMessage> {
+      return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, project).pipe(
+        tap(() => {
+          this.getAllProjects().subscribe();
+        })
+      );
+    }
 
-  deleteProject(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+  deleteProject(id: number): Observable<ResponseMessage> {
+    return this.http.delete<ResponseMessage>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         this.getAllProjects().subscribe();
       })

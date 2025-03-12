@@ -13,6 +13,8 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { DatePipe } from '@angular/common';
 import { ProfilesService } from '../../../../services/profiles/profiles.service';
 import { UsersNameModel } from '../../../../models/interfaces/users/response/UsersNameModel';
+import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-projects-list',
@@ -50,18 +52,13 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     this.projectsService.projects$
       .pipe(takeUntil(this.destroy$))
       .subscribe((projects) => {
-        (this.projectsData = projects)});
+        this.projectsData = projects;
+      });
 
     this.projectsService.getAllProjects().subscribe();
     this.profilesServices.getAllUsersName().subscribe((users) => {
       this.usersData = users;
     });
-    console.log(this.projectsData);
-  }
-
-  getUserName(userId: number): string {
-    const user = this.usersData.find((response) => response.id === userId);
-    return user ? user.nome : 'Usuário não encontrado';
   }
 
   dateFormater(date: Date): string | null {
@@ -72,13 +69,12 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     this.loadingProjects[id] = true;
     setTimeout(() => {
       this.projectsService.deleteProject(id).subscribe({
-        next: () => {
-          this.notification.successNotification(
-            'Projeto deletado com sucesso!'
-          );
+        next: (response: ResponseMessage) => {
+          this.notification.successNotification(response.message);
         },
-        error: () => {
-          this.notification.errorNotification('Erro ao deletar projeto!');
+        error: (error: HttpErrorResponse) => {
+          this.loadingProjects[id] = false;
+          this.notification.errorNotification(error.error);
         },
       });
     }, 500);
