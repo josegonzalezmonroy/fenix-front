@@ -5,6 +5,7 @@ import { ProjectsModel } from '../../models/interfaces/projects/response/Project
 import { ProjectsNameModel } from '../../models/interfaces/projects/response/ProjectsNameModel';
 import { environment } from '../../../environments/environment';
 import { ResponseMessage } from '../../models/interfaces/ResponseMessage';
+import { UsersNameModel } from '../../models/interfaces/users/response/UsersNameModel';
 
 @Injectable({
   providedIn: 'root',
@@ -53,5 +54,13 @@ export class ProjectsService {
         this.getAllProjects().subscribe();
       })
     );
+  }
+
+  getUsersByProjectId(projectId: number): Observable<UsersNameModel[]> {
+    return this.http.get<UsersNameModel[]>(`${this.apiUrl}/${projectId}/usuarios`);
+  }
+
+  getProjectsByUserId(userId: number): Observable<UsersNameModel[]> {
+    return this.http.get<UsersNameModel[]>(`${this.apiUrl}/usuario/${userId}`);
   }
 }

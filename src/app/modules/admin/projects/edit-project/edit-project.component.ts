@@ -95,7 +95,7 @@ export class EditProjectComponent implements OnInit {
             },
             error: (error: HttpErrorResponse) => {
               this.isConfirmLoading = false;
-              this.notification.errorNotification(error.error);
+              this.notification.errorNotification(error.error.message);
             },
           });
       }, 500);

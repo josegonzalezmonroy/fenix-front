@@ -40,7 +40,6 @@ export class CadastroProjectsComponent implements OnInit{
   isConfirmLoading = false;
   date!: Date;
   profilesName: Array<UsersNameModel> = [];
-  selectOptions: Array<{ label: string; value: number }> = [];
 
   constructor(
     private projectsService: ProjectsService,
@@ -65,10 +64,6 @@ export class CadastroProjectsComponent implements OnInit{
     this.profilesService.getAllUsersName().subscribe({
       next: (users) => {
         this.profilesName = users;
-        this.selectOptions = users.map(user => ({
-          label: user.nome,
-          value: user.id // Mantiene 'id' como un número
-        }));
       },
       error: () => {
         this.notification.errorNotification('Erro ao carregar usuarios');
@@ -94,7 +89,7 @@ export class CadastroProjectsComponent implements OnInit{
             error: (error: HttpErrorResponse) => {
               console.log(error.error)
               this.isConfirmLoading = false;
-              this.notification.errorNotification(error.error);
+              this.notification.errorNotification(error.error.message);
             },
         });
     }

@@ -12,6 +12,8 @@ import { presetColors } from 'ng-zorro-antd/core/color';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NotificationService } from '../../../../services/notification/notification.service';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-profiles-list',
   imports: [
@@ -52,18 +54,17 @@ export class ProfilesListComponent implements OnInit, OnDestroy {
   deleteUser(id: number): void {
     this.loadingUsers[id] = true;
     setTimeout(() => {
-    this.profilesService.deleteUser(id).subscribe({
-      next: () => {
-          this.notification.successNotification(
-            'Usuário deletado com sucesso!'
-          );
-        },
-        error: () => {
-          this.loadingUsers[id] = false;
-          this.notification.errorNotification('Erro ao deletar usuário');
-        },
-      });
-    }, 500);
+    this.profilesService.deleteUser(id)
+      .subscribe({
+            next: (response: ResponseMessage) => {
+              this.notification.successNotification(response.message);
+            },
+            error: (error: HttpErrorResponse) => {
+              this.loadingUsers[id] = false;
+              this.notification.errorNotification(error.error.message);
+            },
+          });
+        }, 500);
   }
 
   showModal(user: UsersModel): void {

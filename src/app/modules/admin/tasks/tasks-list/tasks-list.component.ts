@@ -1,3 +1,4 @@
+import { ResponseMessage } from './../../../../models/interfaces/ResponseMessage';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TasksModel } from '../../../../models/interfaces/tasks/TasksModel';
 import { NzTableModule } from 'ng-zorro-antd/table';
@@ -15,6 +16,7 @@ import { ProfilesService } from '../../../../services/profiles/profiles.service'
 import { NotificationService } from '../../../../services/notification/notification.service';
 import { DatePipe } from '@angular/common';
 import { TasksService } from '../../../../services/tasks/tasks.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-tasks-list',
@@ -65,18 +67,6 @@ export class TasksListComponent implements OnInit, OnDestroy {
     });
   }
 
-  getUserName(userId: number): string {
-    const user = this.usersData?.find((response) => response.id === userId);
-    return user ? user.nome : 'Usuário não encontrado';
-  }
-
-  getProjectName(projectId: number): string {
-    const project = this.projectsData?.find(
-      (response) => response.id === projectId
-    );
-    return project ? project.nome : 'Projeto não encontrado';
-  }
-
   dateFormater(date: Date): string | null {
     return this.datePipe.transform(date, 'dd/MM/yyyy');
   }
@@ -85,13 +75,13 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.loadingTasks[id] = true;
     setTimeout(() => {
       this.tasksService.deleteTask(id).subscribe({
-        next: () => {
+        next: (response: ResponseMessage) => {
           this.notification.successNotification(
-            'Atividade deletada com sucesso!'
+            response.message
           );
         },
-        error: () => {
-          this.notification.errorNotification('Erro ao deletar atividade!');
+        error: (error: HttpErrorResponse) => {
+          this.notification.errorNotification(error.error.message);
         },
       });
     }, 500);

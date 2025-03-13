@@ -1,45 +1,41 @@
 <form nz-form [formGroup]="hoursEditForm">
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-      >Usuário</nz-form-label
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24"
+      >Projeto</nz-form-label
     >
-      <nz-form-control
-        [nzSm]="14"
-        [nzXs]="24"
-      >
-        <nz-input-group>
-          <nz-select 
-          formControlName="id_usuario" 
-          nzShowSearch 
-          nzAllowClear 
-          nzPlaceHolder="Selecione o usuário">
-            @for(users of profilesName; track users.id)
-            {
-              <nz-option [nzLabel]="users.nome" [nzValue]="users.id"></nz-option>
-            }
-          </nz-select>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>  
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input
+      [disabled]="true" 
+        nz-input
+        [value] = "hourEdit.atividade.projeto.nome"
+      />
+    </nz-form-control>
+  </nz-form-item>  
   
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Atividade</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24">
-        <nz-input-group>
-          <nz-select
-            formControlName="id_atividade"
-            nzShowSearch
-            nzAllowClear
-            nzPlaceHolder="Selecione a atividade"
-          >
-            @for(task of tasksName; track task.id) {
-            <nz-option [nzLabel]="task.nome" [nzValue]="task.id"></nz-option>
-            }
-          </nz-select>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-  
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24"
+      >Atividade</nz-form-label
+    >
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input
+      [disabled]="true" 
+        nz-input
+        [value] = "hourEdit.atividade.nome"
+      />
+    </nz-form-control>
+  </nz-form-item>  
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24"
+      >Usuario</nz-form-label
+    >
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input
+      [disabled]="true" 
+        nz-input
+        [value] = "hourEdit.usuario.nome"
+      />
+    </nz-form-control>
+  </nz-form-item>  
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Descrição</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">

@@ -1,8 +1,8 @@
-<form nz-form [formGroup]="projectEditForm">
+<form (keyup.enter)="onSubmit()" nz-form [formGroup]="projectEditForm">
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Nome</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
-      <input nz-input formControlName="nome"/>
+      <input nz-input formControlName="nome" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -55,22 +55,20 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-    >Responsável</nz-form-label
-  >
-    <nz-form-control
-      [nzSm]="14"
-      [nzXs]="24"
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Responsável</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
       <nz-input-group>
-        <nz-select 
-        formControlName="id_usuario_responsavel" 
-        nzShowSearch 
-        nzAllowClear 
-        nzPlaceHolder="Selecione o usuário">
-          @for(usuario of profilesName; track usuario.id)
-          {
-            <nz-option [nzLabel]="usuario.nome" [nzValue]="usuario.id"></nz-option>
+        <nz-select
+          formControlName="id_usuario_responsavel"
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="Selecione o usuário"
+        >
+          @for(usuario of profilesName; track usuario.id) {
+          <nz-option
+            [nzLabel]="usuario.nome"
+            [nzValue]="usuario.id"
+          ></nz-option>
           }
         </nz-select>
       </nz-input-group>

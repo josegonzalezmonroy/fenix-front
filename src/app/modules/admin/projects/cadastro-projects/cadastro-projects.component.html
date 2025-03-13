@@ -1,4 +1,6 @@
-<form nz-form [formGroup]="projectForm">
+<form nz-form 
+(keyup.enter)="onSubmit()"
+[formGroup]="projectForm">
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
         >Nome</nz-form-label
@@ -111,10 +113,12 @@
         <nz-input-group>
           <nz-select
           nzMode="multiple"
-          nzPlaceHolder="Seleccione o usuário"
-          [nzOptions]="selectOptions"
+          nzPlaceHolder="Seleccione os usuários"
           formControlName="usuarios"
-        ></nz-select>       
+        >@for(usuario of profilesName; track usuario.id)
+        {
+          <nz-option [nzLabel]="usuario.nome" [nzValue]="usuario.id"></nz-option>
+        }</nz-select>       
        </nz-input-group>
       </nz-form-control>
     </nz-form-item>

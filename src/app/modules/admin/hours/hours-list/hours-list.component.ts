@@ -17,6 +17,8 @@ import { HoursService } from '../../../../services/hours/hours.service';
 import { ProjectsNameModel } from '../../../../models/interfaces/projects/response/ProjectsNameModel';
 import { TasksNameModel } from '../../../../models/interfaces/tasks/TasksNameModel';
 import { TasksService } from '../../../../services/tasks/tasks.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
 
 @Component({
   selector: 'app-hours-list',
@@ -95,8 +97,8 @@ export class HoursListComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(date, 'dd/MM/yyyy');
   }
 
-  hourFormater(date: Date): string | null{
-    return this.datePipe.transform(date, 'HH:mm')
+  hourFormater(date: Date): string | null {
+    return this.datePipe.transform(date, 'HH:mm');
   }
 
   segundosParaHHmm(segundos: number): string {
@@ -112,13 +114,12 @@ export class HoursListComponent implements OnInit, OnDestroy {
     this.loadingHours[id] = true;
     setTimeout(() => {
       this.hoursService.deleteHour(id).subscribe({
-        next: () => {
-          this.notification.successNotification(
-            'Atividade deletada com sucesso!'
-          );
+        next: (response: ResponseMessage) => {
+          this.notification.successNotification(response.message);
         },
-        error: () => {
-          this.notification.errorNotification('Erro ao deletar atividade!');
+        error: (error: HttpErrorResponse) => {
+          this.loadingHours[id] = false;
+          this.notification.errorNotification(error.error.message);
         },
       });
     }, 500);

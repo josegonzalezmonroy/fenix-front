@@ -5,6 +5,7 @@ import { UsersModel } from '../../models/interfaces/users/response/UsersModel';
 import { RegisterResponse } from '../../models/interfaces/users/response/RegisterResponse';
 import { UsersNameModel } from '../../models/interfaces/users/response/UsersNameModel';
 import { environment } from '../../../environments/environment';
+import { ResponseMessage } from '../../models/interfaces/ResponseMessage';
 
 @Injectable({
   providedIn: 'root',
@@ -33,28 +34,26 @@ export class ProfilesService {
     return this.http.get<UsersModel>(`${this.apiUrl}/${id}`);
   }
 
-  registerUser(user: UsersModel): Observable<RegisterResponse> {
-    return this.http.post<UsersModel>(this.apiUrl, user).pipe(
+  registerUser(user: UsersModel): Observable<ResponseMessage> {
+    return this.http.post<ResponseMessage>(this.apiUrl, user).pipe(
       tap(() => {
         this.getAllUsers().subscribe();
       })
     );
   }
 
-  updateUser(id: number, user: UsersModel): Observable<UsersModel> {
-    return this.http.patch<UsersModel>(`${this.apiUrl}/${id}`, user).pipe(
+  updateUser(id: number, user: UsersModel): Observable<ResponseMessage> {
+    return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, user).pipe(
       tap(() => {
         this.getAllUsers().subscribe();
       })
     );
   }
 
-  deleteUser(id: number) {
-    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
+  deleteUser(id: number) :Observable<ResponseMessage>{
+    return this.http.delete<ResponseMessage>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
-        this.getAllUsers().subscribe(() => {
-          console.log(`ID: ${id} deletado com sucesso`);
-        });
+        this.getAllUsers().subscribe();
       })
     );
   }

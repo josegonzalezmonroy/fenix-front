@@ -1,3 +1,4 @@
+import { ResponseMessage } from './../../../../models/interfaces/ResponseMessage';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TasksModel } from '../../../../models/interfaces/tasks/TasksModel';
 import {
@@ -18,6 +19,7 @@ import { UsersNameModel } from '../../../../models/interfaces/users/response/Use
 import { ProjectsNameModel } from '../../../../models/interfaces/projects/response/ProjectsNameModel';
 import { TasksService } from '../../../../services/tasks/tasks.service';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-task',
@@ -41,6 +43,9 @@ export class EditTaskComponent implements OnInit {
   isConfirmLoading = false;
   profilesName: Array<UsersNameModel> = [];
   projectsName: Array<ProjectsNameModel> = [];
+
+  profilesByProject = [{id: 1, nome:'luis'}]
+
 
   constructor(
     private profilesService: ProfilesService,
@@ -67,13 +72,11 @@ export class EditTaskComponent implements OnInit {
     });
 
     this.taskEditForm = new FormGroup({
-      id_projeto: new FormControl(this.taskEdit.id_projeto, [Validators.required]),
       nome: new FormControl(this.taskEdit.nome, [Validators.required]),
       descricao: new FormControl(this.taskEdit.descricao, [Validators.required]),
-      data_inicio: new FormControl(this.taskEdit.data_inicio, [Validators.required]),
-      data_fim: new FormControl(this.taskEdit.data_fim, [Validators.required]),
-      status: new FormControl(this.taskEdit.status, [Validators.required]),
-      id_usuario_responsavel: new FormControl(this.taskEdit.id_usuario_responsavel, [Validators.required])
+      data_inicio: new FormControl(this.taskEdit.dataInicio, [Validators.required]),
+      data_fim: new FormControl(this.taskEdit.dataFim, [Validators.required]),
+      status: new FormControl(this.taskEdit.status, [Validators.required])
     });
   }
 
@@ -85,17 +88,17 @@ export class EditTaskComponent implements OnInit {
         this.tasksService
           .updateTask(this.taskEdit.id!, this.taskEditForm.value)
           .subscribe({
-            next: () => {
+            next: (response: ResponseMessage) => {
               this.taskEditForm.reset();
               this.closeModal.emit();
               this.notification.successNotification(
-                'Atividade atualizada com sucesso'
+                response.message
               );
             },
-            error: () => {
+            error: (error: HttpErrorResponse) => {
               this.isConfirmLoading = false;
               this.notification.errorNotification(
-                'Erro ao atualizar atividade, tente novamente'
+                error.error.message
               );
             },
           });

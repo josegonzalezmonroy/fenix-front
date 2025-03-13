@@ -20,6 +20,29 @@
         </nz-select>
       </nz-input-group>
     </nz-form-control>
+  </nz-form-item> 
+  
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
+    >Projeto</nz-form-label
+  >
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+    >
+      <nz-input-group>
+        <nz-select  
+        formControlName="projeto" 
+        nzShowSearch 
+        nzAllowClear 
+        nzPlaceHolder="Selecione o projeto">
+          @for(project of projectsByProfile; track project.id)
+          {
+            <nz-option [nzLabel]="project.nome" [nzValue]="project.id"></nz-option>
+          }
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
   </nz-form-item>  
 
   <nz-form-item>

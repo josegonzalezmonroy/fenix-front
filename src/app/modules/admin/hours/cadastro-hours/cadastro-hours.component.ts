@@ -1,3 +1,4 @@
+import { ResponseMessage } from './../../../../models/interfaces/ResponseMessage';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TasksNameModel } from '../../../../models/interfaces/tasks/TasksNameModel';
 import { UsersNameModel } from '../../../../models/interfaces/users/response/UsersNameModel';
@@ -21,6 +22,7 @@ import { NotificationService } from '../../../../services/notification/notificat
 import { HoursModel } from '../../../../models/interfaces/hours/HoursModel';
 import { HoursService } from '../../../../services/hours/hours.service';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-cadastro-hours',
@@ -44,6 +46,7 @@ export class CadastroHoursComponent implements OnInit {
   profilesName: Array<UsersNameModel> = [];
   projectsName: Array<ProjectsNameModel> = [];
   tasksName: Array<TasksNameModel> = [];
+  projectsByProfile: Array<ProjectsNameModel> = [];
 
   selectedDate: Date | null = null;
   tempoTotal: string = '';
@@ -53,10 +56,11 @@ export class CadastroHoursComponent implements OnInit {
     private profilesService: ProfilesService,
     private tasksService: TasksService,
     private hoursService: HoursService,
-    private notification: NotificationService
+    private notification: NotificationService,
   ) {}
 
   hoursForm = new FormGroup({
+    projeto: new FormControl<number|null>(null),
     id_atividade: new FormControl<number | null>(null, [Validators.required]),
     id_usuario: new FormControl<number | null>(null, [Validators.required]),
     descricao: new FormControl<string>('', [Validators.required]),
@@ -66,27 +70,11 @@ export class CadastroHoursComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.setupChangeListener();
+    
     this.profilesService.getAllUsersName().subscribe({
       next: (users) => {
         this.profilesName = users;
-      },
-      error: (erro) => {
-        console.log('Erro:', erro);
-      },
-    });
-
-    this.projectsService.getAllProjectsName().subscribe({
-      next: (projects) => {
-        this.projectsName = projects;
-      },
-      error: (erro) => {
-        console.log('Erro:', erro);
-      },
-    });
-
-    this.tasksService.getAllTasksName().subscribe({
-      next: (tasks) => {
-        this.tasksName = tasks;
       },
       error: (erro) => {
         console.log('Erro:', erro);
@@ -101,6 +89,62 @@ export class CadastroHoursComponent implements OnInit {
       this.onValidateHour();
     });
   }
+
+      setupChangeListener(): void {
+        this.hoursForm.get('id_usuario')?.valueChanges.subscribe((userId) => {
+          if (userId) {
+            this.loadProjectsByUser(userId);
+            this.hoursForm.patchValue({
+              projeto: null,
+              id_atividade: null
+            })
+          } else {
+            this.projectsByProfile = []; 
+          }
+        });
+
+        this.hoursForm.get('projeto')?.valueChanges.subscribe(
+          projectId=>
+            {
+              const userId = this.hoursForm.get('id_usuario')?.value;
+              if (projectId)
+              {
+                console.log('usuario', this.hoursForm.get('id_usuario')?.value)
+                if(userId)
+                {
+                  this.loadTaskByProject(userId, projectId)
+                }
+                
+                this.hoursForm.patchValue({
+                  id_atividade: null
+                })
+              }
+            }
+        )
+      }
+
+  loadProjectsByUser(userId: number): void {
+    this.projectsService.getProjectsByUserId
+    (userId).subscribe({
+      next: (users) => {
+        this.projectsByProfile = users;
+      },
+      error: () => {
+        this.notification.errorNotification('Erro ao carregar projetos do usuario');
+      },
+    });
+  }
+
+    loadTaskByProject(idUsuario:number, projetoId: number):void {
+      this.tasksService.getTaskByProject(idUsuario, projetoId).subscribe({
+        next: tasks=>{
+          this.tasksName = tasks
+        },
+        error:()=> {
+          this.notification.errorNotification('Erro ao carregar atividades do usuario');
+        },
+      })
+    }
 
   onSubmit(): void {
     if (this.hoursForm.valid && this.selectedDate) {
@@ -121,18 +165,18 @@ export class CadastroHoursComponent implements OnInit {
       this.hoursService
         .registerHour(this.hoursForm.value as HoursModel)
         .subscribe({
-          next: () => {
+          next: (response: ResponseMessage) => {
             setTimeout(() => {
               console.log(this.hoursForm.value);
               this.hoursForm.reset();
               this.closeModal.emit();
-              this.notification.successNotification('Hora lançada com sucesso');
+              this.notification.successNotification(response.message);
               this.isConfirmLoading = false;
             }, 500);
           },
-          error: () => {
+          error: (error: HttpErrorResponse) => {
             this.isConfirmLoading = false;
-            this.notification.errorNotification('Erro ao lançar atividade');
+            this.notification.errorNotification(error.error.message);
           },
         });
     }

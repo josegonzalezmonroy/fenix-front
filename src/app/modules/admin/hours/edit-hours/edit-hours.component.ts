@@ -1,3 +1,4 @@
+import { ResponseMessage } from './../../../../models/interfaces/ResponseMessage';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HoursModel } from '../../../../models/interfaces/hours/HoursModel';
 import {
@@ -21,6 +22,8 @@ import { ProfilesService } from '../../../../services/profiles/profiles.service'
 import { TasksService } from '../../../../services/tasks/tasks.service';
 import { HoursService } from '../../../../services/hours/hours.service';
 import { NotificationService } from '../../../../services/notification/notification.service';
+import { HoursEditModel } from '../../../../models/interfaces/hours/HoursEditModel';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-hours',
@@ -88,52 +91,50 @@ export class EditHoursComponent implements OnInit {
     });
 
     this.hoursEditForm = new FormGroup({
-      id_atividade: new FormControl(this.hourEdit.id_atividade, [
-        Validators.required,
-      ]),
-      id_usuario: new FormControl(this.hourEdit.id_usuario, [
-        Validators.required,
-      ]),
-      descricao: new FormControl(this.hourEdit.descricao, [
+      id_atividade: new FormControl<number>(this.hourEdit.atividade.id),
+      id_usuario: new FormControl<number>(this.hourEdit.usuario.id),
+      descricao: new FormControl<string>(this.hourEdit.descricao, [
         Validators.required,
       ]),
       data_inicio: new FormControl<Date | null>(
-        new Date(this.hourEdit.data_inicio),
+        new Date(this.hourEdit.dataInicio),
         [Validators.required]
       ),
-      data_fim: new FormControl<Date | null>(new Date(this.hourEdit.data_fim), [
+      data_fim: new FormControl<Date | null>(new Date(this.hourEdit.dataFim), [
         Validators.required,
       ]),
-      segundos_totais: new FormControl(this.hourEdit.segundos_totais, [
-        Validators.required,
-      ]),
+      // segundos_totais: new FormControl(this.hourEdit.segundos_totais, [
+      //   Validators.required,
+      // ]),
     });
 
-    this.tempoTotal = this.segundosParaHHmm(this.hourEdit.segundos_totais);
+    // this.tempoTotal = this.segundosParaHHmm(this.hourEdit.segundos_totais);
 
-    this.selectedDate = this.hourEdit.data_inicio;
+    this.selectedDate = this.hourEdit.dataInicio;
   }
 
   onSubmit(): void {
+    console.log('lancamento', this.hoursEditForm.value)
     if (this.hoursEditForm.valid && this.selectedDate) {
       this.isConfirmLoading = true;
+      console.log('id', this.hourEdit.id)
       this.hoursService
-        .updateHour(this.hourEdit.id, this.hoursEditForm.value as HoursModel)
+        .updateHour(this.hourEdit.id, this.hoursEditForm.value as HoursEditModel)
         .subscribe({
-          next: () => {
+          next: (response: ResponseMessage) => {
             setTimeout(() => {
               console.log(this.hoursEditForm.value);
               this.hoursEditForm.reset();
               this.closeModal.emit();
               this.notification.successNotification(
-                'Hora atualizada com sucesso'
+                response.message
               );
               this.isConfirmLoading = false;
             }, 500);
           },
-          error: () => {
+          error: (error: HttpErrorResponse) => {
             this.isConfirmLoading = false;
-            this.notification.errorNotification('Erro ao atualizar hora');
+            this.notification.errorNotification(error.error.message);
           },
         });
     }

@@ -1,3 +1,4 @@
+import { ResponseMessage } from './../../../../models/interfaces/ResponseMessage';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -13,6 +14,7 @@ import {
 import { ProfilesService } from '../../../../services/profiles/profiles.service';
 import { UsersModel } from '../../../../models/interfaces/users/response/UsersModel';
 import { NotificationService } from '../../../../services/notification/notification.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -39,10 +41,7 @@ export class CadastroUsuarioComponent {
   profileForm = new FormGroup({
     nome: new FormControl<string>('', [Validators.required]),
     email: new FormControl<string>('', [Validators.required, Validators.email]),
-    senha: new FormControl<string>('', [Validators.required]),
-    data_criacao: new FormControl<Date>(new Date(), [
-      Validators.required,
-    ])
+    senha: new FormControl<string>('', [Validators.required])
   });
 
   onSubmit(): void {
@@ -52,19 +51,20 @@ export class CadastroUsuarioComponent {
       this.profilesService
         .registerUser(this.profileForm.value as UsersModel)
         .subscribe({
-          next: () => {
+          next: (response: ResponseMessage) => {
             setTimeout(() => {
               this.profileForm.reset();
               this.closeModal.emit();
               this.notification.successNotification(
-                'Usuario criado com sucesso'
+                response.message
               );
               this.isConfirmLoading = false;
+              console.log(response)
             }, 500);
           },
-          error: () => {
+          error: (error: HttpErrorResponse) => {
             this.isConfirmLoading = false;
-            this.notification.errorNotification('Erro ao criar usuário');
+            this.notification.errorNotification(error.error.message);
           },
         });
     }

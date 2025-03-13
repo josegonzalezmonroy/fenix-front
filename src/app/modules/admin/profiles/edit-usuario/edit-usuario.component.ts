@@ -15,6 +15,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 import { ProfilesService } from '../../../../services/profiles/profiles.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
 @Component({
   selector: 'app-edit-usuario',
   imports: [
@@ -47,29 +49,39 @@ export class EditUsuarioComponent implements OnInit {
         Validators.required,
         Validators.email,
       ]),
-      senha: new FormControl(this.userEdit.senha, [Validators.required]),
+      senha: new FormControl(this.userEdit.senha),
       perfil: new FormControl(this.userEdit.perfil, [Validators.required]),
     });
   }
 
   onSubmit(): void {
     if (this.profileEditForm.valid) {
+
+      if (!this.profileEditForm.get('senha')?.value) {
+        this.profileEditForm.get('senha')?.setValue(null);
+      }
+      
+      console.log(this.profileEditForm.value)
       this.isConfirmLoading = true;
       setTimeout(() => {
         this.profilesService
           .updateUser(this.userEdit.id, this.profileEditForm.value)
           .subscribe({
-            next: () => {
+            next: (response: ResponseMessage) => {
               this.profileEditForm.reset();
               this.closeModal.emit();
+      console.log(response.message)
+
               this.notification.successNotification(
-                'Usuário atualizado com sucesso'
+                response.message
               );
             },
-            error: () => {
+            error: (error: HttpErrorResponse) => {
               this.isConfirmLoading = false;
+      console.log(error.error.message)
+
               this.notification.errorNotification(
-                'Erro ao atualizar usuário, tente novamente'
+                error.error.message
               );
             },
           });

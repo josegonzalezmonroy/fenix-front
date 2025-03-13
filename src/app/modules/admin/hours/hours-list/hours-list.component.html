@@ -24,13 +24,13 @@
   <tbody>
     @for (data of hoursData; track data.id) {
     <tr>
-      <td>{{ getTaskName(data.id_atividade) }}</td>
+      <td>{{ data.atividade.nome }}</td>
       <td>{{ data.descricao }}</td>
-      <td>{{ getUserName(data.id_usuario) }}</td>
-      <td>{{ dateFormater(data.data_inicio) }}</td>
-      <td>{{ hourFormater(data.data_inicio) }}</td>
-      <td>{{ hourFormater(data.data_fim) }}</td>
-      <td>{{ segundosParaHHmm(data.segundos_totais) }}</td>
+      <td>{{ data.usuario.nome }}</td>
+      <td>{{ dateFormater(data.dataInicio) }}</td>
+      <td>{{ hourFormater(data.dataInicio) }}</td>
+      <td>{{ hourFormater(data.dataFim) }}</td>
+      <td>{{ segundosParaHHmm(3600) }}</td>
       <td id="botoes">
         <button
           nz-button

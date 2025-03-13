@@ -9,7 +9,7 @@
         >
           <nz-input-group>
             <nz-select 
-            formControlName="id_projeto" 
+            formControlName="projeto" 
             nzShowSearch 
             nzAllowClear 
             nzPlaceHolder="Selecione o projeto">
@@ -77,17 +77,17 @@
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
         <nz-input-group>
           <nz-select formControlName="status">
-            <nz-option nzLabel="Planejado" nzValue="PLANEJADO"></nz-option>
-            <nz-option nzLabel="En andamento" nzValue="EM_ANDAMENTO"></nz-option>
-            <nz-option nzLabel="Concluído" nzValue="CONCLUIDO"></nz-option>
-            <nz-option nzLabel="Cancelado" nzValue="CANCELADO"></nz-option>
+            <nz-option nzLabel="Aberta" nzValue="ABERTA"></nz-option>
+            <nz-option nzLabel="Em andamento" nzValue="EM_ANDAMENTO"></nz-option>
+            <nz-option nzLabel="Pausada" nzValue="PAUSADA"></nz-option>
+            <nz-option nzLabel="Concluída" nzValue="CONCLUIDA"></nz-option>
           </nz-select>
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-      >Responsável</nz-form-label
+      >Usuários</nz-form-label
     >
       <nz-form-control
         [nzSm]="14"
@@ -95,11 +95,12 @@
       >
         <nz-input-group>
           <nz-select 
-          formControlName="id_usuario_responsavel" 
+          nzMode="multiple"
+          formControlName="usuarios" 
           nzShowSearch 
           nzAllowClear 
-          nzPlaceHolder="Selecione o usuário">
-            @for(usuario of profilesName; track usuario.id)
+          nzPlaceHolder="Selecione os usuários">
+            @for(usuario of profilesByProject; track usuario.id)
             {
               <nz-option [nzLabel]="usuario.nome" [nzValue]="usuario.id"></nz-option>
             }

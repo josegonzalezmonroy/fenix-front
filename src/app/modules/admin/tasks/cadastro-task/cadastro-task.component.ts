@@ -1,3 +1,4 @@
+import { ResponseMessage } from './../../../../models/interfaces/ResponseMessage';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UsersNameModel } from '../../../../models/interfaces/users/response/UsersNameModel';
 import { ProjectsService } from '../../../../services/projects/projects.service';
@@ -18,6 +19,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { TasksService } from '../../../../services/tasks/tasks.service';
 import { TasksModel } from '../../../../models/interfaces/tasks/TasksModel';
+import { HttpErrorResponse } from '@angular/common/http';
+import { TasksCreateModel } from '../../../../models/interfaces/tasks/TasksCreateModel';
 
 @Component({
   selector: 'app-cadastro-task',
@@ -37,8 +40,8 @@ export class CadastroTaskComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
 
   isConfirmLoading = false;
-  profilesName: Array<UsersNameModel> = [];
   projectsName: Array<ProjectsNameModel> = [];
+  profilesByProject: Array<UsersNameModel> = [];
 
   constructor(
     private projectsService: ProjectsService,
@@ -48,28 +51,17 @@ export class CadastroTaskComponent implements OnInit {
   ) {}
 
   taskForm = new FormGroup({
-    id_projeto: new FormControl<number | null>(null, [Validators.required]),
+    projeto: new FormControl<number | null>(null, [Validators.required]),
     nome: new FormControl<string>('', [Validators.required]),
-    descricao: new FormControl('', [Validators.required]),
+    descricao: new FormControl<string>('', [Validators.required]),
     data_inicio: new FormControl<Date | null>(null, [Validators.required]),
     data_fim: new FormControl<Date | null>(null, [Validators.required]),
-    status: new FormControl('', [Validators.required]),
-    id_usuario_responsavel: new FormControl<number | null>(null, [
-      Validators.required,
-    ]),
-    data_criacao: new FormControl<Date>(new Date(), [Validators.required]),
+    status: new FormControl<string>('', [Validators.required]),
+    usuarios: new FormControl<number[]>([], [Validators.required])
   });
 
   ngOnInit(): void {
-    this.profilesService.getAllUsersName().subscribe({
-      next: (users) => {
-        this.profilesName = users;
-      },
-      error: () => {
-        this.notification.errorNotification('Erro ao carregar usuarios');
-      },
-    });
-
+    this.setupProjetoChangeListener();
     this.projectsService.getAllProjectsName().subscribe({
       next: (projects) => {
         this.projectsName = projects;
@@ -80,25 +72,53 @@ export class CadastroTaskComponent implements OnInit {
     });
   }
 
+    // Escuchar cambios en el campo 'projeto'
+    setupProjetoChangeListener(): void {
+      this.taskForm.get('projeto')?.valueChanges.subscribe((projectId) => {
+        if (projectId) {
+          this.taskForm.patchValue({
+            usuarios: [],
+          });          
+          this.loadUsersByProjectId(projectId);
+        } else {
+          this.profilesByProject = []; // Limpiar la lista si no hay proyecto seleccionado
+        }
+      });
+    }
+
+      // Cargar usuarios asociados al proyecto seleccionado
+  loadUsersByProjectId(projectId: number): void {
+    this.projectsService.getUsersByProjectId
+    (projectId).subscribe({
+      next: (users) => {
+        this.profilesByProject = users;
+      },
+      error: () => {
+        this.notification.errorNotification('Erro ao carregar usuarios do projeto');
+      },
+    });
+  }
+
   onSubmit(): void {
     if (this.taskForm.valid) {
+      console.log(this.taskForm.value)
       this.isConfirmLoading = true;
       this.tasksService
-        .registerTask(this.taskForm.value as TasksModel)
+        .registerTask(this.taskForm.value as TasksCreateModel)
         .subscribe({
-          next: () => {
+          next: (response: ResponseMessage) => {
             setTimeout(() => {
               this.taskForm.reset();
               this.closeModal.emit();
               this.notification.successNotification(
-                'Atividade criada com sucesso'
+                response.message
               );
               this.isConfirmLoading = false;
             }, 500);
           },
-          error: () => {
+          error: (error: HttpErrorResponse) => {
             this.isConfirmLoading = false;
-            this.notification.errorNotification('Erro ao criar atividade');
+            this.notification.errorNotification(error.error.message);
           },
         });
     }

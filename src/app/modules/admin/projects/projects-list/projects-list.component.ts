@@ -74,7 +74,7 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
         },
         error: (error: HttpErrorResponse) => {
           this.loadingProjects[id] = false;
-          this.notification.errorNotification(error.error);
+          this.notification.errorNotification(error.error.message);
         },
       });
     }, 500);

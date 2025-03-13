@@ -1,27 +1,17 @@
 <form nz-form [formGroup]="taskEditForm">
-    <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-        >Projeto</nz-form-label
-      >
-        <nz-form-control
-          [nzSm]="14"
-          [nzXs]="24"
-        >
-          <nz-input-group>
-            <nz-select 
-            formControlName="id_projeto" 
-            nzShowSearch 
-            nzAllowClear 
-            nzPlaceHolder="Selecione o projeto">
-              @for(project of projectsName; track project.id)
-              {
-                <nz-option [nzLabel]="project.nome" [nzValue]="project.id"></nz-option>
-              }
-            </nz-select>
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>  
-    <nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24"
+      >Projeto</nz-form-label
+    >
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input
+      [disabled]="true" 
+        nz-input
+        [value] = "taskEdit.projeto.nome"
+      />
+    </nz-form-control>
+  </nz-form-item>  
+  <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
         >Nome</nz-form-label
       >
@@ -77,37 +67,15 @@
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
         <nz-input-group>
           <nz-select formControlName="status">
-            <nz-option nzLabel="Planejado" nzValue="PLANEJADO"></nz-option>
-            <nz-option nzLabel="En andamento" nzValue="EM_ANDAMENTO"></nz-option>
-            <nz-option nzLabel="Concluído" nzValue="CONCLUIDO"></nz-option>
-            <nz-option nzLabel="Cancelado" nzValue="CANCELADO"></nz-option>
+            <nz-option nzLabel="Aberta" nzValue="ABERTA"></nz-option>
+            <nz-option nzLabel="Em andamento" nzValue="EM_ANDAMENTO"></nz-option>
+            <nz-option nzLabel="Pausada" nzValue="PAUSADA"></nz-option>
+            <nz-option nzLabel="Concluída" nzValue="CONCLUIDA"></nz-option>
           </nz-select>
         </nz-input-group>
       </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-      >Responsável</nz-form-label
-    >
-      <nz-form-control
-        [nzSm]="14"
-        [nzXs]="24"
-      >
-        <nz-input-group>
-          <nz-select 
-          formControlName="id_usuario_responsavel" 
-          nzShowSearch 
-          nzAllowClear 
-          nzPlaceHolder="Selecione o usuário">
-            @for(usuario of profilesName; track usuario.id)
-            {
-              <nz-option [nzLabel]="usuario.nome" [nzValue]="usuario.id"></nz-option>
-            }
-          </nz-select>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-  
+    </nz-form-item>  
+    
     <nz-form-item nz-row class="register-area">
       <nz-form-control [nzSpan]="14" [nzOffset]="6">
         <button nz-button nzType="primary" type="button" [disabled]="!taskEditForm.valid" [nzLoading]="isConfirmLoading"

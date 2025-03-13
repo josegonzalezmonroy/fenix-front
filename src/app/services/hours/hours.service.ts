@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HoursModel } from '../../models/interfaces/hours/HoursModel';
 import { environment } from '../../../environments/environment';
+import { HoursEditModel } from '../../models/interfaces/hours/HoursEditModel';
+import { ResponseMessage } from '../../models/interfaces/ResponseMessage';
 
 @Injectable({
   providedIn: 'root',
@@ -20,22 +22,22 @@ export class HoursService {
       .pipe(tap((hours) => this.hoursSubject.next(hours)));
   }
 
-  registerHour(hour: HoursModel): Observable<HoursModel> {
+  registerHour(hour: HoursModel): Observable<ResponseMessage> {
     return this.http
-      .post<HoursModel>(this.apiUrl, hour)
+      .post<ResponseMessage>(this.apiUrl, hour)
       .pipe(tap(() => this.getAllHours().subscribe()))
   }
 
-  updateHour(id: number, hour: HoursModel): Observable<HoursModel> {
-      return this.http.patch<HoursModel>(`${this.apiUrl}/${id}`, hour).pipe(
+  updateHour(id: number, hour: HoursEditModel): Observable<ResponseMessage> {
+      return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, hour).pipe(
         tap(() => {
           this.getAllHours().subscribe();
         })
       );
     }
 
-  deleteHour(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+  deleteHour(id: number): Observable<ResponseMessage> {
+    return this.http.delete<ResponseMessage>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         this.getAllHours().subscribe();
       })

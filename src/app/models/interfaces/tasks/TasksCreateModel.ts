@@ -1,8 +1,8 @@
 import { ProjectsNameModel } from "../projects/response/ProjectsNameModel"
 
-export interface TasksModel{
+export interface TasksCreateModel{
     id: number
-    projeto: ProjectsNameModel
+    projeto: number
     nome: string
     descricao: string
     dataInicio: Date
