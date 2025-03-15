@@ -1,9 +1,11 @@
 <nz-layout>
-  <nz-header>
-    <h1>Projeto Final</h1>
-  </nz-header>
   <nz-content>
-    <h2>Fazer login</h2>
+    <div class="left">
+      <img class="imagem" src="/logo.png" />
+    </div>
+
+  <div class="right login-content">
+    <h2 nz-typography>Entre na sua conta</h2>
     <form
       nz-form
       [formGroup]="formulario"
@@ -37,9 +39,9 @@
       <button nz-button nzType="primary" type="button" [disabled]="!formulario.valid" [nzLoading]="isConfirmLoading"
       nzShape="round"
       (click)="onSubmit()">
-        Log in
+        Entrar
       </button>
     </form>
+    </div>
   </nz-content>
-  <nz-footer>Footer</nz-footer>
 </nz-layout>

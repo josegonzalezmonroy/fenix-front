@@ -67,8 +67,8 @@ export class EditHoursComponent implements OnInit {
       next: (users) => {
         this.profilesName = users;
       },
-      error: (erro) => {
-        console.log('Erro:', erro);
+      error: () => {
+        this.notification.errorNotification("Erro ao carregar usuários");
       },
     });
 
@@ -76,8 +76,8 @@ export class EditHoursComponent implements OnInit {
       next: (projects) => {
         this.projectsName = projects;
       },
-      error: (erro) => {
-        console.log('Erro:', erro);
+      error: () => {
+        this.notification.errorNotification("Erro ao carregar projetos");
       },
     });
 
@@ -85,8 +85,8 @@ export class EditHoursComponent implements OnInit {
       next: (tasks) => {
         this.tasksName = tasks;
       },
-      error: (erro) => {
-        console.log('Erro:', erro);
+      error: () => {
+        this.notification.errorNotification("Erro ao carregar atividades");
       },
     });
 
@@ -103,27 +103,19 @@ export class EditHoursComponent implements OnInit {
       data_fim: new FormControl<Date | null>(new Date(this.hourEdit.dataFim), [
         Validators.required,
       ]),
-      // segundos_totais: new FormControl(this.hourEdit.segundos_totais, [
-      //   Validators.required,
-      // ]),
     });
-
-    // this.tempoTotal = this.segundosParaHHmm(this.hourEdit.segundos_totais);
 
     this.selectedDate = this.hourEdit.dataInicio;
   }
 
   onSubmit(): void {
-    console.log('lancamento', this.hoursEditForm.value)
     if (this.hoursEditForm.valid && this.selectedDate) {
       this.isConfirmLoading = true;
-      console.log('id', this.hourEdit.id)
       this.hoursService
         .updateHour(this.hourEdit.id, this.hoursEditForm.value as HoursEditModel)
         .subscribe({
           next: (response: ResponseMessage) => {
             setTimeout(() => {
-              console.log(this.hoursEditForm.value);
               this.hoursEditForm.reset();
               this.closeModal.emit();
               this.notification.successNotification(

@@ -14,6 +14,8 @@ import { NotificationService } from '../../../../services/notification/notificat
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 @Component({
   selector: 'app-profiles-list',
   imports: [
@@ -24,7 +26,9 @@ import { HttpErrorResponse } from '@angular/common/http';
     NzPopconfirmModule,
     NzTagModule,
     EditUsuarioComponent,
+    NzTypographyModule
   ],
+  providers: [DatePipe],
   templateUrl: './profiles-list.component.html',
   styleUrl: './profiles-list.component.less',
 })
@@ -40,7 +44,8 @@ export class ProfilesListComponent implements OnInit, OnDestroy {
 
   constructor(
     private profilesService: ProfilesService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +54,10 @@ export class ProfilesListComponent implements OnInit, OnDestroy {
       .subscribe((profiles) => (this.profilesData = profiles));
 
     this.profilesService.getAllUsers().subscribe();
+  }
+  
+  dateFormater(date: Date): string | null {
+    return this.datePipe.transform(date, 'dd/MM/yyyy - HH:mm');
   }
 
   deleteUser(id: number): void {

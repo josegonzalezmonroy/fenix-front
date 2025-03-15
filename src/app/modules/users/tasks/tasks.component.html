@@ -1,0 +1,63 @@
+<h3 nz-typography>Atividades</h3>
+<nz-table
+  #headerTable
+  [nzData]="tasksData"
+  [nzPageSize]="50"
+  [nzBordered]="true"
+  [nzShowSizeChanger]="true"
+  [nzScroll]="{ y: '340px' }"
+>
+  <thead>
+    <tr>
+      <th rowspan="2">Nome</th>
+      <th rowspan="2">Projeto</th>
+      <th colspan="2">Datas</th>
+      <th rowspan="2">Estatus</th>
+      <th rowspan="2">Ações</th>
+    </tr>
+    <tr>
+      <th rowspan="1">Início</th>
+      <th rowspan="1">Final</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of tasksData; track data.id) {
+    <tr>
+      <td>{{ data.nome }}</td>
+      <td>{{ data.projeto.nome }}</td>
+      <td>{{ dateFormater(data.dataInicio) }}</td>
+      @if(atividadeAtrasada(data)) {
+      <td>
+        <nz-tag [nzColor]="presetColors[1]">{{
+          dateFormater(data.dataInicio)
+        }}</nz-tag>
+      </td>
+      } @else{
+      <td>{{ dateFormater(data.dataFim) }}</td>
+      } @if(data.status === 'EM_ANDAMENTO') {
+      <td><nz-tag [nzColor]="presetColors[8]">Em andamento</nz-tag></td>
+      } @if(data.status === 'ABERTA') {
+      <td><nz-tag [nzColor]="presetColors[6]">Aberta</nz-tag></td>
+      } @if(data.status === 'CONCLUIDA') {
+      <td><nz-tag [nzColor]="presetColors[5]">Concluida</nz-tag></td>
+      } @if(data.status === 'PAUSADA') {
+      <td><nz-tag [nzColor]="presetColors[1]">Pausada</nz-tag></td>
+      }
+
+      <td id="botoes">
+        <button
+          nz-button
+          nzType="default"
+          nzSize="large"
+          nzShape="circle"
+          (click)="showModal(data)"
+          class="custom-button"
+        >
+          <nz-icon nzType="expand-alt" nzTheme="outline" />
+        </button>
+      </td>
+    </tr>
+    }
+  </tbody></nz-table
+>
+

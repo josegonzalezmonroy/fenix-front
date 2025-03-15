@@ -57,6 +57,15 @@ export class AuthService {
     return null;
   }
 
+  getUserId(): number | null {
+    const token = localStorage.getItem(this.tokenKey);
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.sub; 
+    }
+    return null;
+  }
+
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     this.router.navigate(['/login']);

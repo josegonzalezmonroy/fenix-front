@@ -76,8 +76,8 @@ export class CadastroHoursComponent implements OnInit {
       next: (users) => {
         this.profilesName = users;
       },
-      error: (erro) => {
-        console.log('Erro:', erro);
+      error: () => {
+        this.notification.errorNotification('Erro ao carregar os usuários');
       },
     });
 
@@ -109,7 +109,6 @@ export class CadastroHoursComponent implements OnInit {
               const userId = this.hoursForm.get('id_usuario')?.value;
               if (projectId)
               {
-                console.log('usuario', this.hoursForm.get('id_usuario')?.value)
                 if(userId)
                 {
                   this.loadTaskByProject(userId, projectId)
@@ -167,7 +166,6 @@ export class CadastroHoursComponent implements OnInit {
         .subscribe({
           next: (response: ResponseMessage) => {
             setTimeout(() => {
-              console.log(this.hoursForm.value);
               this.hoursForm.reset();
               this.closeModal.emit();
               this.notification.successNotification(response.message);

@@ -1,0 +1,76 @@
+<h3 nz-typography>Projetos</h3>
+<nz-table
+  #headerTable
+  [nzData]="projectsData"
+  [nzBordered]="true"
+  [nzShowSizeChanger]="true"
+  [nzScroll]="{ y: '340px' }"
+>
+  <thead>
+    <tr>
+      <th rowspan="2">Nome</th>
+      <th rowspan="2">Responsável</th>
+      <th colspan="2">Datas</th>
+      <th rowspan="2">Prioridade</th>
+      <th rowspan="2">Estatus</th>
+      <th rowspan="2">Detalhes</th>
+    </tr>
+    <tr>
+      <th rowspan="1">Início</th>
+      <th rowspan="1">Final</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of projectsData; track data.id) {
+    <tr>
+      <td>{{ data.nome }}</td>
+      <td>{{ data.usuarioResponsavel.nome }}</td>
+      <td>{{ dateFormater(data.dataInicio) }}</td>
+      @if(projetoAtrasado(data))
+      {
+        <td><nz-tag [nzColor]="presetColors[1]">{{ dateFormater(data.dataInicio) }}</nz-tag></td>
+      }
+      @else{
+        <td>{{ dateFormater(data.dataFim) }}</td>
+      }
+      @if(data.prioridade == 'ALTA')
+      {
+        <td><nz-tag [nzColor]="presetColors[6]">Alta</nz-tag></td>
+      }
+      @if(data.prioridade == 'MEDIA')
+      {
+        <td><nz-tag [nzColor]="presetColors[10]">Media</nz-tag></td>
+      }
+      @if(data.prioridade == 'BAIXA')
+      {
+        <td><nz-tag [nzColor]="presetColors[12]">Baixa</nz-tag></td>
+      }
+      
+      @if(data.status === 'EM_ANDAMENTO') {
+      <td><nz-tag [nzColor]="presetColors[8]">Em andamento</nz-tag></td>
+      }
+      @if(data.status === 'PLANEJADO') {
+        <td><nz-tag [nzColor]="presetColors[3]">Planejado</nz-tag></td>
+      }
+      @if(data.status === 'CONCLUIDO') {
+        <td><nz-tag [nzColor]="presetColors[5]">Concluido</nz-tag></td>
+      }      
+      @if(data.status === 'CANCELADO') {
+        <td><nz-tag [nzColor]="presetColors[1]">Cancelado</nz-tag></td>
+      }
+      <td id="botoes">
+        <button
+          nz-button
+          nzType="default"
+          nzSize="large"
+          nzShape="circle"
+          (click)="showModal(data)"
+          class="custom-button"
+        >
+        <nz-icon nzType="expand-alt" nzTheme="outline" />
+        </button>        
+      </td>
+    </tr>
+    }
+  </tbody></nz-table
+>

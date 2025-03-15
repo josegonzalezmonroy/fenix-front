@@ -18,10 +18,11 @@ export class ProjectsService {
   constructor(private http: HttpClient) {}
 
   getAllProjects(): Observable<Array<ProjectsModel>> {
-    return this.http
-      .get<Array<ProjectsModel>>(this.apiUrl)
-      .pipe(tap((projects) => {
-        this.projectsSubject.next(projects)}));
+    return this.http.get<Array<ProjectsModel>>(this.apiUrl).pipe(
+      tap((projects) => {
+        this.projectsSubject.next(projects);
+      })
+    );
   }
 
   getAllProjectsName(): Observable<Array<ProjectsNameModel>> {
@@ -32,21 +33,26 @@ export class ProjectsService {
       );
   }
 
-    registerProject(project: ProjectsModel): Observable<ResponseMessage> {
-      return this.http.post<ResponseMessage>(this.apiUrl, project).pipe(
-        tap(() => {
-          this.getAllProjects().subscribe();
-        })
-      );
-    }
+  registerProject(project: ProjectsModel): Observable<ResponseMessage> {
+    return this.http.post<ResponseMessage>(this.apiUrl, project).pipe(
+      tap(() => {
+        this.getAllProjects().subscribe();
+      })
+    );
+  }
 
-    updateProject(id: number, project: ProjectsModel): Observable<ResponseMessage> {
-      return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, project).pipe(
+  updateProject(
+    id: number,
+    project: ProjectsModel
+  ): Observable<ResponseMessage> {
+    return this.http
+      .patch<ResponseMessage>(`${this.apiUrl}/${id}`, project)
+      .pipe(
         tap(() => {
           this.getAllProjects().subscribe();
         })
       );
-    }
+  }
 
   deleteProject(id: number): Observable<ResponseMessage> {
     return this.http.delete<ResponseMessage>(`${this.apiUrl}/${id}`).pipe(
@@ -57,10 +63,22 @@ export class ProjectsService {
   }
 
   getUsersByProjectId(projectId: number): Observable<UsersNameModel[]> {
-    return this.http.get<UsersNameModel[]>(`${this.apiUrl}/${projectId}/usuarios`);
+    return this.http.get<UsersNameModel[]>(
+      `${this.apiUrl}/${projectId}/usuarios`
+    );
   }
 
   getProjectsByUserId(userId: number): Observable<UsersNameModel[]> {
     return this.http.get<UsersNameModel[]>(`${this.apiUrl}/usuario/${userId}`);
+  }
+
+  getAllProjectsOfScopeUsuario(): Observable<ProjectsModel[]> {
+    return this.http
+      .get<ProjectsModel[]>(`${environment.apiUrl}/user/projetos`)
+      .pipe(
+        tap((projects) => {
+          this.projectsSubject.next(projects);
+        })
+      );
   }
 }

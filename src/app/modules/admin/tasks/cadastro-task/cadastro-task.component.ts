@@ -101,7 +101,6 @@ export class CadastroTaskComponent implements OnInit {
 
   onSubmit(): void {
     if (this.taskForm.valid) {
-      console.log(this.taskForm.value)
       this.isConfirmLoading = true;
       this.tasksService
         .registerTask(this.taskForm.value as TasksCreateModel)

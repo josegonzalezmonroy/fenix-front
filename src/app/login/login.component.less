@@ -1,30 +1,55 @@
 :host {
-    text-align: center;
-  }
+  text-align: center;
+}
 
-  nz-header,
-  nz-footer {
-    background: #7dbcea;
-    color: #fff;
-  }
-  
-  nz-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: aquamarine;
-    color: #fff;
-    min-height: 120px;
-    line-height: 120px;
-  }
+nz-header,
+nz-footer {
+  background: #7dbcea;
+  color: #fff;
+}
 
-  nz-layout {
-    margin-bottom: 48px;
-    min-height: 100vh;
-  }
+nz-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #001529;
+  color: #fff;
+  min-height: 120px;
+  line-height: 120px;
+}
 
-  nz-layout nz-layout,
-  nz-layout:last-child {
-    margin: 0;
-  }
+nz-layout {
+  margin-bottom: 48px;
+  min-height: 100vh;
+}
 
+nz-layout nz-layout,
+nz-layout:last-child {
+  margin: 0;
+}
+
+.login-content {
+  display: flex;
+  justify-content: space-around;
+  height: 100vh;
+}
+
+.left,
+.right {
+  max-width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 100px;
+}
+
+h2{
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.imagem {
+  max-width: 80%;
+  height: auto;
+}

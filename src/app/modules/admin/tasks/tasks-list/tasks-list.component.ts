@@ -17,6 +17,10 @@ import { NotificationService } from '../../../../services/notification/notificat
 import { DatePipe } from '@angular/common';
 import { TasksService } from '../../../../services/tasks/tasks.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { presetColors } from 'ng-zorro-antd/core/color';
+
+
 
 @Component({
   selector: 'app-tasks-list',
@@ -28,6 +32,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     NzPopconfirmModule,
     NzTagModule,
     EditTaskComponent,
+    NzTypographyModule
   ],
   providers: [DatePipe],
   templateUrl: './tasks-list.component.html',
@@ -39,6 +44,8 @@ export class TasksListComponent implements OnInit, OnDestroy {
   usersData!: UsersNameModel[];
   projectsData!: ProjectsNameModel[];
   selectedTask!: TasksModel;
+  readonly presetColors = presetColors;
+  
 
   isVisible = false;
   loadingTasks: { [key: string]: boolean } = {};
@@ -65,6 +72,12 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.profilesServices.getAllUsersName().subscribe((users) => {
       this.usersData = users;
     });
+  }  
+
+  atividadeAtrasada(data: TasksModel): boolean {
+    return new Date(data.dataFim) < new Date() &&
+           data.status !== 'PAUSADA' &&
+           data.status !== 'CONCLUIDA';
   }
 
   dateFormater(date: Date): string | null {

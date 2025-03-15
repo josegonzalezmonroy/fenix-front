@@ -3,7 +3,7 @@ export interface UsersModel {
     nome: string
     email: string 
     senha: string
-    data_criacao: Date
-    ultimo_login: Date
+    dataCriacao: Date
+    ultimoLogin: Date
     perfil: string
 }

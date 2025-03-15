@@ -1,34 +1,33 @@
-<h2>Profiles list</h2>
+<h3 nz-typography>Usuários</h3>
 <nz-table
   #headerTable
   [nzData]="profilesData"
-  [nzPageSize]="50"
   [nzBordered]="true"
   [nzShowSizeChanger]="true"
-  [nzScroll]="{ y: '240px' }"
+  [nzScroll]="{ y: '340px' }"
   >
   <thead>
     <tr>
-      <th>ID</th>
       <th>Nome</th>
       <th>Email</th>
       <th>Perfil</th>
-      <th>Ações</th>
+      <th>Último login</th>
+      <th [nzWidth]="'150px'">Ações</th>
     </tr>
   </thead>
   <tbody>
     @for (data of profilesData; track data.id) {
     <tr>
-      <td>{{ data.id }}</td>
       <td>{{ data.nome }}</td>
       <td>{{ data.email }}</td>
       @if (data.perfil === 'ADMIN') {
-        <td><nz-tag [nzColor]="presetColors[8]">{{ data.perfil }}</nz-tag></td>
+        <td><nz-tag [nzColor]="presetColors[8]">Administrador</nz-tag></td>
       }@else{
-        <td><nz-tag [nzColor]="presetColors[5]">{{ data.perfil }}</nz-tag></td>
+        <td><nz-tag [nzColor]="presetColors[5]">Usuário</nz-tag></td>
       }
-      <td id="icons">
-        <button nz-button nzType="primary" nzSize="large" nzShape="circle" (click)="showModal(data)">
+      <td>{{ dateFormater(data.ultimoLogin)? dateFormater(data.ultimoLogin) : '-' }}</td>
+      <td id="icons"> 
+        <button nz-button nzType="primary" nzSize="large" nzShape="circle">
           <nz-icon nzType="edit" />
         </button>
         <button nz-button nzType="primary" nzSize="large" nzShape="circle" 

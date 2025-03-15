@@ -1,0 +1,44 @@
+<form 
+nz-form 
+(keyup.enter)="onSubmit()"
+[formGroup]="profileEditForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Nome</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
+      <input nz-input formControlName="nome" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" >E-mail</nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+    >
+      <input 
+      [disabled]="true" 
+      [value]="email"
+      nz-input/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Senha</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
+      <input nz-input formControlName="senha"/>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button
+        nz-button
+        nzType="primary"
+        type="button"
+        nzShape="round"
+        [nzLoading]="isConfirmLoading"
+        (click)="onSubmit()"
+      >
+        Confirmar
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

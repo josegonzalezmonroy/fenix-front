@@ -25,16 +25,16 @@ export class HoursService {
   registerHour(hour: HoursModel): Observable<ResponseMessage> {
     return this.http
       .post<ResponseMessage>(this.apiUrl, hour)
-      .pipe(tap(() => this.getAllHours().subscribe()))
+      .pipe(tap(() => this.getAllHours().subscribe()));
   }
 
   updateHour(id: number, hour: HoursEditModel): Observable<ResponseMessage> {
-      return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, hour).pipe(
-        tap(() => {
-          this.getAllHours().subscribe();
-        })
-      );
-    }
+    return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, hour).pipe(
+      tap(() => {
+        this.getAllHours().subscribe();
+      })
+    );
+  }
 
   deleteHour(id: number): Observable<ResponseMessage> {
     return this.http.delete<ResponseMessage>(`${this.apiUrl}/${id}`).pipe(
@@ -42,5 +42,27 @@ export class HoursService {
         this.getAllHours().subscribe();
       })
     );
+  }
+
+  getAllHoursByScopeUser(): Observable<Array<HoursModel>> {
+    return this.http
+      .get<Array<HoursModel>>(environment.apiUrl + '/user/lancamentos')
+      .pipe(tap((hours) => this.hoursSubject.next(hours)));
+  }
+
+  registerHourScopeUser(hour: HoursModel): Observable<ResponseMessage> {
+    return this.http
+      .post<ResponseMessage>(`${environment.apiUrl}/user/lancamentos`, hour)
+      .pipe(tap(() => this.getAllHoursByScopeUser().subscribe()));
+  }
+
+  deleteHourByScopeUser(id: number): Observable<ResponseMessage> {
+    return this.http
+      .delete<ResponseMessage>(`${environment.apiUrl}/user/lancamentos/${id}`)
+      .pipe(
+        tap(() => {
+          this.getAllHoursByScopeUser().subscribe();
+        })
+      );
   }
 }

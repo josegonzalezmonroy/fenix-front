@@ -1,6 +1,9 @@
+import { CadastroHoursUserComponent } from './../../modules/users/hours/cadastro-hours-user/cadastro-hours-user.component';
+import { EditProfileComponent } from './../../modules/users/edit-profile/edit-profile.component';
 import {
   Component,
   EventEmitter,
+  OnInit,
   Output,
   TemplateRef,
   ViewChild,
@@ -14,6 +17,7 @@ import { CadastroProjectsComponent } from './../../modules/admin/projects/cadast
 import { CommonModule } from '@angular/common';
 import { CadastroTaskComponent } from '../../modules/admin/tasks/cadastro-task/cadastro-task.component';
 import { CadastroHoursComponent } from './../../modules/admin/hours/cadastro-hours/cadastro-hours.component';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -27,17 +31,29 @@ import { CadastroHoursComponent } from './../../modules/admin/hours/cadastro-hou
     CommonModule,
     CadastroTaskComponent,
     CadastroHoursComponent,
+    EditProfileComponent,
+    CadastroHoursUserComponent
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.less',
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
+
   isModalVisible = false;
   modalTitle = 'Usuário';
   modalContent!: TemplateRef<any>;
 
   @Output() closedMenu = new EventEmitter<void>();
 
+  scope: string | null = null;
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.scope = this.authService.getScope();
+  }
+  
+  // Escopo ADMIN
   @ViewChild('cadastroUsuario', { static: true })
   CadastroUsuarioComponent!: TemplateRef<any>;
   @ViewChild('cadastroProjeto', { static: true })
@@ -46,6 +62,13 @@ export class MenuComponent {
   CadastroTaskComponent!: TemplateRef<any>;
   @ViewChild('cadastroHour', { static: true })
   CadastroHoursComponent!: TemplateRef<any>;
+
+  // Escopo USUARIO
+  @ViewChild('editProfileUser', { static: true })
+  EditProfileComponent!: TemplateRef<any>;
+
+  @ViewChild('cadastroHoursUser', { static: true })
+  CadastroHoursUserComponent!: TemplateRef<any>;
 
   showModal(tipo: string): void {
     this.isModalVisible = true;
@@ -70,6 +93,16 @@ export class MenuComponent {
         this.modalTitle = 'Lançar horas';
         this.modalContent = this.CadastroHoursComponent;
         break;
+
+        case 'editProfileUser':
+          this.modalTitle = 'Editar perfil';
+          this.modalContent = this.EditProfileComponent;
+          break;
+
+          case 'cadastroHoursUser':
+            this.modalTitle = 'Lançar horas';
+            this.modalContent = this.CadastroHoursUserComponent;
+            break;
     }
   }
 

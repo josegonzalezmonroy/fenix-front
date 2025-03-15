@@ -20,12 +20,8 @@ export class NotificationService {
     this.createNotification('success', message, '');
   }
 
-  infoNotification(title: string, content: string): void {
-    this.createNotification('info', title, content);
-  }
-
-  warningNotification(title: string, content: string): void {
-    this.createNotification('warning', title, content);
+  infoNotification(message: string): void {
+    this.createNotification('info', message, '');
   }
 
   errorNotification(message: string): void {

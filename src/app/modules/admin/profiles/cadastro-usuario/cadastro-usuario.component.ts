@@ -59,7 +59,6 @@ export class CadastroUsuarioComponent {
                 response.message
               );
               this.isConfirmLoading = false;
-              console.log(response)
             }, 500);
           },
           error: (error: HttpErrorResponse) => {

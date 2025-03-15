@@ -1,9 +1,10 @@
-<button nz-button nzType="primary" (click)="open()">Open</button>
+<button nz-button (click)="open()"><nz-icon nzType="menu" nzTheme="outline" /></button>
 <nz-drawer
   nzPlacement="left"
   [nzClosable]="false"
   [nzVisible]="visible"
   (nzOnClose)="close()"
+  [nzFooter]="footerTemplate"
   [nzBodyStyle]="{
     'padding-top': '10px',
     'padding-right': '0px',
@@ -12,8 +13,21 @@
   }"
   [nzWidth]="300"
 >
-  <ng-container *nzDrawerContent>
-    <button nz-button nzType="primary" (click)="close()">Close</button>
-    <app-menu (closedMenu)="close()"/>
-  </ng-container>
+<ng-container *nzDrawerContent>
+  <img class="imagem" src="/logo.png" />
+  <app-menu (closedMenu)="close()"/>
+</ng-container>
 </nz-drawer>
+
+<ng-template #footerTemplate>
+  <div class="footer-drawer">
+    <button 
+    nzShape="circle"
+    nz-button
+    (click)="logout()"
+    nz-tooltip nzTooltipTitle="Encerrar sessão"
+    >
+      <nz-icon nzType="logout" nzTheme="outline" />
+    </button>
+  </div>
+</ng-template>

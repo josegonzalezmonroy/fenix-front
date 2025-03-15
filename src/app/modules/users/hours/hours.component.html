@@ -1,0 +1,50 @@
+<h3 nz-typography>Lançamentos</h3>
+<nz-table
+  #headerTable
+  [nzData]="hoursData"
+  [nzBordered]="true"
+  [nzScroll]="{ y: '340px' }"
+>
+  <thead>
+    <tr>
+      <th rowspan="2">Atividade</th>
+      <th rowspan="2">Responsável</th>
+      <th rowspan="2">Data</th>
+      <th colspan="3">Hora</th>
+      <th rowspan="2">Ações</th>
+    </tr>
+    <tr>
+        <th rowspan="1">Início</th>
+        <th rowspan="1">Final</th>
+        <th rowspan="1">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of hoursData; track data.id) {
+    <tr>
+      <td>{{ data.atividade.nome }}</td>
+      <td>{{ data.usuario.nome }}</td>
+      <td>{{ dateFormater(data.dataInicio) }}</td>
+      <td>{{ hourFormater(data.dataInicio) }}</td>
+      <td>{{ hourFormater(data.dataFim) }}</td>
+      <td>{{ segundosParaHHmm(data.dataInicio.toString(), data.dataFim.toString()) }}</td>
+      <td id="botoes">
+        <button
+          nz-button
+          nzType="primary"
+          nzSize="large"
+          nzShape="circle"
+          nzDanger
+          [nzLoading]="loadingHours[data.id]"
+          nz-popconfirm
+          nzPopconfirmTitle="Deseja realmente excluir esta atividade?"
+          (nzOnConfirm)="deleteHourByScopeUser(data.id)"
+        >
+          <nz-icon nzType="delete" />
+        </button>
+      </td>
+    </tr>
+    }
+  </tbody></nz-table
+>
+

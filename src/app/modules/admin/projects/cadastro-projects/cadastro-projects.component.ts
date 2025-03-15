@@ -72,7 +72,6 @@ export class CadastroProjectsComponent implements OnInit{
   }
 
   onSubmit(): void {
-    console.log(this.projectForm.value)
     if (this.projectForm.valid) {
       this.isConfirmLoading = true;
       this.projectsService
@@ -87,7 +86,6 @@ export class CadastroProjectsComponent implements OnInit{
             }, 500);
           },
             error: (error: HttpErrorResponse) => {
-              console.log(error.error)
               this.isConfirmLoading = false;
               this.notification.errorNotification(error.error.message);
             },

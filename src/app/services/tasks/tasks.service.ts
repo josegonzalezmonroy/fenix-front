@@ -53,4 +53,17 @@ export class TasksService {
   getTaskByProject(idUsuario:number, idProjeto: number): Observable<Array<TasksNameModel>>{
     return this.http.get<Array<TasksNameModel>>(`${this.apiUrl}/projeto/${idProjeto}/usuario/${idUsuario}`)
   }
+
+    getAllTasksOfScopeUsuario():Observable<TasksModel[]>{
+      return this.http.get<TasksModel[]>(`${environment.apiUrl}/user/atividades`)
+      .pipe(tap((tasks) => {
+        this.tasksSubject.next(tasks)}));
+    }
+
+    getTaskByProjectScopeUsuario(idProjeto:number):Observable<Array<TasksNameModel>>
+    {
+      return this.http.get<TasksModel[]>(`${environment.apiUrl}/user/atividades/projeto/${idProjeto}`)
+      .pipe(tap((tasks) => {
+        this.tasksSubject.next(tasks)}));
+    }
 }

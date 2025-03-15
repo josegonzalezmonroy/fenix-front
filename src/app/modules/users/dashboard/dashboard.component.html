@@ -1,0 +1,50 @@
+<h3 nz-typography>Resumo</h3>
+<div class="dashboard-grid">
+  <nz-card nzHoverable [nzTitle]="projetos">
+    <div class="statistics-container">
+      <nz-statistic [nzTitle]="'Planejados'" [nzValue]="totalProjetosPlanejados">
+      </nz-statistic>
+      <nz-statistic [nzTitle]="'Em andamento'" [nzValue]="totalProjetosEmAndamento">
+      </nz-statistic>
+      <nz-statistic [nzTitle]="'Concluidos'" [nzValue]="totalProjetosConcluidos">
+      </nz-statistic>
+      <nz-statistic [nzTitle]="'Cancelados'" [nzValue]="totalProjetosCancelados">
+      </nz-statistic>
+    </div>
+  </nz-card>
+
+  <nz-card nzHoverable [nzTitle]="atividades">
+    <div class="statistics-container">
+      <nz-statistic [nzTitle]="'Abertas'" [nzValue]="totalAtividadesAbertas">
+      </nz-statistic>
+      <nz-statistic [nzTitle]="'Em andamento'" [nzValue]="totalAtividadesEmAndamento">
+      </nz-statistic>
+      <nz-statistic [nzTitle]="'Pausadas'" [nzValue]="totalAtividadesPausadas">
+      </nz-statistic>
+      <nz-statistic [nzTitle]="'Concluídas'" [nzValue]="totalAtividadesConcluidas">
+      </nz-statistic>
+    </div>
+  </nz-card>
+
+  <nz-card nzHoverable [nzTitle]="lancamentos">
+    <div class="statistics-container">
+      <nz-statistic
+      [nzTitle]="'Tempo'"
+      [nzValue]="totalHoras"
+      [nzSuffix]="'h'">
+    </nz-statistic>
+    </div>
+  </nz-card>
+</div>
+
+<ng-template #projetos>
+  <span>Projetos totais - {{ totalProjetos }}</span>
+</ng-template>
+
+<ng-template #atividades>
+  <span>Atividades totais - {{ totalAtividades }}</span>
+</ng-template>
+
+<ng-template #lancamentos>
+  <span>Lançamentos totais - {{ totalLancamentos }}</span>
+</ng-template>

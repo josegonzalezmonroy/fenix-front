@@ -19,6 +19,7 @@ import { TasksNameModel } from '../../../../models/interfaces/tasks/TasksNameMod
 import { TasksService } from '../../../../services/tasks/tasks.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 @Component({
   selector: 'app-hours-list',
@@ -30,6 +31,7 @@ import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
     NzPopconfirmModule,
     NzTagModule,
     EditHoursComponent,
+    NzTypographyModule
   ],
   providers: [DatePipe],
   templateUrl: './hours-list.component.html',
@@ -101,7 +103,15 @@ export class HoursListComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(date, 'HH:mm');
   }
 
-  segundosParaHHmm(segundos: number): string {
+  segundosParaHHmm(dataInicioStr: string, dataFimStr: string): string {
+
+    const dataInicio = new Date(dataInicioStr)
+    const dataFim = new Date(dataFimStr)
+    
+    const diferencaEmMilissegundos = dataFim.getTime() - dataInicio.getTime();
+    
+    const segundos = Math.floor(diferencaEmMilissegundos / 1000);
+    
     const horas = Math.floor(segundos / 3600);
     const minutos = Math.floor((segundos % 3600) / 60);
     const horasFormatadas = String(horas).padStart(2, '0');

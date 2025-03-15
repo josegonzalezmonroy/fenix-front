@@ -56,12 +56,9 @@ export class EditUsuarioComponent implements OnInit {
 
   onSubmit(): void {
     if (this.profileEditForm.valid) {
-
       if (!this.profileEditForm.get('senha')?.value) {
         this.profileEditForm.get('senha')?.setValue(null);
       }
-      
-      console.log(this.profileEditForm.value)
       this.isConfirmLoading = true;
       setTimeout(() => {
         this.profilesService
@@ -70,19 +67,11 @@ export class EditUsuarioComponent implements OnInit {
             next: (response: ResponseMessage) => {
               this.profileEditForm.reset();
               this.closeModal.emit();
-      console.log(response.message)
-
-              this.notification.successNotification(
-                response.message
-              );
+              this.notification.successNotification(response.message);
             },
             error: (error: HttpErrorResponse) => {
               this.isConfirmLoading = false;
-      console.log(error.error.message)
-
-              this.notification.errorNotification(
-                error.error.message
-              );
+              this.notification.errorNotification(error.error.message);
             },
           });
       }, 500);

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { UsersModel } from '../../models/interfaces/users/response/UsersModel';
@@ -50,11 +50,19 @@ export class ProfilesService {
     );
   }
 
-  deleteUser(id: number) :Observable<ResponseMessage>{
+  deleteUser(id: number): Observable<ResponseMessage> {
     return this.http.delete<ResponseMessage>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         this.getAllUsers().subscribe();
       })
     );
+  }
+
+  updateUserByScope(user: UsersModel): Observable<ResponseMessage> {
+    return this.http.patch<ResponseMessage>(environment.apiUrl + '/user', user);
+  }
+
+  getProfile(): Observable<UsersModel> {
+    return this.http.get<UsersModel>(environment.apiUrl+ '/user');
   }
 }

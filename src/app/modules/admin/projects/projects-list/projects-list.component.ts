@@ -15,6 +15,9 @@ import { ProfilesService } from '../../../../services/profiles/profiles.service'
 import { UsersNameModel } from '../../../../models/interfaces/users/response/UsersNameModel';
 import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { presetColors } from 'ng-zorro-antd/core/color';
+
 
 @Component({
   selector: 'app-projects-list',
@@ -26,6 +29,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     NzPopconfirmModule,
     NzTagModule,
     EditProjectComponent,
+    NzTypographyModule
   ],
   providers: [DatePipe],
   templateUrl: './projects-list.component.html',
@@ -37,6 +41,8 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
   public userName$!: Observable<string>;
   usersData!: UsersNameModel[];
 
+  readonly presetColors = presetColors;
+  
   isVisible = false;
   loadingProjects: { [key: string]: boolean } = {};
   selectedProject!: ProjectsModel;
@@ -59,6 +65,12 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     this.profilesServices.getAllUsersName().subscribe((users) => {
       this.usersData = users;
     });
+  }
+
+  projetoAtrasado(data: ProjectsModel): boolean {
+    return new Date(data.dataFim) < new Date() &&
+           data.status !== 'CANCELADO' &&
+           data.status !== 'CONCLUIDO';
   }
 
   dateFormater(date: Date): string | null {

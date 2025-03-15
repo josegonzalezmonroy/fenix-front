@@ -14,6 +14,8 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification/notification.service';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+
 
 @Component({
   selector: 'app-login',
@@ -24,6 +26,7 @@ import { NotificationService } from '../services/notification/notification.servi
     NzFormModule,
     NzInputModule,
     NzLayoutModule,
+    NzTypographyModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.less',
@@ -60,7 +63,6 @@ export class LoginComponent {
               const nome = response.nome;
 
               const scope = this.authService.getScope();
-              console.log('scope', scope);
 
               if (scope === 'ADMIN') {
                 this.router.navigate(['/admin']);
