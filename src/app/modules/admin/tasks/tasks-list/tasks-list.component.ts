@@ -20,8 +20,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { presetColors } from 'ng-zorro-antd/core/color';
 
-
-
 @Component({
   selector: 'app-tasks-list',
   imports: [
@@ -32,7 +30,7 @@ import { presetColors } from 'ng-zorro-antd/core/color';
     NzPopconfirmModule,
     NzTagModule,
     EditTaskComponent,
-    NzTypographyModule
+    NzTypographyModule,
   ],
   providers: [DatePipe],
   templateUrl: './tasks-list.component.html',
@@ -45,7 +43,6 @@ export class TasksListComponent implements OnInit, OnDestroy {
   projectsData!: ProjectsNameModel[];
   selectedTask!: TasksModel;
   readonly presetColors = presetColors;
-  
 
   isVisible = false;
   loadingTasks: { [key: string]: boolean } = {};
@@ -55,7 +52,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
     private profilesServices: ProfilesService,
     private notification: NotificationService,
     private tasksService: TasksService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +60,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((tasks) => (this.tasksData = tasks));
 
-    this.tasksService.getAllTasks().subscribe()
+    this.tasksService.getAllTasks().subscribe();
 
     this.projectsService
       .getAllProjectsName()
@@ -72,12 +69,14 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.profilesServices.getAllUsersName().subscribe((users) => {
       this.usersData = users;
     });
-  }  
+  }
 
   atividadeAtrasada(data: TasksModel): boolean {
-    return new Date(data.dataFim) < new Date() &&
-           data.status !== 'PAUSADA' &&
-           data.status !== 'CONCLUIDA';
+    return (
+      new Date(data.dataFim) < new Date() &&
+      data.status !== 'PAUSADA' &&
+      data.status !== 'CONCLUIDA'
+    );
   }
 
   dateFormater(date: Date): string | null {
@@ -89,9 +88,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.tasksService.deleteTask(id).subscribe({
         next: (response: ResponseMessage) => {
-          this.notification.successNotification(
-            response.message
-          );
+          this.notification.successNotification(response.message);
         },
         error: (error: HttpErrorResponse) => {
           this.notification.errorNotification(error.error.message);

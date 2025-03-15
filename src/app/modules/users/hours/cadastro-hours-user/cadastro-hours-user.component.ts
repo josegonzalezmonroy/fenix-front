@@ -1,5 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -22,16 +28,16 @@ import { AuthService } from '../../../../services/auth/auth.service';
   selector: 'app-cadastro-hours-user',
   imports: [
     FormsModule,
-        NzFormModule,
-        NzButtonModule,
-        NzInputModule,
-        NzSelectModule,
-        NzDatePickerModule,
-        NzTimePickerModule,
-        ReactiveFormsModule
+    NzFormModule,
+    NzButtonModule,
+    NzInputModule,
+    NzSelectModule,
+    NzDatePickerModule,
+    NzTimePickerModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './cadastro-hours-user.component.html',
-  styleUrl: './cadastro-hours-user.component.less'
+  styleUrl: './cadastro-hours-user.component.less',
 })
 export class CadastroHoursUserComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
@@ -49,11 +55,11 @@ export class CadastroHoursUserComponent implements OnInit {
     private tasksService: TasksService,
     private hoursService: HoursService,
     private notification: NotificationService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   hoursForm = new FormGroup({
-    projeto: new FormControl<number|null>(null),
+    projeto: new FormControl<number | null>(null),
     id_atividade: new FormControl<number | null>(null, [Validators.required]),
     id_usuario: new FormControl<number | null>(null, [Validators.required]),
     descricao: new FormControl<string>('', [Validators.required]),
@@ -63,24 +69,23 @@ export class CadastroHoursUserComponent implements OnInit {
   });
 
   ngOnInit(): void {
-
-    if(this.authService.getUserId())
-    {
+    if (this.authService.getUserId()) {
       this.hoursForm.patchValue({
-        id_usuario: this.authService.getUserId()
-      })
+        id_usuario: this.authService.getUserId(),
+      });
     }
 
-    this.projectsService.getAllProjectsOfScopeUsuario
-    ().subscribe({
+    this.projectsService.getAllProjectsOfScopeUsuario().subscribe({
       next: (users) => {
         this.projectsByProfile = users;
       },
       error: () => {
-        this.notification.errorNotification('Erro ao carregar projetos do usuario');
+        this.notification.errorNotification(
+          'Erro ao carregar projetos do usuario',
+        );
       },
     });
-    
+
     this.hoursForm.get('data_inicio')?.valueChanges.subscribe(() => {
       this.onValidateHour();
     });
@@ -93,35 +98,37 @@ export class CadastroHoursUserComponent implements OnInit {
       if (projectId) {
         this.loadTaskByProject(projectId);
         this.hoursForm.patchValue({
-          id_atividade: null
-        })
+          id_atividade: null,
+        });
       } else {
-        this.projectsByProfile = []; 
+        this.projectsByProfile = [];
       }
     });
   }
 
-    loadTaskByProject(projetoId: number):void {
-      this.tasksService.getTaskByProjectScopeUsuario(projetoId).subscribe({
-        next: tasks=>{
-          this.tasksName = tasks
-        },
-        error:()=> {
-          this.notification.errorNotification('Erro ao carregar atividades do usuario');
-        },
-      })
-    }
+  loadTaskByProject(projetoId: number): void {
+    this.tasksService.getTaskByProjectScopeUsuario(projetoId).subscribe({
+      next: (tasks) => {
+        this.tasksName = tasks;
+      },
+      error: () => {
+        this.notification.errorNotification(
+          'Erro ao carregar atividades do usuario',
+        );
+      },
+    });
+  }
 
-  onSubmit(): void {    
+  onSubmit(): void {
     if (this.hoursForm.valid && this.selectedDate) {
       const dataHoraInicio = this.combineDateAndTime(
         this.selectedDate,
-        this.hoursForm.value.data_inicio as Date
+        this.hoursForm.value.data_inicio as Date,
       );
 
       const dataHoraFim = this.combineDateAndTime(
         this.selectedDate,
-        this.hoursForm.value.data_fim as Date
+        this.hoursForm.value.data_fim as Date,
       );
 
       this.hoursForm.value.data_fim = dataHoraFim;
@@ -170,7 +177,7 @@ export class CadastroHoursUserComponent implements OnInit {
           .get('segundos_totais')
           ?.setValue(this.horasTotais(dataInicio!, dataFim!));
         this.tempoTotal = this.segundosParaHHmm(
-          this.horasTotais(dataInicio!, dataFim!)
+          this.horasTotais(dataInicio!, dataFim!),
         );
       }
     }
@@ -184,7 +191,7 @@ export class CadastroHoursUserComponent implements OnInit {
 
   horasTotais(inicio: Date, fim: Date): number {
     const tempoTotalSegundos = Math.floor(
-      (fim.setSeconds(0, 0) - inicio.setSeconds(0, 0)) / 1000
+      (fim.setSeconds(0, 0) - inicio.setSeconds(0, 0)) / 1000,
     );
     this.segundosParaHHmm(tempoTotalSegundos);
     return tempoTotalSegundos;
@@ -199,4 +206,3 @@ export class CadastroHoursUserComponent implements OnInit {
     return `${horasFormatadas} horas e ${minutosFormatados} minutos`;
   }
 }
-

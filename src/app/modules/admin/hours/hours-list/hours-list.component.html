@@ -14,58 +14,64 @@
       <th rowspan="2">Ações</th>
     </tr>
     <tr>
-        <th rowspan="1">Início</th>
-        <th rowspan="1">Final</th>
-        <th rowspan="1">Total</th>
+      <th rowspan="1">Início</th>
+      <th rowspan="1">Final</th>
+      <th rowspan="1">Total</th>
     </tr>
   </thead>
   <tbody>
     @for (data of hoursData; track data.id) {
-    <tr>
-      <td>{{ data.atividade.nome }}</td>
-      <td>{{ data.usuario.nome }}</td>
-      <td>{{ dateFormater(data.dataInicio) }}</td>
-      <td>{{ hourFormater(data.dataInicio) }}</td>
-      <td>{{ hourFormater(data.dataFim) }}</td>
-      <td>{{ segundosParaHHmm(data.dataInicio.toString(), data.dataFim.toString()) }}</td>
-      <td id="botoes">
-        <button
-        nz-button
-        nzType="default"
-        nzSize="large"
-        nzShape="circle"
-        class="custom-button"
-      >
-      <nz-icon nzType="expand-alt" nzTheme="outline" />
-      </button>    
+      <tr>
+        <td>{{ data.atividade.nome }}</td>
+        <td>{{ data.usuario.nome }}</td>
+        <td>{{ dateFormater(data.dataInicio) }}</td>
+        <td>{{ hourFormater(data.dataInicio) }}</td>
+        <td>{{ hourFormater(data.dataFim) }}</td>
+        <td>
+          {{
+            segundosParaHHmm(
+              data.dataInicio.toString(),
+              data.dataFim.toString()
+            )
+          }}
+        </td>
+        <td id="botoes">
+          <button
+            nz-button
+            nzType="default"
+            nzSize="large"
+            nzShape="circle"
+            class="custom-button"
+          >
+            <nz-icon nzType="expand-alt" nzTheme="outline" />
+          </button>
 
-        <button
-          nz-button
-          nzType="primary"
-          nzSize="large"
-          nzShape="circle"
-          (click)="showModal(data)"
-        >
-          <nz-icon nzType="edit" />
-        </button>
-        <button
-          nz-button
-          nzType="primary"
-          nzSize="large"
-          nzShape="circle"
-          nzDanger
-          [nzLoading]="loadingHours[data.id]"
-          nz-popconfirm
-          nzPopconfirmTitle="Deseja realmente excluir esta atividade?"
-          (nzOnConfirm)="deleteHour(data.id)"
-        >
-          <nz-icon nzType="delete" />
-        </button>
-      </td>
-    </tr>
-    }
-  </tbody></nz-table
->
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            nzShape="circle"
+            (click)="showModal(data)"
+          >
+            <nz-icon nzType="edit" />
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            nzShape="circle"
+            nzDanger
+            [nzLoading]="loadingHours[data.id]"
+            nz-popconfirm
+            nzPopconfirmTitle="Deseja realmente excluir esta atividade?"
+            (nzOnConfirm)="deleteHour(data.id)"
+          >
+            <nz-icon nzType="delete" />
+          </button>
+        </td>
+      </tr>
+    }</tbody
+></nz-table>
 
 <nz-modal
   [(nzVisible)]="isVisible"
@@ -77,9 +83,6 @@
   <ng-template #modalTitle>Editar Lançamento</ng-template>
 
   <ng-template #modalContent>
-    <app-edit-hours
-      (closeModal)="handleCancel()"
-      [hourEdit]="selectedHour"
-    />
+    <app-edit-hours (closeModal)="handleCancel()" [hourEdit]="selectedHour" />
   </ng-template>
 </nz-modal>

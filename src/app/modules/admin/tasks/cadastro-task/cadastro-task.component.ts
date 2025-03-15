@@ -47,7 +47,7 @@ export class CadastroTaskComponent implements OnInit {
     private projectsService: ProjectsService,
     private profilesService: ProfilesService,
     private tasksService: TasksService,
-    private notification: NotificationService
+    private notification: NotificationService,
   ) {}
 
   taskForm = new FormGroup({
@@ -57,7 +57,7 @@ export class CadastroTaskComponent implements OnInit {
     data_inicio: new FormControl<Date | null>(null, [Validators.required]),
     data_fim: new FormControl<Date | null>(null, [Validators.required]),
     status: new FormControl<string>('', [Validators.required]),
-    usuarios: new FormControl<number[]>([], [Validators.required])
+    usuarios: new FormControl<number[]>([], [Validators.required]),
   });
 
   ngOnInit(): void {
@@ -72,29 +72,30 @@ export class CadastroTaskComponent implements OnInit {
     });
   }
 
-    // Escuchar cambios en el campo 'projeto'
-    setupProjetoChangeListener(): void {
-      this.taskForm.get('projeto')?.valueChanges.subscribe((projectId) => {
-        if (projectId) {
-          this.taskForm.patchValue({
-            usuarios: [],
-          });          
-          this.loadUsersByProjectId(projectId);
-        } else {
-          this.profilesByProject = []; // Limpiar la lista si no hay proyecto seleccionado
-        }
-      });
-    }
+  // Escuchar cambios en el campo 'projeto'
+  setupProjetoChangeListener(): void {
+    this.taskForm.get('projeto')?.valueChanges.subscribe((projectId) => {
+      if (projectId) {
+        this.taskForm.patchValue({
+          usuarios: [],
+        });
+        this.loadUsersByProjectId(projectId);
+      } else {
+        this.profilesByProject = []; // Limpiar la lista si no hay proyecto seleccionado
+      }
+    });
+  }
 
-      // Cargar usuarios asociados al proyecto seleccionado
+  // Cargar usuarios asociados al proyecto seleccionado
   loadUsersByProjectId(projectId: number): void {
-    this.projectsService.getUsersByProjectId
-    (projectId).subscribe({
+    this.projectsService.getUsersByProjectId(projectId).subscribe({
       next: (users) => {
         this.profilesByProject = users;
       },
       error: () => {
-        this.notification.errorNotification('Erro ao carregar usuarios do projeto');
+        this.notification.errorNotification(
+          'Erro ao carregar usuarios do projeto',
+        );
       },
     });
   }
@@ -109,9 +110,7 @@ export class CadastroTaskComponent implements OnInit {
             setTimeout(() => {
               this.taskForm.reset();
               this.closeModal.emit();
-              this.notification.successNotification(
-                response.message
-              );
+              this.notification.successNotification(response.message);
               this.isConfirmLoading = false;
             }, 500);
           },

@@ -60,7 +60,7 @@ export class CadastroHoursComponent implements OnInit {
   ) {}
 
   hoursForm = new FormGroup({
-    projeto: new FormControl<number|null>(null),
+    projeto: new FormControl<number | null>(null),
     id_atividade: new FormControl<number | null>(null, [Validators.required]),
     id_usuario: new FormControl<number | null>(null, [Validators.required]),
     descricao: new FormControl<string>('', [Validators.required]),
@@ -71,7 +71,7 @@ export class CadastroHoursComponent implements OnInit {
 
   ngOnInit(): void {
     this.setupChangeListener();
-    
+
     this.profilesService.getAllUsersName().subscribe({
       next: (users) => {
         this.profilesName = users;
@@ -90,71 +90,69 @@ export class CadastroHoursComponent implements OnInit {
     });
   }
 
-      setupChangeListener(): void {
-        this.hoursForm.get('id_usuario')?.valueChanges.subscribe((userId) => {
-          if (userId) {
-            this.loadProjectsByUser(userId);
-            this.hoursForm.patchValue({
-              projeto: null,
-              id_atividade: null
-            })
-          } else {
-            this.projectsByProfile = []; 
-          }
+  setupChangeListener(): void {
+    this.hoursForm.get('id_usuario')?.valueChanges.subscribe((userId) => {
+      if (userId) {
+        this.loadProjectsByUser(userId);
+        this.hoursForm.patchValue({
+          projeto: null,
+          id_atividade: null,
         });
-
-        this.hoursForm.get('projeto')?.valueChanges.subscribe(
-          projectId=>
-            {
-              const userId = this.hoursForm.get('id_usuario')?.value;
-              if (projectId)
-              {
-                if(userId)
-                {
-                  this.loadTaskByProject(userId, projectId)
-                }
-                
-                this.hoursForm.patchValue({
-                  id_atividade: null
-                })
-              }
-            }
-        )
+      } else {
+        this.projectsByProfile = [];
       }
+    });
+
+    this.hoursForm.get('projeto')?.valueChanges.subscribe((projectId) => {
+      const userId = this.hoursForm.get('id_usuario')?.value;
+      if (projectId) {
+        if (userId) {
+          this.loadTaskByProject(userId, projectId);
+        }
+
+        this.hoursForm.patchValue({
+          id_atividade: null,
+        });
+      }
+    });
+  }
 
   loadProjectsByUser(userId: number): void {
-    this.projectsService.getProjectsByUserId
-    (userId).subscribe({
+    this.projectsService.getProjectsByUserId(userId).subscribe({
       next: (users) => {
         this.projectsByProfile = users;
       },
       error: () => {
-        this.notification.errorNotification('Erro ao carregar projetos do usuario');
+        this.notification.errorNotification(
+          'Erro ao carregar projetos do usuario',
+        );
       },
     });
   }
 
-    loadTaskByProject(idUsuario:number, projetoId: number):void {
-      this.tasksService.getTaskByProject(idUsuario, projetoId).subscribe({
-        next: tasks=>{
-          this.tasksName = tasks
-        },
-        error:()=> {
-          this.notification.errorNotification('Erro ao carregar atividades do usuario');
-        },
-      })
-    }
+  loadTaskByProject(idUsuario: number, projetoId: number): void {
+    this.tasksService.getTaskByProject(idUsuario, projetoId).subscribe({
+      next: (tasks) => {
+        this.tasksName = tasks;
+      },
+      error: () => {
+        this.notification.errorNotification(
+          'Erro ao carregar atividades do usuario',
+        );
+      },
+    });
+  }
 
   onSubmit(): void {
     if (this.hoursForm.valid && this.selectedDate) {
       const dataHoraInicio = this.combineDateAndTime(
         this.selectedDate,
-        this.hoursForm.value.data_inicio as Date
+        this.hoursForm.value.data_inicio as Date,
       );
 
       const dataHoraFim = this.combineDateAndTime(
         this.selectedDate,
-        this.hoursForm.value.data_fim as Date
+        this.hoursForm.value.data_fim as Date,
       );
 
       this.hoursForm.value.data_fim = dataHoraFim;
@@ -203,7 +201,7 @@ export class CadastroHoursComponent implements OnInit {
           .get('segundos_totais')
           ?.setValue(this.horasTotais(dataInicio!, dataFim!));
         this.tempoTotal = this.segundosParaHHmm(
-          this.horasTotais(dataInicio!, dataFim!)
+          this.horasTotais(dataInicio!, dataFim!),
         );
       }
     }
@@ -217,7 +215,7 @@ export class CadastroHoursComponent implements OnInit {
 
   horasTotais(inicio: Date, fim: Date): number {
     const tempoTotalSegundos = Math.floor(
-      (fim.setSeconds(0, 0) - inicio.setSeconds(0, 0)) / 1000
+      (fim.setSeconds(0, 0) - inicio.setSeconds(0, 0)) / 1000,
     );
     this.segundosParaHHmm(tempoTotalSegundos);
     return tempoTotalSegundos;

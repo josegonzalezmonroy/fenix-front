@@ -1,4 +1,4 @@
-export interface ProjectsNameModel{
-    id: number
-    nome: string
+export interface ProjectsNameModel {
+  id: number;
+  nome: string;
 }

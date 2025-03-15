@@ -5,9 +5,6 @@ import { ADMIN } from './admin.routes';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(ADMIN),
-  ]
+  imports: [CommonModule, RouterModule.forChild(ADMIN)],
 })
-export class AdminModule { }
+export class AdminModule {}

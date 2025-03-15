@@ -57,7 +57,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     private projectsService: ProjectsService,
     private profilesService: ProfilesService,
     private tasksService: TasksService,
-    private hoursService: HoursService
+    private hoursService: HoursService,
   ) {}
 
   ngOnInit(): void {
@@ -69,19 +69,19 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         this.totalProjetos = projects.length;
 
         this.totalProjetosPlanejados = projects.filter(
-          (project) => project.status === 'PLANEJADO'
+          (project) => project.status === 'PLANEJADO',
         ).length;
 
         this.totalProjetosEmAndamento = projects.filter(
-          (project) => project.status === 'EM_ANDAMENTO'
+          (project) => project.status === 'EM_ANDAMENTO',
         ).length;
 
         this.totalProjetosConcluidos = projects.filter(
-          (project) => project.status === 'CONCLUIDO'
+          (project) => project.status === 'CONCLUIDO',
         ).length;
 
         this.totalProjetosCancelados = projects.filter(
-          (project) => project.status === 'CANCELADO'
+          (project) => project.status === 'CANCELADO',
         ).length;
       });
 
@@ -93,11 +93,11 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         this.totalUsuarios = users.length;
 
         this.totalAdmin = users.filter(
-          (user) => user.perfil === 'ADMIN'
+          (user) => user.perfil === 'ADMIN',
         ).length;
 
         this.totalUsers = users.filter(
-          (user) => user.perfil === 'USUARIO'
+          (user) => user.perfil === 'USUARIO',
         ).length;
       });
 
@@ -109,19 +109,19 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         this.totalAtividades = tasks.length;
 
         this.totalAtividadesAbertas = tasks.filter(
-          (task) => task.status === 'ABERTA'
+          (task) => task.status === 'ABERTA',
         ).length;
 
         this.totalAtividadesEmAndamento = tasks.filter(
-          (task) => task.status === 'EM_ANDAMENTO'
+          (task) => task.status === 'EM_ANDAMENTO',
         ).length;
 
         this.totalAtividadesPausadas = tasks.filter(
-          (task) => task.status === 'PAUSADA'
+          (task) => task.status === 'PAUSADA',
         ).length;
 
         this.totalAtividadesConcluidas = tasks.filter(
-          (task) => task.status === 'CONCLUIDA'
+          (task) => task.status === 'CONCLUIDA',
         ).length;
       });
 

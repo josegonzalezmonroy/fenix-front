@@ -1,4 +1,4 @@
-export interface TasksNameModel{
-    id: number,
-    nome: string
+export interface TasksNameModel {
+  id: number;
+  nome: string;
 }

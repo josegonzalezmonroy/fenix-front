@@ -7,8 +7,6 @@ import { DrawerComponent } from '../../shared/drawer/drawer.component';
   selector: 'app-users',
   imports: [RouterOutlet, DrawerComponent, NzLayoutModule],
   templateUrl: './users.component.html',
-  styleUrl: './users.component.less'
+  styleUrl: './users.component.less',
 })
-export class UsersComponent {
-
-}
+export class UsersComponent {}

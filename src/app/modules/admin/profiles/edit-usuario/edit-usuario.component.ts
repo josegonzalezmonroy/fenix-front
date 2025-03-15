@@ -39,7 +39,7 @@ export class EditUsuarioComponent implements OnInit {
 
   constructor(
     private profilesService: ProfilesService,
-    private notification: NotificationService
+    private notification: NotificationService,
   ) {}
 
   ngOnInit() {

@@ -38,7 +38,7 @@ export class ProfilesService {
     return this.http.post<ResponseMessage>(this.apiUrl, user).pipe(
       tap(() => {
         this.getAllUsers().subscribe();
-      })
+      }),
     );
   }
 
@@ -46,7 +46,7 @@ export class ProfilesService {
     return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, user).pipe(
       tap(() => {
         this.getAllUsers().subscribe();
-      })
+      }),
     );
   }
 
@@ -54,7 +54,7 @@ export class ProfilesService {
     return this.http.delete<ResponseMessage>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         this.getAllUsers().subscribe();
-      })
+      }),
     );
   }
 
@@ -63,6 +63,6 @@ export class ProfilesService {
   }
 
   getProfile(): Observable<UsersModel> {
-    return this.http.get<UsersModel>(environment.apiUrl+ '/user');
+    return this.http.get<UsersModel>(environment.apiUrl + '/user');
   }
 }

@@ -22,65 +22,68 @@
   </thead>
   <tbody>
     @for (data of tasksData; track data.id) {
-    <tr>
-      <td>{{ data.nome }}</td>
-      <td>{{ data.projeto.nome }}</td>
-      <td>{{ dateFormater(data.dataInicio) }}</td>
-      @if(atividadeAtrasada(data)) {
-      <td>
-        <nz-tag [nzColor]="presetColors[1]">{{
-          dateFormater(data.dataInicio)
-        }}</nz-tag>
-      </td>
-      } @else{
-      <td>{{ dateFormater(data.dataFim) }}</td>
-      } @if(data.status === 'EM_ANDAMENTO') {
-      <td><nz-tag [nzColor]="presetColors[8]">Em andamento</nz-tag></td>
-      } @if(data.status === 'ABERTA') {
-      <td><nz-tag [nzColor]="presetColors[6]">Aberta</nz-tag></td>
-      } @if(data.status === 'CONCLUIDA') {
-      <td><nz-tag [nzColor]="presetColors[5]">Concluida</nz-tag></td>
-      } @if(data.status === 'PAUSADA') {
-      <td><nz-tag [nzColor]="presetColors[1]">Pausada</nz-tag></td>
-      }
+      <tr>
+        <td>{{ data.nome }}</td>
+        <td>{{ data.projeto.nome }}</td>
+        <td>{{ dateFormater(data.dataInicio) }}</td>
+        @if (atividadeAtrasada(data)) {
+          <td>
+            <nz-tag [nzColor]="presetColors[1]">{{
+              dateFormater(data.dataInicio)
+            }}</nz-tag>
+          </td>
+        } @else {
+          <td>{{ dateFormater(data.dataFim) }}</td>
+        }
+        @if (data.status === "EM_ANDAMENTO") {
+          <td><nz-tag [nzColor]="presetColors[8]">Em andamento</nz-tag></td>
+        }
+        @if (data.status === "ABERTA") {
+          <td><nz-tag [nzColor]="presetColors[6]">Aberta</nz-tag></td>
+        }
+        @if (data.status === "CONCLUIDA") {
+          <td><nz-tag [nzColor]="presetColors[5]">Concluida</nz-tag></td>
+        }
+        @if (data.status === "PAUSADA") {
+          <td><nz-tag [nzColor]="presetColors[1]">Pausada</nz-tag></td>
+        }
 
-      <td id="botoes">
-        <button
-          nz-button
-          nzType="default"
-          nzSize="large"
-          nzShape="circle"
-          class="custom-button"
-        >
-          <nz-icon nzType="expand-alt" nzTheme="outline" />
-        </button>
-        <button
-          nz-button
-          nzType="primary"
-          nzSize="large"
-          nzShape="circle"
-          (click)="showModal(data)"
-        >
-          <nz-icon nzType="edit" />
-        </button>
-        <button
-          nz-button
-          nzType="primary"
-          nzSize="large"
-          nzShape="circle"
-          nzDanger
-          [nzLoading]="loadingTasks[data.id]"
-          nz-popconfirm
-          nzPopconfirmTitle="Deseja realmente excluir esta atividade?"
-          (nzOnConfirm)="deleteTask(data.id)"
-        >
-          <nz-icon nzType="delete" />
-        </button>
-      </td>
-    </tr>
-    }
-  </tbody></nz-table
->
+        <td id="botoes">
+          <button
+            nz-button
+            nzType="default"
+            nzSize="large"
+            nzShape="circle"
+            class="custom-button"
+          >
+            <nz-icon nzType="expand-alt" nzTheme="outline" />
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            nzShape="circle"
+            (click)="showModal(data)"
+          >
+            <nz-icon nzType="edit" />
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            nzShape="circle"
+            nzDanger
+            [nzLoading]="loadingTasks[data.id]"
+            nz-popconfirm
+            nzPopconfirmTitle="Deseja realmente excluir esta atividade?"
+            (nzOnConfirm)="deleteTask(data.id)"
+          >
+            <nz-icon nzType="delete" />
+          </button>
+        </td>
+      </tr>
+    }</tbody
+></nz-table>
 
 <nz-modal
   [(nzVisible)]="isVisible"

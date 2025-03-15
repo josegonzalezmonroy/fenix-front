@@ -1,4 +1,4 @@
-import { UsuarioResponsavelModel } from "../../users/response/UsuarioResponsavelModel";
+import { UsuarioResponsavelModel } from '../../users/response/UsuarioResponsavelModel';
 
 export interface ProjectsModel {
   id: number;

@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideZoneChangeDetection,
+  importProvidersFrom,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -14,12 +18,11 @@ registerLocaleData(pt);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes), 
-    provideNzI18n(pt_BR), 
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideNzI18n(pt_BR),
     importProvidersFrom(FormsModule),
-    provideAnimationsAsync(), 
-    provideHttpClient(
-      withInterceptors([authInterceptor]) 
-    ),  ]
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptors([authInterceptor])),
+  ],
 };

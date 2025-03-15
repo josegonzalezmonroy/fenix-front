@@ -32,7 +32,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   constructor(
     private projectsService: ProjectsService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       .subscribe((projects) => {
         this.projectsData = projects;
       });
-      this.projectsService.getAllProjectsOfScopeUsuario().subscribe();
+    this.projectsService.getAllProjectsOfScopeUsuario().subscribe();
   }
 
   projetoAtrasado(data: ProjectsModel): boolean {
@@ -61,8 +61,5 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  showModal(project: ProjectsModel):void
-  {
-
-  }
+  showModal(project: ProjectsModel): void {}
 }

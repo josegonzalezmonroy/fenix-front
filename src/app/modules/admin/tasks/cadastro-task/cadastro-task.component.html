@@ -1,123 +1,102 @@
 <form nz-form [formGroup]="taskForm">
-    <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-        >Projeto</nz-form-label
-      >
-        <nz-form-control
-          [nzSm]="14"
-          [nzXs]="24"
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Projeto</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-input-group>
+        <nz-select
+          formControlName="projeto"
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="Selecione o projeto"
         >
-          <nz-input-group>
-            <nz-select 
-            formControlName="projeto" 
-            nzShowSearch 
-            nzAllowClear 
-            nzPlaceHolder="Selecione o projeto">
-              @for(project of projectsName; track project.id)
-              {
-                <nz-option [nzLabel]="project.nome" [nzValue]="project.id"></nz-option>
-              }
-            </nz-select>
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>  
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
-        >Nome</nz-form-label
-      >
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
-        <input
-          nz-input
-          formControlName="nome"
-        />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
-        >Descrição</nz-form-label
-      >
-      <nz-form-control
-        [nzSm]="14"
-        [nzXs]="24"
-        nzErrorTip="Obrigatório"
-      >
-        <textarea
+          @for (project of projectsName; track project.id) {
+            <nz-option
+              [nzLabel]="project.nome"
+              [nzValue]="project.id"
+            ></nz-option>
+          }
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Nome</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+      <input nz-input formControlName="nome" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Descrição</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+      <textarea
         [nzAutosize]="{ minRows: 2, maxRows: 6 }"
-          nz-input
-          formControlName="descricao"
-        ></textarea>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-        >Data de inicio</nz-form-label
-      >
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
-        <nz-date-picker 
-        [nzFormat]="'dd/MM/yyyy'"
-        formControlName="data_inicio"
-        />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
-        >Data final</nz-form-label
-      >
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
-        <nz-date-picker 
-        [nzFormat]="'dd/MM/yyyy'"
-        formControlName="data_fim"
-        />
-      </nz-form-control>
-    </nz-form-item>   
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-        >Estatus</nz-form-label
-      >
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
-        <nz-input-group>
-          <nz-select formControlName="status">
-            <nz-option nzLabel="Aberta" nzValue="ABERTA"></nz-option>
-            <nz-option nzLabel="Em andamento" nzValue="EM_ANDAMENTO"></nz-option>
-            <nz-option nzLabel="Pausada" nzValue="PAUSADA"></nz-option>
-            <nz-option nzLabel="Concluída" nzValue="CONCLUIDA"></nz-option>
-          </nz-select>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-      >Usuários</nz-form-label
+        nz-input
+        formControlName="descricao"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+      >Data de inicio</nz-form-label
     >
-      <nz-form-control
-        [nzSm]="14"
-        [nzXs]="24"
-      >
-        <nz-input-group>
-          <nz-select 
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+      <nz-date-picker [nzFormat]="'dd/MM/yyyy'" formControlName="data_inicio" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Data final</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+      <nz-date-picker [nzFormat]="'dd/MM/yyyy'" formControlName="data_fim" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Estatus</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
+      <nz-input-group>
+        <nz-select formControlName="status">
+          <nz-option nzLabel="Aberta" nzValue="ABERTA"></nz-option>
+          <nz-option nzLabel="Em andamento" nzValue="EM_ANDAMENTO"></nz-option>
+          <nz-option nzLabel="Pausada" nzValue="PAUSADA"></nz-option>
+          <nz-option nzLabel="Concluída" nzValue="CONCLUIDA"></nz-option>
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Usuários</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-input-group>
+        <nz-select
           nzMode="multiple"
-          formControlName="usuarios" 
-          nzShowSearch 
-          nzAllowClear 
-          nzPlaceHolder="Selecione os usuários">
-            @for(usuario of profilesByProject; track usuario.id)
-            {
-              <nz-option [nzLabel]="usuario.nome" [nzValue]="usuario.id"></nz-option>
-            }
-          </nz-select>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-  
-    <nz-form-item nz-row class="register-area">
-      <nz-form-control [nzSpan]="14" [nzOffset]="6">
-        <button nz-button nzType="primary" type="button" [disabled]="!taskForm.valid" [nzLoading]="isConfirmLoading"
+          formControlName="usuarios"
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="Selecione os usuários"
+        >
+          @for (usuario of profilesByProject; track usuario.id) {
+            <nz-option
+              [nzLabel]="usuario.nome"
+              [nzValue]="usuario.id"
+            ></nz-option>
+          }
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button
+        nz-button
+        nzType="primary"
+        type="button"
+        [disabled]="!taskForm.valid"
+        [nzLoading]="isConfirmLoading"
         nzShape="round"
         (click)="onSubmit()"
-        >
-          Confirmar
-        </button>
-      </nz-form-control>
-    </nz-form-item>
-  </form>
-  
+      >
+        Confirmar
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

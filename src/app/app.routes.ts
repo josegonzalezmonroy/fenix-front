@@ -10,7 +10,7 @@ export const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./modules/admin/admin.module').then((m) => m.AdminModule),
-    canActivate: [authGuard], 
+    canActivate: [authGuard],
   },
   {
     path: 'user',

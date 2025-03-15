@@ -38,7 +38,7 @@ export class EditProfileComponent implements OnInit {
   isConfirmLoading = false;
   constructor(
     private profilesService: ProfilesService,
-    private notification: NotificationService
+    private notification: NotificationService,
   ) {}
 
   ngOnInit() {

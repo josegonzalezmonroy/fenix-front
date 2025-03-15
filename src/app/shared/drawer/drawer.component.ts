@@ -11,15 +11,21 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'app-drawer',
-  imports: [NzButtonModule, NzIconModule, NzDrawerModule, MenuComponent,NzToolTipModule,
-    NzTypographyModule
+  imports: [
+    NzButtonModule,
+    NzIconModule,
+    NzDrawerModule,
+    MenuComponent,
+    NzToolTipModule,
+    NzTypographyModule,
   ],
   templateUrl: './drawer.component.html',
   styleUrl: './drawer.component.less',
 })
 export class DrawerComponent {
-  constructor(private authService: AuthService,
-    private notification: NotificationService
+  constructor(
+    private authService: AuthService,
+    private notification: NotificationService,
   ) {}
   visible = false;
 
@@ -34,7 +40,7 @@ export class DrawerComponent {
   logout(): void {
     setTimeout(() => {
       this.authService.logout();
-      this.notification.infoNotification("Sessão encerrada")
+      this.notification.infoNotification('Sessão encerrada');
     }, 700);
   }
 }

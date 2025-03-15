@@ -18,7 +18,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { presetColors } from 'ng-zorro-antd/core/color';
 
-
 @Component({
   selector: 'app-projects-list',
   imports: [
@@ -29,7 +28,7 @@ import { presetColors } from 'ng-zorro-antd/core/color';
     NzPopconfirmModule,
     NzTagModule,
     EditProjectComponent,
-    NzTypographyModule
+    NzTypographyModule,
   ],
   providers: [DatePipe],
   templateUrl: './projects-list.component.html',
@@ -42,7 +41,7 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
   usersData!: UsersNameModel[];
 
   readonly presetColors = presetColors;
-  
+
   isVisible = false;
   loadingProjects: { [key: string]: boolean } = {};
   selectedProject!: ProjectsModel;
@@ -51,7 +50,7 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     private projectsService: ProjectsService,
     private profilesServices: ProfilesService,
     private notification: NotificationService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -68,9 +67,11 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
   }
 
   projetoAtrasado(data: ProjectsModel): boolean {
-    return new Date(data.dataFim) < new Date() &&
-           data.status !== 'CANCELADO' &&
-           data.status !== 'CONCLUIDO';
+    return (
+      new Date(data.dataFim) < new Date() &&
+      data.status !== 'CANCELADO' &&
+      data.status !== 'CONCLUIDO'
+    );
   }
 
   dateFormater(date: Date): string | null {

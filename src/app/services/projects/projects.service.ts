@@ -21,7 +21,7 @@ export class ProjectsService {
     return this.http.get<Array<ProjectsModel>>(this.apiUrl).pipe(
       tap((projects) => {
         this.projectsSubject.next(projects);
-      })
+      }),
     );
   }
 
@@ -29,7 +29,9 @@ export class ProjectsService {
     return this.http
       .get<Array<ProjectsNameModel>>(this.apiUrl)
       .pipe(
-        map((projects) => projects.sort((a, b) => a.nome.localeCompare(b.nome)))
+        map((projects) =>
+          projects.sort((a, b) => a.nome.localeCompare(b.nome)),
+        ),
       );
   }
 
@@ -37,20 +39,20 @@ export class ProjectsService {
     return this.http.post<ResponseMessage>(this.apiUrl, project).pipe(
       tap(() => {
         this.getAllProjects().subscribe();
-      })
+      }),
     );
   }
 
   updateProject(
     id: number,
-    project: ProjectsModel
+    project: ProjectsModel,
   ): Observable<ResponseMessage> {
     return this.http
       .patch<ResponseMessage>(`${this.apiUrl}/${id}`, project)
       .pipe(
         tap(() => {
           this.getAllProjects().subscribe();
-        })
+        }),
       );
   }
 
@@ -58,13 +60,13 @@ export class ProjectsService {
     return this.http.delete<ResponseMessage>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         this.getAllProjects().subscribe();
-      })
+      }),
     );
   }
 
   getUsersByProjectId(projectId: number): Observable<UsersNameModel[]> {
     return this.http.get<UsersNameModel[]>(
-      `${this.apiUrl}/${projectId}/usuarios`
+      `${this.apiUrl}/${projectId}/usuarios`,
     );
   }
 
@@ -78,7 +80,7 @@ export class ProjectsService {
       .pipe(
         tap((projects) => {
           this.projectsSubject.next(projects);
-        })
+        }),
       );
   }
 }

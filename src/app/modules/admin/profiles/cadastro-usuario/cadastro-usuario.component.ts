@@ -35,13 +35,13 @@ export class CadastroUsuarioComponent {
 
   constructor(
     private profilesService: ProfilesService,
-    private notification: NotificationService
+    private notification: NotificationService,
   ) {}
 
   profileForm = new FormGroup({
     nome: new FormControl<string>('', [Validators.required]),
     email: new FormControl<string>('', [Validators.required, Validators.email]),
-    senha: new FormControl<string>('', [Validators.required])
+    senha: new FormControl<string>('', [Validators.required]),
   });
 
   onSubmit(): void {
@@ -55,9 +55,7 @@ export class CadastroUsuarioComponent {
             setTimeout(() => {
               this.profileForm.reset();
               this.closeModal.emit();
-              this.notification.successNotification(
-                response.message
-              );
+              this.notification.successNotification(response.message);
               this.isConfirmLoading = false;
             }, 500);
           },

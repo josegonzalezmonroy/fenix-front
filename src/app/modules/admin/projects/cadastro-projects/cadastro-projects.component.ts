@@ -33,10 +33,9 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './cadastro-projects.component.html',
   styleUrl: './cadastro-projects.component.less',
 })
-export class CadastroProjectsComponent implements OnInit{
-
+export class CadastroProjectsComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
-  
+
   isConfirmLoading = false;
   date!: Date;
   profilesName: Array<UsersNameModel> = [];
@@ -44,21 +43,21 @@ export class CadastroProjectsComponent implements OnInit{
   constructor(
     private projectsService: ProjectsService,
     private profilesService: ProfilesService,
-    private notification: NotificationService
-  ) {
-  }
+    private notification: NotificationService,
+  ) {}
 
   projectForm = new FormGroup({
     nome: new FormControl<string>('', [Validators.required]),
     descricao: new FormControl<string>('', [Validators.required]),
-    data_inicio: new FormControl<Date|null>(null, [Validators.required]),
-    data_fim: new FormControl<Date|null>(null, [Validators.required]),
+    data_inicio: new FormControl<Date | null>(null, [Validators.required]),
+    data_fim: new FormControl<Date | null>(null, [Validators.required]),
     status: new FormControl<string>('', [Validators.required]),
-    id_usuario_responsavel: new FormControl<number|null>(null, [Validators.required]),
+    id_usuario_responsavel: new FormControl<number | null>(null, [
+      Validators.required,
+    ]),
     prioridade: new FormControl<string>('', [Validators.required]),
-    usuarios: new FormControl<number[]>([], [Validators.required])
+    usuarios: new FormControl<number[]>([], [Validators.required]),
   });
-
 
   ngOnInit(): void {
     this.profilesService.getAllUsersName().subscribe({
@@ -85,10 +84,10 @@ export class CadastroProjectsComponent implements OnInit{
               this.isConfirmLoading = false;
             }, 500);
           },
-            error: (error: HttpErrorResponse) => {
-              this.isConfirmLoading = false;
-              this.notification.errorNotification(error.error.message);
-            },
+          error: (error: HttpErrorResponse) => {
+            this.isConfirmLoading = false;
+            this.notification.errorNotification(error.error.message);
+          },
         });
     }
   }

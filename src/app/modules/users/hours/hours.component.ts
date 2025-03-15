@@ -38,7 +38,7 @@ export class HoursComponent implements OnInit, OnDestroy {
     private hoursService: HoursService,
     private notification: NotificationService,
 
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -74,19 +74,19 @@ export class HoursComponent implements OnInit, OnDestroy {
   }
 
   deleteHourByScopeUser(id: number): void {
-      this.loadingHours[id] = true;
-      setTimeout(() => {
-        this.hoursService.deleteHourByScopeUser(id).subscribe({
-          next: (response: ResponseMessage) => {
-            this.notification.successNotification(response.message);
-          },
-          error: (error: HttpErrorResponse) => {
-            this.loadingHours[id] = false;
-            this.notification.errorNotification(error.error.message);
-          },
-        });
-      }, 500);
-    }
+    this.loadingHours[id] = true;
+    setTimeout(() => {
+      this.hoursService.deleteHourByScopeUser(id).subscribe({
+        next: (response: ResponseMessage) => {
+          this.notification.successNotification(response.message);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.loadingHours[id] = false;
+          this.notification.errorNotification(error.error.message);
+        },
+      });
+    }, 500);
+  }
 
   showModal(hour: HoursModel): void {}
 

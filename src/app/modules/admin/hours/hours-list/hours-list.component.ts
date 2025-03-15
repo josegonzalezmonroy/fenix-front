@@ -31,7 +31,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzPopconfirmModule,
     NzTagModule,
     EditHoursComponent,
-    NzTypographyModule
+    NzTypographyModule,
   ],
   providers: [DatePipe],
   templateUrl: './hours-list.component.html',
@@ -55,7 +55,7 @@ export class HoursListComponent implements OnInit, OnDestroy {
     private tasksService: TasksService,
     private hoursService: HoursService,
     private notification: NotificationService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -85,7 +85,7 @@ export class HoursListComponent implements OnInit, OnDestroy {
 
   getProjectName(projectId: number): string {
     const project = this.projectsData?.find(
-      (response) => response.id === projectId
+      (response) => response.id === projectId,
     );
     return project ? project.nome : 'Projeto não encontrado';
   }
@@ -104,14 +104,13 @@ export class HoursListComponent implements OnInit, OnDestroy {
   }
 
   segundosParaHHmm(dataInicioStr: string, dataFimStr: string): string {
+    const dataInicio = new Date(dataInicioStr);
+    const dataFim = new Date(dataFimStr);
 
-    const dataInicio = new Date(dataInicioStr)
-    const dataFim = new Date(dataFimStr)
-    
     const diferencaEmMilissegundos = dataFim.getTime() - dataInicio.getTime();
-    
+
     const segundos = Math.floor(diferencaEmMilissegundos / 1000);
-    
+
     const horas = Math.floor(segundos / 3600);
     const minutos = Math.floor((segundos % 3600) / 60);
     const horasFormatadas = String(horas).padStart(2, '0');

@@ -2,18 +2,17 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
+  constructor(private notification: NzNotificationService) {}
 
-  constructor(private notification: NzNotificationService) { }
-
-  private createNotification(type: string, title: string, content: string): void {
-    this.notification.create(
-      type,
-      title,
-      content
-    );
+  private createNotification(
+    type: string,
+    title: string,
+    content: string,
+  ): void {
+    this.notification.create(type, title, content);
   }
 
   successNotification(message: string): void {

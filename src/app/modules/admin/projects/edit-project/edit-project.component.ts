@@ -44,7 +44,7 @@ export class EditProjectComponent implements OnInit {
   constructor(
     private profilesService: ProfilesService,
     private notification: NotificationService,
-    private projectsService: ProjectsService
+    private projectsService: ProjectsService,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class EditProjectComponent implements OnInit {
       ]),
       id_usuario_responsavel: new FormControl<number>(
         this.projectEdit.usuarioResponsavel.id,
-        [Validators.required]
+        [Validators.required],
       ),
     });
   }

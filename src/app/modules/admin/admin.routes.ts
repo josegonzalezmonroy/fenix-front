@@ -15,7 +15,7 @@ export const ADMIN: Routes = [
       { path: 'projects', component: ProjectsListComponent },
       { path: 'profiles', component: ProfilesListComponent },
       { path: 'tasks', component: TasksListComponent },
-      { path: 'hours', component: HoursListComponent }
+      { path: 'hours', component: HoursListComponent },
     ],
   },
 ];

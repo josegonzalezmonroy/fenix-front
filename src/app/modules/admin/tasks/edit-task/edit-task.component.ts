@@ -44,14 +44,13 @@ export class EditTaskComponent implements OnInit {
   profilesName: Array<UsersNameModel> = [];
   projectsName: Array<ProjectsNameModel> = [];
 
-  profilesByProject = [{id: 1, nome:'luis'}]
-
+  profilesByProject = [{ id: 1, nome: 'luis' }];
 
   constructor(
     private profilesService: ProfilesService,
     private notification: NotificationService,
     private projectsService: ProjectsService,
-    private tasksService: TasksService
+    private tasksService: TasksService,
   ) {}
 
   ngOnInit(): void {
@@ -73,15 +72,18 @@ export class EditTaskComponent implements OnInit {
 
     this.taskEditForm = new FormGroup({
       nome: new FormControl(this.taskEdit.nome, [Validators.required]),
-      descricao: new FormControl(this.taskEdit.descricao, [Validators.required]),
-      data_inicio: new FormControl(this.taskEdit.dataInicio, [Validators.required]),
+      descricao: new FormControl(this.taskEdit.descricao, [
+        Validators.required,
+      ]),
+      data_inicio: new FormControl(this.taskEdit.dataInicio, [
+        Validators.required,
+      ]),
       data_fim: new FormControl(this.taskEdit.dataFim, [Validators.required]),
-      status: new FormControl(this.taskEdit.status, [Validators.required])
+      status: new FormControl(this.taskEdit.status, [Validators.required]),
     });
   }
 
   onSubmit(): void {
-
     if (this.taskEditForm.valid) {
       this.isConfirmLoading = true;
       setTimeout(() => {
@@ -91,15 +93,11 @@ export class EditTaskComponent implements OnInit {
             next: (response: ResponseMessage) => {
               this.taskEditForm.reset();
               this.closeModal.emit();
-              this.notification.successNotification(
-                response.message
-              );
+              this.notification.successNotification(response.message);
             },
             error: (error: HttpErrorResponse) => {
               this.isConfirmLoading = false;
-              this.notification.errorNotification(
-                error.error.message
-              );
+              this.notification.errorNotification(error.error.message);
             },
           });
       }, 500);

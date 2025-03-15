@@ -64,11 +64,11 @@
           nzAllowClear
           nzPlaceHolder="Selecione o usuário"
         >
-          @for(usuario of profilesName; track usuario.id) {
-          <nz-option
-            [nzLabel]="usuario.nome"
-            [nzValue]="usuario.id"
-          ></nz-option>
+          @for (usuario of profilesName; track usuario.id) {
+            <nz-option
+              [nzLabel]="usuario.nome"
+              [nzValue]="usuario.id"
+            ></nz-option>
           }
         </nz-select>
       </nz-input-group>

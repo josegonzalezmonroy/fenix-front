@@ -10,9 +10,10 @@ export const USERS: Routes = [
     path: '',
     component: UsersComponent,
     children: [
-        { path: '', component: DashboardComponent },
-        { path: 'projects', component: ProjectsComponent },
-        { path: 'tasks', component: TasksComponent },
-        { path: 'hours', component: HoursComponent }],
+      { path: '', component: DashboardComponent },
+      { path: 'projects', component: ProjectsComponent },
+      { path: 'tasks', component: TasksComponent },
+      { path: 'hours', component: HoursComponent },
+    ],
   },
 ];

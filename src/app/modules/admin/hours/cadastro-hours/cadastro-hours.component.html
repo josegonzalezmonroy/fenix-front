@@ -1,49 +1,42 @@
 <form nz-form [formGroup]="hoursForm">
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-    >Usuário</nz-form-label
-  >
-    <nz-form-control
-      [nzSm]="14"
-      [nzXs]="24"
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Usuário</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
       <nz-input-group>
-        <nz-select 
-        formControlName="id_usuario" 
-        nzShowSearch 
-        nzAllowClear 
-        nzPlaceHolder="Selecione o usuário">
-          @for(users of profilesName; track users.id)
-          {
+        <nz-select
+          formControlName="id_usuario"
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="Selecione o usuário"
+        >
+          @for (users of profilesName; track users.id) {
             <nz-option [nzLabel]="users.nome" [nzValue]="users.id"></nz-option>
           }
         </nz-select>
       </nz-input-group>
     </nz-form-control>
-  </nz-form-item> 
-  
+  </nz-form-item>
+
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-    >Projeto</nz-form-label
-  >
-    <nz-form-control
-      [nzSm]="14"
-      [nzXs]="24"
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Projeto</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
       <nz-input-group>
-        <nz-select  
-        formControlName="projeto" 
-        nzShowSearch 
-        nzAllowClear 
-        nzPlaceHolder="Selecione o projeto">
-          @for(project of projectsByProfile; track project.id)
-          {
-            <nz-option [nzLabel]="project.nome" [nzValue]="project.id"></nz-option>
+        <nz-select
+          formControlName="projeto"
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="Selecione o projeto"
+        >
+          @for (project of projectsByProfile; track project.id) {
+            <nz-option
+              [nzLabel]="project.nome"
+              [nzValue]="project.id"
+            ></nz-option>
           }
         </nz-select>
       </nz-input-group>
     </nz-form-control>
-  </nz-form-item>  
+  </nz-form-item>
 
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Atividade</nz-form-label>
@@ -55,8 +48,8 @@
           nzAllowClear
           nzPlaceHolder="Selecione a atividade"
         >
-          @for(task of tasksName; track task.id) {
-          <nz-option [nzLabel]="task.nome" [nzValue]="task.id"></nz-option>
+          @for (task of tasksName; track task.id) {
+            <nz-option [nzLabel]="task.nome" [nzValue]="task.id"></nz-option>
           }
         </nz-select>
       </nz-input-group>
@@ -74,23 +67,21 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
-      >Data</nz-form-label
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Data</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
       <nz-date-picker
-      [(ngModel)]="selectedDate"
-      [ngModelOptions]="{standalone: true}"
-      nzFormat="dd/MM/yyyy" 
+        [(ngModel)]="selectedDate"
+        [ngModelOptions]="{ standalone: true }"
+        nzFormat="dd/MM/yyyy"
       />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Horário</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24">
-      <div style="display: flex; gap: 8px;">
+      <div style="display: flex; gap: 8px">
         <nz-time-picker
-          style="flex: 1;"
+          style="flex: 1"
           [nzFormat]="'HH:mm'"
           formControlName="data_inicio"
           [nzPlaceHolder]="'Inicio'"
@@ -98,7 +89,7 @@
         ></nz-time-picker>
 
         <nz-time-picker
-          style="flex: 1;"
+          style="flex: 1"
           [nzFormat]="'HH:mm'"
           formControlName="data_fim"
           [nzPlaceHolder]="'Fim'"
@@ -111,10 +102,11 @@
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24">Tempo total</nz-form-label>
     <nz-form-control [nzSpan]="14">
-      <input nz-input
-      [(ngModel)]="tempoTotal"
-      [ngModelOptions]="{standalone: true}"
-      disabled
+      <input
+        nz-input
+        [(ngModel)]="tempoTotal"
+        [ngModelOptions]="{ standalone: true }"
+        disabled
       />
     </nz-form-control>
   </nz-form-item>

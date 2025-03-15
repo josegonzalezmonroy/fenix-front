@@ -31,14 +31,17 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   readonly presetColors = presetColors;
 
-  constructor(private tasksService: TasksService, private datePipe: DatePipe) {}
+  constructor(
+    private tasksService: TasksService,
+    private datePipe: DatePipe,
+  ) {}
 
   ngOnInit(): void {
     this.tasksService.tasks$
       .pipe(takeUntil(this.destroy$))
       .subscribe((tasks) => (this.tasksData = tasks));
 
-      this.tasksService.getAllTasksOfScopeUsuario().subscribe();
+    this.tasksService.getAllTasksOfScopeUsuario().subscribe();
   }
 
   atividadeAtrasada(data: TasksModel): boolean {

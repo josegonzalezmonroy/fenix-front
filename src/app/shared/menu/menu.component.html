@@ -1,56 +1,56 @@
 <!-- Escopo admin -->
-@if(scope==='ADMIN') {
-<ul nzTheme="dark" nz-menu nzMode="inline">
-  <li
-    nz-menu-item
-    nzIcon="home"
-    nzTitle="Home"
-    [routerLink]="'/admin'"
-    (click)="closeMenu()"
-  >
-    <nz-icon nzType="home" nzTheme="outline" /> Home
-  </li>
-  <li nz-submenu nzTitle="Usuarios" nzIcon="user">
-    <ul>
-      <li nz-menu-item (click)="showModal('cadastroUsuario')">
-        <nz-icon nzType="user-add" nzTheme="outline" /> Cadastrar Usuário
-      </li>
-      <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/profiles'">
-        <nz-icon nzType="team" nzTheme="outline" /> Ver Usuários
-      </li>
-    </ul>
-  </li>
-  <li nz-submenu nzTitle="Projetos" nzIcon="project">
-    <ul>
-      <li nz-menu-item (click)="showModal('cadastroProjeto')">
-        <nz-icon nzType="plus" nzTheme="outline" /> Novo Projeto
-      </li>
-      <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/projects'">
-        <nz-icon nzType="profile" nzTheme="outline" /> Ver Projetos
-      </li>
-    </ul>
-  </li>
-  <li nz-submenu nzTitle="Atividades" nzIcon="carry-out">
-    <ul>
-      <li nz-menu-item (click)="showModal('cadastroTask')">
-        <nz-icon nzType="plus" nzTheme="outline" /> Nova atividade
-      </li>
-      <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/tasks'">
-        <nz-icon nzType="schedule" nzTheme="outline" /> Ver Atividades
-      </li>
-    </ul>
-  </li>
-  <li nz-submenu nzTitle="Lançamentos" nzIcon="clock-circle">
-    <ul>
-      <li nz-menu-item (click)="showModal('cadastroHour')">
-        <nz-icon nzType="plus" nzTheme="outline" /> Novo lançamento
-      </li>
-      <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/hours'">
-        <nz-icon nzType="field-time" nzTheme="outline" /> Ver Lançamentos
-      </li>
-    </ul>
-  </li>
-</ul>
+@if (scope === "ADMIN") {
+  <ul nzTheme="dark" nz-menu nzMode="inline">
+    <li
+      nz-menu-item
+      nzIcon="home"
+      nzTitle="Home"
+      [routerLink]="'/admin'"
+      (click)="closeMenu()"
+    >
+      <nz-icon nzType="home" nzTheme="outline" /> Home
+    </li>
+    <li nz-submenu nzTitle="Usuarios" nzIcon="user">
+      <ul>
+        <li nz-menu-item (click)="showModal('cadastroUsuario')">
+          <nz-icon nzType="user-add" nzTheme="outline" /> Cadastrar Usuário
+        </li>
+        <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/profiles'">
+          <nz-icon nzType="team" nzTheme="outline" /> Ver Usuários
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu nzTitle="Projetos" nzIcon="project">
+      <ul>
+        <li nz-menu-item (click)="showModal('cadastroProjeto')">
+          <nz-icon nzType="plus" nzTheme="outline" /> Novo Projeto
+        </li>
+        <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/projects'">
+          <nz-icon nzType="profile" nzTheme="outline" /> Ver Projetos
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu nzTitle="Atividades" nzIcon="carry-out">
+      <ul>
+        <li nz-menu-item (click)="showModal('cadastroTask')">
+          <nz-icon nzType="plus" nzTheme="outline" /> Nova atividade
+        </li>
+        <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/tasks'">
+          <nz-icon nzType="schedule" nzTheme="outline" /> Ver Atividades
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu nzTitle="Lançamentos" nzIcon="clock-circle">
+      <ul>
+        <li nz-menu-item (click)="showModal('cadastroHour')">
+          <nz-icon nzType="plus" nzTheme="outline" /> Novo lançamento
+        </li>
+        <li nz-menu-item (click)="closeMenu()" [routerLink]="'/admin/hours'">
+          <nz-icon nzType="field-time" nzTheme="outline" /> Ver Lançamentos
+        </li>
+      </ul>
+    </li>
+  </ul>
 }
 <ng-template #cadastroUsuario>
   <app-cadastro-usuario (closeModal)="handleCancel()" />
@@ -66,41 +66,41 @@
 </ng-template>
 
 <!-- Escopo usuário -->
-@if(scope==='USUARIO'){
-<ul nzTheme="dark" nz-menu nzMode="inline">
-  <li nz-menu-item [routerLink]="'/user'" (click)="closeMenu()">
-    <nz-icon nzType="home" nzTheme="outline" /> Home
-  </li>
+@if (scope === "USUARIO") {
+  <ul nzTheme="dark" nz-menu nzMode="inline">
+    <li nz-menu-item [routerLink]="'/user'" (click)="closeMenu()">
+      <nz-icon nzType="home" nzTheme="outline" /> Home
+    </li>
 
-  <li nz-menu-item (click)="showModal('editProfileUser')">
-    <nz-icon nzType="user" nzTheme="outline" /> Editar Perfil
-  </li>
+    <li nz-menu-item (click)="showModal('editProfileUser')">
+      <nz-icon nzType="user" nzTheme="outline" /> Editar Perfil
+    </li>
 
-  <li nz-menu-item [routerLink]="'/user/projects'" (click)="closeMenu()">
-    <nz-icon nzType="project" nzTheme="outline" /> Meus projetos
-  </li>
+    <li nz-menu-item [routerLink]="'/user/projects'" (click)="closeMenu()">
+      <nz-icon nzType="project" nzTheme="outline" /> Meus projetos
+    </li>
 
-  <li
-    nz-menu-item
-    [routerLink]="'/user/tasks'"
-    (click)="closeMenu()"
-    nzIcon="carry-out"
-  >
-    <nz-icon nzType="carry-out" nzTheme="outline" />
-    Minhas atividades
-  </li>
+    <li
+      nz-menu-item
+      [routerLink]="'/user/tasks'"
+      (click)="closeMenu()"
+      nzIcon="carry-out"
+    >
+      <nz-icon nzType="carry-out" nzTheme="outline" />
+      Minhas atividades
+    </li>
 
-  <li nz-submenu nzTitle="Lançamentos" nzIcon="clock-circle">
-    <ul>
-      <li nz-menu-item (click)="showModal('cadastroHoursUser')">
-        <nz-icon nzType="plus" nzTheme="outline" /> Novo lançamento
-      </li>
-      <li nz-menu-item (click)="closeMenu()" [routerLink]="'/user/hours'">
-        <nz-icon nzType="field-time" nzTheme="outline" /> Meus Lançamentos
-      </li>
-    </ul>
-  </li>
-</ul>
+    <li nz-submenu nzTitle="Lançamentos" nzIcon="clock-circle">
+      <ul>
+        <li nz-menu-item (click)="showModal('cadastroHoursUser')">
+          <nz-icon nzType="plus" nzTheme="outline" /> Novo lançamento
+        </li>
+        <li nz-menu-item (click)="closeMenu()" [routerLink]="'/user/hours'">
+          <nz-icon nzType="field-time" nzTheme="outline" /> Meus Lançamentos
+        </li>
+      </ul>
+    </li>
+  </ul>
 }
 <ng-template #editProfileUser>
   <app-edit-profile (closeModal)="handleCancel()" />
@@ -109,16 +109,13 @@
   <app-cadastro-hours-user (closeModal)="handleCancel()" />
 </ng-template>
 
-
-
-
 <!-- Moda geral -->
 <nz-modal
-[(nzVisible)]="isModalVisible"
-[nzTitle]="modalTitle"
-[nzContent]="modalContent"
-[nzFooter]="null"
-(nzOnCancel)="handleCancel()"
+  [(nzVisible)]="isModalVisible"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="null"
+  (nzOnCancel)="handleCancel()"
 >
-<ng-container *ngTemplateOutlet="modalContent"></ng-container>
+  <ng-container *ngTemplateOutlet="modalContent"></ng-container>
 </nz-modal>

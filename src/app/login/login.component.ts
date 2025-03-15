@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification/notification.service';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
-
 @Component({
   selector: 'app-login',
   imports: [
@@ -26,7 +25,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzFormModule,
     NzInputModule,
     NzLayoutModule,
-    NzTypographyModule
+    NzTypographyModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.less',
@@ -45,7 +44,7 @@ export class LoginComponent {
   constructor(
     private notification: NotificationService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   onSubmit(): void {
@@ -72,10 +71,10 @@ export class LoginComponent {
               setTimeout(() => {
                 this.isConfirmLoading = false;
                 this.notification.successNotification(
-                  `Seja bem-vindo, ${nome}!`
+                  `Seja bem-vindo, ${nome}!`,
                 );
                 this.formulario.reset();
-              },500) 
+              }, 500);
             }
           },
           error: (error) => {

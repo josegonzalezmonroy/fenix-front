@@ -32,7 +32,7 @@ export class HoursService {
     return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, hour).pipe(
       tap(() => {
         this.getAllHours().subscribe();
-      })
+      }),
     );
   }
 
@@ -40,7 +40,7 @@ export class HoursService {
     return this.http.delete<ResponseMessage>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         this.getAllHours().subscribe();
-      })
+      }),
     );
   }
 
@@ -62,7 +62,7 @@ export class HoursService {
       .pipe(
         tap(() => {
           this.getAllHoursByScopeUser().subscribe();
-        })
+        }),
       );
   }
 }

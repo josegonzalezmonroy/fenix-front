@@ -16,7 +16,7 @@ export class TasksService {
 
   constructor(private http: HttpClient) {}
 
-  getAllTasks(): Observable<Array<TasksModel>> { 
+  getAllTasks(): Observable<Array<TasksModel>> {
     return this.http
       .get<Array<TasksModel>>(this.apiUrl)
       .pipe(tap((tasks) => this.tasksSubject.next(tasks)));
@@ -38,7 +38,7 @@ export class TasksService {
     return this.http.patch<ResponseMessage>(`${this.apiUrl}/${id}`, task).pipe(
       tap(() => {
         this.getAllTasks().subscribe();
-      })
+      }),
     );
   }
 
@@ -46,24 +46,40 @@ export class TasksService {
     return this.http.delete<ResponseMessage>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
         this.getAllTasks().subscribe();
-      })
+      }),
     );
   }
 
-  getTaskByProject(idUsuario:number, idProjeto: number): Observable<Array<TasksNameModel>>{
-    return this.http.get<Array<TasksNameModel>>(`${this.apiUrl}/projeto/${idProjeto}/usuario/${idUsuario}`)
+  getTaskByProject(
+    idUsuario: number,
+    idProjeto: number,
+  ): Observable<Array<TasksNameModel>> {
+    return this.http.get<Array<TasksNameModel>>(
+      `${this.apiUrl}/projeto/${idProjeto}/usuario/${idUsuario}`,
+    );
   }
 
-    getAllTasksOfScopeUsuario():Observable<TasksModel[]>{
-      return this.http.get<TasksModel[]>(`${environment.apiUrl}/user/atividades`)
-      .pipe(tap((tasks) => {
-        this.tasksSubject.next(tasks)}));
-    }
+  getAllTasksOfScopeUsuario(): Observable<TasksModel[]> {
+    return this.http
+      .get<TasksModel[]>(`${environment.apiUrl}/user/atividades`)
+      .pipe(
+        tap((tasks) => {
+          this.tasksSubject.next(tasks);
+        }),
+      );
+  }
 
-    getTaskByProjectScopeUsuario(idProjeto:number):Observable<Array<TasksNameModel>>
-    {
-      return this.http.get<TasksModel[]>(`${environment.apiUrl}/user/atividades/projeto/${idProjeto}`)
-      .pipe(tap((tasks) => {
-        this.tasksSubject.next(tasks)}));
-    }
+  getTaskByProjectScopeUsuario(
+    idProjeto: number,
+  ): Observable<Array<TasksNameModel>> {
+    return this.http
+      .get<
+        TasksModel[]
+      >(`${environment.apiUrl}/user/atividades/projeto/${idProjeto}`)
+      .pipe(
+        tap((tasks) => {
+          this.tasksSubject.next(tasks);
+        }),
+      );
+  }
 }

@@ -1,7 +1,4 @@
-<form 
-nz-form 
-(keyup.enter)="onSubmit()"
-[formGroup]="profileEditForm">
+<form nz-form (keyup.enter)="onSubmit()" [formGroup]="profileEditForm">
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Nome</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
@@ -9,21 +6,15 @@ nz-form
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" >E-mail</nz-form-label>
-    <nz-form-control
-      [nzSm]="14"
-      [nzXs]="24"
-    >
-      <input 
-      [disabled]="true" 
-      [value]="email"
-      nz-input/>
+    <nz-form-label [nzSm]="6" [nzXs]="24">E-mail</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input [disabled]="true" [value]="email" nz-input />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Senha</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatorio">
-      <input nz-input formControlName="senha"/>
+      <input nz-input formControlName="senha" />
     </nz-form-control>
   </nz-form-item>
 

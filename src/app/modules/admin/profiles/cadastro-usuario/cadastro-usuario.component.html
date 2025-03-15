@@ -1,50 +1,38 @@
-<form 
-  nz-form 
-  (keyup.enter)="onSubmit()"
-  [formGroup]="profileForm">
+<form nz-form (keyup.enter)="onSubmit()" [formGroup]="profileForm">
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-      >Nome</nz-form-label
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Nome</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
-      <input
-        nz-input
-        formControlName="nome"
-      />
+      <input nz-input formControlName="nome" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-      >E-mail</nz-form-label
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>E-mail</nz-form-label>
     <nz-form-control
       [nzSm]="14"
       [nzXs]="24"
       nzErrorTip="Formato de email não valido"
     >
-      <input
-        nz-input
-        formControlName="email"
-      />
+      <input nz-input formControlName="email" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired 
-      >Senha</nz-form-label
-    >
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Senha</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Obrigatório">
-      <input
-        nz-input
-        formControlName="senha"
-      />
+      <input nz-input formControlName="senha" />
     </nz-form-control>
   </nz-form-item>
- 
+
   <nz-form-item nz-row class="register-area">
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <button nz-button nzType="primary" type="button" [disabled]="!profileForm.valid" [nzLoading]="isConfirmLoading"
-      nzShape="round"
-      (click)="onSubmit()">
+      <button
+        nz-button
+        nzType="primary"
+        type="button"
+        [disabled]="!profileForm.valid"
+        [nzLoading]="isConfirmLoading"
+        nzShape="round"
+        (click)="onSubmit()"
+      >
         Confirmar
       </button>
     </nz-form-control>

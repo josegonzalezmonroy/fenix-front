@@ -26,7 +26,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzPopconfirmModule,
     NzTagModule,
     EditUsuarioComponent,
-    NzTypographyModule
+    NzTypographyModule,
   ],
   providers: [DatePipe],
   templateUrl: './profiles-list.component.html',
@@ -45,7 +45,7 @@ export class ProfilesListComponent implements OnInit, OnDestroy {
   constructor(
     private profilesService: ProfilesService,
     private notification: NotificationService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +55,7 @@ export class ProfilesListComponent implements OnInit, OnDestroy {
 
     this.profilesService.getAllUsers().subscribe();
   }
-  
+
   dateFormater(date: Date): string | null {
     return this.datePipe.transform(date, 'dd/MM/yyyy - HH:mm');
   }
@@ -63,17 +63,16 @@ export class ProfilesListComponent implements OnInit, OnDestroy {
   deleteUser(id: number): void {
     this.loadingUsers[id] = true;
     setTimeout(() => {
-    this.profilesService.deleteUser(id)
-      .subscribe({
-            next: (response: ResponseMessage) => {
-              this.notification.successNotification(response.message);
-            },
-            error: (error: HttpErrorResponse) => {
-              this.loadingUsers[id] = false;
-              this.notification.errorNotification(error.error.message);
-            },
-          });
-        }, 500);
+      this.profilesService.deleteUser(id).subscribe({
+        next: (response: ResponseMessage) => {
+          this.notification.successNotification(response.message);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.loadingUsers[id] = false;
+          this.notification.errorNotification(error.error.message);
+        },
+      });
+    }, 500);
   }
 
   showModal(user: UsersModel): void {

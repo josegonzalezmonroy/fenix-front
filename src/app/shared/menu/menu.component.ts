@@ -32,13 +32,12 @@ import { AuthService } from '../../services/auth/auth.service';
     CadastroTaskComponent,
     CadastroHoursComponent,
     EditProfileComponent,
-    CadastroHoursUserComponent
+    CadastroHoursUserComponent,
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.less',
 })
 export class MenuComponent implements OnInit {
-
   isModalVisible = false;
   modalTitle = 'Usuário';
   modalContent!: TemplateRef<any>;
@@ -52,7 +51,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.scope = this.authService.getScope();
   }
-  
+
   // Escopo ADMIN
   @ViewChild('cadastroUsuario', { static: true })
   CadastroUsuarioComponent!: TemplateRef<any>;
@@ -94,15 +93,15 @@ export class MenuComponent implements OnInit {
         this.modalContent = this.CadastroHoursComponent;
         break;
 
-        case 'editProfileUser':
-          this.modalTitle = 'Editar perfil';
-          this.modalContent = this.EditProfileComponent;
-          break;
+      case 'editProfileUser':
+        this.modalTitle = 'Editar perfil';
+        this.modalContent = this.EditProfileComponent;
+        break;
 
-          case 'cadastroHoursUser':
-            this.modalTitle = 'Lançar horas';
-            this.modalContent = this.CadastroHoursUserComponent;
-            break;
+      case 'cadastroHoursUser':
+        this.modalTitle = 'Lançar horas';
+        this.modalContent = this.CadastroHoursUserComponent;
+        break;
     }
   }
 

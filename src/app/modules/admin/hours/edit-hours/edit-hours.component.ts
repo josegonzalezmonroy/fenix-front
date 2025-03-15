@@ -59,7 +59,7 @@ export class EditHoursComponent implements OnInit {
     private profilesService: ProfilesService,
     private tasksService: TasksService,
     private hoursService: HoursService,
-    private notification: NotificationService
+    private notification: NotificationService,
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +68,7 @@ export class EditHoursComponent implements OnInit {
         this.profilesName = users;
       },
       error: () => {
-        this.notification.errorNotification("Erro ao carregar usuários");
+        this.notification.errorNotification('Erro ao carregar usuários');
       },
     });
 
@@ -77,7 +77,7 @@ export class EditHoursComponent implements OnInit {
         this.projectsName = projects;
       },
       error: () => {
-        this.notification.errorNotification("Erro ao carregar projetos");
+        this.notification.errorNotification('Erro ao carregar projetos');
       },
     });
 
@@ -86,7 +86,7 @@ export class EditHoursComponent implements OnInit {
         this.tasksName = tasks;
       },
       error: () => {
-        this.notification.errorNotification("Erro ao carregar atividades");
+        this.notification.errorNotification('Erro ao carregar atividades');
       },
     });
 
@@ -98,7 +98,7 @@ export class EditHoursComponent implements OnInit {
       ]),
       data_inicio: new FormControl<Date | null>(
         new Date(this.hourEdit.dataInicio),
-        [Validators.required]
+        [Validators.required],
       ),
       data_fim: new FormControl<Date | null>(new Date(this.hourEdit.dataFim), [
         Validators.required,
@@ -112,15 +112,16 @@ export class EditHoursComponent implements OnInit {
     if (this.hoursEditForm.valid && this.selectedDate) {
       this.isConfirmLoading = true;
       this.hoursService
-        .updateHour(this.hourEdit.id, this.hoursEditForm.value as HoursEditModel)
+        .updateHour(
+          this.hourEdit.id,
+          this.hoursEditForm.value as HoursEditModel,
+        )
         .subscribe({
           next: (response: ResponseMessage) => {
             setTimeout(() => {
               this.hoursEditForm.reset();
               this.closeModal.emit();
-              this.notification.successNotification(
-                response.message
-              );
+              this.notification.successNotification(response.message);
               this.isConfirmLoading = false;
             }, 500);
           },
@@ -155,7 +156,7 @@ export class EditHoursComponent implements OnInit {
       if (dataInicio) {
         const dataHoraInicio = this.combineDateAndTime(
           this.selectedDate,
-          dataInicio
+          dataInicio,
         );
         this.hoursEditForm.get('data_inicio')?.setValue(dataHoraInicio);
       }
@@ -189,7 +190,7 @@ export class EditHoursComponent implements OnInit {
 
   horasTotais(inicio: Date, fim: Date): number {
     const tempoTotalSegundos = Math.floor(
-      (fim.setSeconds(0, 0) - inicio.setSeconds(0, 0)) / 1000
+      (fim.setSeconds(0, 0) - inicio.setSeconds(0, 0)) / 1000,
     );
     this.segundosParaHHmm(tempoTotalSegundos);
     return tempoTotalSegundos;
