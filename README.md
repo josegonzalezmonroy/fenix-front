@@ -1,59 +1,91 @@
-# ProjetoFront
+# Fenix Front
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
+Este é o projeto **Fenix Front**, uma aplicação Angular configurada com diversas dependências e scripts úteis para desenvolvimento e produção.
 
-## Development server
+## Requisitos
 
-To start a local development server, run:
+- Node.js (versão recomendada: 16 ou superior)
+- Angular CLI (instalado globalmente)
 
-```bash
-ng serve
-```
+## Scripts Disponíveis
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Os seguintes scripts estão disponíveis no `package.json`:
 
-## Code scaffolding
+- `ng`: Executa o comando Angular CLI.
+- `start`: Inicia o servidor de desenvolvimento.
+- `build`: Realiza o build da aplicação para produção.
+- `watch`: Realiza o build em modo de observação (watch) com a configuração de desenvolvimento.
+- `test`: Executa os testes unitários.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Para executar qualquer um dos scripts acima, utilize o comando:
 
 ```bash
-ng generate --help
+npm run <nome-do-script>
 ```
 
-## Building
+## Dependências Principais
 
-To build the project run:
+As principais dependências do projeto incluem:
 
-```bash
-ng build
-```
+- **@angular/core**: Framework Angular.
+- **ng-zorro-antd**: Biblioteca de componentes UI para Angular.
+- **jwt-decode**: Biblioteca para decodificar tokens JWT.
+- **rxjs**: Biblioteca para programação reativa.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Dependências de Desenvolvimento
 
-## Running unit tests
+As dependências de desenvolvimento incluem:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- **@angular/cli**: Ferramenta CLI para Angular.
+- **typescript**: Suporte para TypeScript.
 
-```bash
-ng test
-```
+## Funcionalidades
 
-## Running end-to-end tests
+O projeto inclui as seguintes funcionalidades principais:
 
-For end-to-end (e2e) testing, run:
+1. **Login e Cadastro de Usuários**:
+   - Gerenciamento de perfis e permissões.
 
-```bash
-ng e2e
-```
+2. **Dashboard**:
+   - Visão geral de projetos, atividades e horas trabalhadas.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+3. **Página de Projetos**:
+   - Listar, criar, editar e excluir projetos.
 
-## Additional Resources
+4. **Página de Atividades**:
+   - Listar, criar, editar e excluir atividades vinculadas a um projeto.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+5. **Página de Lançamentos de Horas**:
+   - Formulário para lançar horas em uma atividade específica.
+
+## Como Iniciar
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/josegonzalezmonroy/fenix-front
+   cd fenix-front
+   ```
+
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+
+3. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run start
+   ```
+
+4. Acesse a aplicação no navegador em `http://localhost:4200`.
+
+## Estrutura do Projeto
+
+A estrutura básica do projeto segue o padrão Angular, com módulos, componentes e serviços organizados em pastas.
+
+## Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
+
+## Licença
+
+Este projeto é privado e não possui uma licença pública.
