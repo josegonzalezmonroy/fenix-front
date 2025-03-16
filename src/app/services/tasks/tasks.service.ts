@@ -50,12 +50,20 @@ export class TasksService {
     );
   }
 
-  getTaskByProject(
+  getTaskByProjectAndUser(
     idUsuario: number,
     idProjeto: number,
   ): Observable<Array<TasksNameModel>> {
     return this.http.get<Array<TasksNameModel>>(
       `${this.apiUrl}/projeto/${idProjeto}/usuario/${idUsuario}`,
+    );
+  }
+
+  getTaskByProject(
+    idProjeto: number,
+  ): Observable<Array<TasksNameModel>> {
+    return this.http.get<Array<TasksNameModel>>(
+      `${this.apiUrl}/projeto/${idProjeto}`,
     );
   }
 

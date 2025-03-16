@@ -55,6 +55,7 @@
             nzSize="large"
             nzShape="circle"
             class="custom-button"
+            (click)="showModal('taskDetails',data)"
           >
             <nz-icon nzType="expand-alt" nzTheme="outline" />
           </button>
@@ -63,7 +64,7 @@
             nzType="primary"
             nzSize="large"
             nzShape="circle"
-            (click)="showModal(data)"
+            (click)="showModal('editTask',data)"
           >
             <nz-icon nzType="edit" />
           </button>
@@ -85,16 +86,27 @@
     }</tbody
 ></nz-table>
 
+<ng-template #taskDetails>
+  <app-tasks-details
+    [task]="taskSelected"
+    (closeModal)="handleCancel()"
+  ></app-tasks-details>
+</ng-template>
+
+<ng-template #editTask>
+  <app-edit-task
+    [taskEdit]="taskSelected"
+    (closeModal)="handleCancel()"
+  ></app-edit-task>
+</ng-template>
+
+<!-- Modal geral -->
 <nz-modal
-  [(nzVisible)]="isVisible"
+  [(nzVisible)]="isModalVisible"
   [nzTitle]="modalTitle"
   [nzContent]="modalContent"
   [nzFooter]="null"
   (nzOnCancel)="handleCancel()"
 >
-  <ng-template #modalTitle>Editar Atividade</ng-template>
-
-  <ng-template #modalContent>
-    <app-edit-task (closeModal)="handleCancel()" [taskEdit]="selectedTask" />
-  </ng-template>
+  <ng-container *ngTemplateOutlet="modalContent"></ng-container>
 </nz-modal>

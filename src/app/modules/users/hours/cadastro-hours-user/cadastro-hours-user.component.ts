@@ -47,7 +47,7 @@ export class CadastroHoursUserComponent implements OnInit {
   projectsByProfile: Array<ProjectsNameModel> = [];
 
   selectedDate: Date | null = null;
-  tempoTotal: string = '';
+  tempoTotal: string = '-';
 
   constructor(
     private projectsService: ProjectsService,
@@ -55,7 +55,7 @@ export class CadastroHoursUserComponent implements OnInit {
     private tasksService: TasksService,
     private hoursService: HoursService,
     private notification: NotificationService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   hoursForm = new FormGroup({
@@ -81,7 +81,7 @@ export class CadastroHoursUserComponent implements OnInit {
       },
       error: () => {
         this.notification.errorNotification(
-          'Erro ao carregar projetos do usuario',
+          'Erro ao carregar projetos do usuario'
         );
       },
     });
@@ -113,7 +113,7 @@ export class CadastroHoursUserComponent implements OnInit {
       },
       error: () => {
         this.notification.errorNotification(
-          'Erro ao carregar atividades do usuario',
+          'Erro ao carregar atividades do usuario'
         );
       },
     });
@@ -123,12 +123,12 @@ export class CadastroHoursUserComponent implements OnInit {
     if (this.hoursForm.valid && this.selectedDate) {
       const dataHoraInicio = this.combineDateAndTime(
         this.selectedDate,
-        this.hoursForm.value.data_inicio as Date,
+        this.hoursForm.value.data_inicio as Date
       );
 
       const dataHoraFim = this.combineDateAndTime(
         this.selectedDate,
-        this.hoursForm.value.data_fim as Date,
+        this.hoursForm.value.data_fim as Date
       );
 
       this.hoursForm.value.data_fim = dataHoraFim;
@@ -177,7 +177,7 @@ export class CadastroHoursUserComponent implements OnInit {
           .get('segundos_totais')
           ?.setValue(this.horasTotais(dataInicio!, dataFim!));
         this.tempoTotal = this.segundosParaHHmm(
-          this.horasTotais(dataInicio!, dataFim!),
+          this.horasTotais(dataInicio!, dataFim!)
         );
       }
     }
@@ -191,7 +191,7 @@ export class CadastroHoursUserComponent implements OnInit {
 
   horasTotais(inicio: Date, fim: Date): number {
     const tempoTotalSegundos = Math.floor(
-      (fim.setSeconds(0, 0) - inicio.setSeconds(0, 0)) / 1000,
+      (fim.setSeconds(0, 0) - inicio.setSeconds(0, 0)) / 1000
     );
     this.segundosParaHHmm(tempoTotalSegundos);
     return tempoTotalSegundos;

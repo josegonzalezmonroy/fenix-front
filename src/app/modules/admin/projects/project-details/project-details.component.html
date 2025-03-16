@@ -1,0 +1,75 @@
+<div class="projeto-detalhes">
+  <div class="linha">
+    <span class="label">Descrição:</span>
+    <span class="valor">{{ project.descricao }}</span>
+  </div>
+
+  <div class="linha">
+    <span class="label">Data de Início:</span>
+    <span class="valor">{{ dateFormater(project.dataInicio) }}</span>
+  </div>
+
+  <div class="linha">
+    <span class="label">Data de Fim:</span>
+    @if (projetoAtrasado(project)) {
+    <span>
+      <nz-tag [nzColor]="presetColors[1]">{{
+        dateFormater(project.dataFim)
+      }}</nz-tag>
+    </span>
+    } @else {
+    <span>{{ dateFormater(project.dataFim) }}</span>
+    }
+  </div>
+
+  <div class="linha">
+    <span class="label">Status:</span>
+    @if (project.status === "EM_ANDAMENTO") {
+    <span><nz-tag [nzColor]="presetColors[8]">Em andamento</nz-tag></span>
+    } @if (project.status === "PLANEJADO") {
+    <span><nz-tag [nzColor]="presetColors[3]">Planejado</nz-tag></span>
+    } @if (project.status === "CONCLUIDO") {
+    <span><nz-tag [nzColor]="presetColors[5]">Concluido</nz-tag></span>
+    } @if (project.status === "CANCELADO") {
+    <span><nz-tag [nzColor]="presetColors[1]">Cancelado</nz-tag></span>
+    }
+  </div>
+
+  <div class="linha">
+    <span class="label">Prioridade:</span>
+    @if (project.prioridade == "ALTA") {
+    <span><nz-tag [nzColor]="presetColors[6]">Alta</nz-tag></span>
+    } @if (project.prioridade == "MEDIA") {
+    <span><nz-tag [nzColor]="presetColors[10]">Media</nz-tag></span>
+    } @if (project.prioridade == "BAIXA") {
+    <span><nz-tag [nzColor]="presetColors[12]">Baixa</nz-tag></span>
+    }
+  </div>
+
+  <div class="linha">
+    <span class="label">Responsável:</span>
+    <span class="valor">{{ project.usuarioResponsavel.nome }}</span>
+  </div>
+
+  <div class="linha">
+    <span class="label">Data de Criação:</span>
+    <span class="valor">{{ dateFormater(project.dataCriacao) }}</span>
+  </div>
+
+  <div class="linha">
+    <span class="label">Usuários: ({{usersData.length}})</span>
+    @for (usuario of usersData; track usuario.id){
+    <span class="valor">{{ usuario.nome }}</span><br>
+    }
+  </div>
+
+  <div class="linha">
+    <span class="label">Atividades: ({{tasksData.length}})</span>
+    @if(tasksData.length == 0){
+    <span class="valor">Nenhuma atividade cadastrada</span>
+    } @else {
+    @for (task of tasksData; track task.id){
+    <span class="valor">{{ task.nome }}</span><br>
+    }}
+  </div>
+</div>

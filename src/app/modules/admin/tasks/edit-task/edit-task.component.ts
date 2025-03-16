@@ -44,13 +44,13 @@ export class EditTaskComponent implements OnInit {
   profilesName: Array<UsersNameModel> = [];
   projectsName: Array<ProjectsNameModel> = [];
 
-  profilesByProject = [{ id: 1, nome: 'luis' }];
+  profilesByProject: Array<UsersNameModel> = [];
 
   constructor(
     private profilesService: ProfilesService,
     private notification: NotificationService,
     private projectsService: ProjectsService,
-    private tasksService: TasksService,
+    private tasksService: TasksService
   ) {}
 
   ngOnInit(): void {

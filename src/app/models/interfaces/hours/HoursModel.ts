@@ -1,5 +1,4 @@
 import { TasksModel } from '../tasks/TasksModel';
-import { TasksNameModel } from '../tasks/TasksNameModel';
 import { UsersNameModel } from '../users/response/UsersNameModel';
 
 export interface HoursModel {

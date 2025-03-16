@@ -1,8 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { ProjectsService } from '../../../../services/projects/projects.service';
 import { NotificationService } from '../../../../services/notification/notification.service';
 import { ProjectsModel } from '../../../../models/interfaces/projects/response/ProjectsModel';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { CommonModule } from '@angular/common';
 import { EditProjectComponent } from '../edit-project/edit-project.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -17,6 +25,7 @@ import { ResponseMessage } from '../../../../models/interfaces/ResponseMessage';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { presetColors } from 'ng-zorro-antd/core/color';
+import { ProjectDetailsComponent } from '../project-details/project-details.component';
 
 @Component({
   selector: 'app-projects-list',
@@ -28,7 +37,9 @@ import { presetColors } from 'ng-zorro-antd/core/color';
     NzPopconfirmModule,
     NzTagModule,
     EditProjectComponent,
+    ProjectDetailsComponent,
     NzTypographyModule,
+    CommonModule
   ],
   providers: [DatePipe],
   templateUrl: './projects-list.component.html',
@@ -42,15 +53,17 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
 
   readonly presetColors = presetColors;
 
-  isVisible = false;
   loadingProjects: { [key: string]: boolean } = {};
-  selectedProject!: ProjectsModel;
+  projectSelected!: ProjectsModel;
+  isModalVisible = false;
+  modalTitle = '';
+  modalContent!: TemplateRef<any>;
 
   constructor(
     private projectsService: ProjectsService,
     private profilesServices: ProfilesService,
     private notification: NotificationService,
-    private datePipe: DatePipe,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -93,13 +106,32 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  showModal(project: ProjectsModel): void {
-    this.selectedProject = project;
-    this.isVisible = true;
+  @ViewChild('editProject', { static: true })
+  EditProjectComponent!: TemplateRef<any>;
+
+  @ViewChild('projectDetails', { static: true })
+  ProjectDetailsComponent!: TemplateRef<any>;
+
+  showModal(tipo: string, project: ProjectsModel): void {
+    this.projectSelected = project;
+    this.isModalVisible = true;
+
+    switch (tipo) {
+      case 'projectDetails':
+        this.modalTitle = this.projectSelected.nome;
+        this.modalContent;
+        this.modalContent = this.ProjectDetailsComponent;
+        break;
+
+      case 'editProject':
+        this.modalTitle = 'Editar Projeto';
+        this.modalContent = this.EditProjectComponent;
+        break;
+    }
   }
 
   handleCancel(): void {
-    this.isVisible = false;
+    this.isModalVisible = false;
   }
 
   ngOnDestroy(): void {

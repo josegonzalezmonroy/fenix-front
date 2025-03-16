@@ -39,7 +39,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class MenuComponent implements OnInit {
   isModalVisible = false;
-  modalTitle = 'Usuário';
+  modalTitle = '';
   modalContent!: TemplateRef<any>;
 
   @Output() closedMenu = new EventEmitter<void>();

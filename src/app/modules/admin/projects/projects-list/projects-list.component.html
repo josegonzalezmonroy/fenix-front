@@ -29,7 +29,7 @@
         @if (projetoAtrasado(data)) {
           <td>
             <nz-tag [nzColor]="presetColors[1]">{{
-              dateFormater(data.dataInicio)
+              dateFormater(data.dataFim)
             }}</nz-tag>
           </td>
         } @else {
@@ -64,6 +64,7 @@
             nzSize="large"
             nzShape="circle"
             class="custom-button"
+            (click)="showModal('projectDetails', data)"
           >
             <nz-icon nzType="expand-alt" nzTheme="outline" />
           </button>
@@ -72,7 +73,7 @@
             nzType="primary"
             nzSize="large"
             nzShape="circle"
-            (click)="showModal(data)"
+            (click)="showModal('editProject', data)"
           >
             <nz-icon nzType="edit" />
           </button>
@@ -94,19 +95,27 @@
     }</tbody
 ></nz-table>
 
+<ng-template #projectDetails>
+  <app-project-details
+    [project]="projectSelected"
+    (closeModal)="handleCancel()"
+  ></app-project-details>
+</ng-template>
+
+<ng-template #editProject>
+  <app-edit-project
+    [projectEdit]="projectSelected"
+    (closeModal)="handleCancel()"
+  ></app-edit-project>
+</ng-template>
+
+<!-- Modal geral -->
 <nz-modal
-  [(nzVisible)]="isVisible"
+  [(nzVisible)]="isModalVisible"
   [nzTitle]="modalTitle"
   [nzContent]="modalContent"
   [nzFooter]="null"
   (nzOnCancel)="handleCancel()"
 >
-  <ng-template #modalTitle>Editar Projeto</ng-template>
-
-  <ng-template #modalContent>
-    <app-edit-project
-      (closeModal)="handleCancel()"
-      [projectEdit]="selectedProject"
-    />
-  </ng-template>
+  <ng-container *ngTemplateOutlet="modalContent"></ng-container>
 </nz-modal>

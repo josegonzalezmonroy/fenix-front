@@ -1,5 +1,13 @@
+import { TasksDetailsComponent } from './../tasks-details/tasks-details.component';
+import { EditTaskComponent } from './../edit-task/edit-task.component';
 import { ResponseMessage } from './../../../../models/interfaces/ResponseMessage';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { TasksModel } from '../../../../models/interfaces/tasks/TasksModel';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -7,7 +15,6 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzTagModule } from 'ng-zorro-antd/tag';
-import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { Subject, takeUntil } from 'rxjs';
 import { UsersNameModel } from '../../../../models/interfaces/users/response/UsersNameModel';
 import { ProjectsNameModel } from '../../../../models/interfaces/projects/response/ProjectsNameModel';
@@ -19,6 +26,7 @@ import { TasksService } from '../../../../services/tasks/tasks.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { presetColors } from 'ng-zorro-antd/core/color';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tasks-list',
@@ -30,7 +38,9 @@ import { presetColors } from 'ng-zorro-antd/core/color';
     NzPopconfirmModule,
     NzTagModule,
     EditTaskComponent,
+    TasksDetailsComponent,
     NzTypographyModule,
+    CommonModule,
   ],
   providers: [DatePipe],
   templateUrl: './tasks-list.component.html',
@@ -41,18 +51,20 @@ export class TasksListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   usersData!: UsersNameModel[];
   projectsData!: ProjectsNameModel[];
-  selectedTask!: TasksModel;
+  taskSelected!: TasksModel;
   readonly presetColors = presetColors;
-
-  isVisible = false;
   loadingTasks: { [key: string]: boolean } = {};
+
+  isModalVisible = false;
+  modalTitle = '';
+  modalContent!: TemplateRef<any>;
 
   constructor(
     private projectsService: ProjectsService,
     private profilesServices: ProfilesService,
     private notification: NotificationService,
     private tasksService: TasksService,
-    private datePipe: DatePipe,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -97,13 +109,32 @@ export class TasksListComponent implements OnInit, OnDestroy {
     }, 500);
   }
 
-  showModal(task: TasksModel): void {
-    this.selectedTask = task;
-    this.isVisible = true;
+  @ViewChild('editTask', { static: true })
+  EditTaskComponent!: TemplateRef<any>;
+
+  @ViewChild('taskDetails', { static: true })
+  TasksDetailsComponent!: TemplateRef<any>;
+
+  showModal(tipo: string, task: TasksModel): void {
+    this.taskSelected = task;
+    this.isModalVisible = true;
+
+    switch (tipo) {
+      case 'taskDetails':
+        this.modalTitle = this.taskSelected.nome;
+        this.modalContent;
+        this.modalContent = this.TasksDetailsComponent;
+        break;
+
+      case 'editTask':
+        this.modalTitle = 'Editar Atividade';
+        this.modalContent = this.EditTaskComponent;
+        break;
+    }
   }
 
   handleCancel(): void {
-    this.isVisible = false;
+    this.isModalVisible = false;
   }
 
   ngOnDestroy(): void {

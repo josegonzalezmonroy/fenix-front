@@ -1,0 +1,57 @@
+<div class="atividade-detalhes">
+  <div class="linha">
+    <span class="label">Descrição:</span>
+    <span class="valor">{{ task.descricao }}</span>
+  </div>
+
+  <div class="linha">
+    <span class="label">Projeto:</span>
+    <span class="valor">{{ task.projeto.nome }}</span>
+  </div>
+
+  <div class="linha">
+    <span class="label">Data de Início:</span>
+    <span class="valor">{{ dateFormater(task.dataInicio) }}</span>
+  </div>
+
+  <div class="linha">
+    <span class="label">Data de Fim:</span>
+    @if (atividadeAtrasada(task)) {
+    <span>
+      <nz-tag [nzColor]="presetColors[1]">{{
+        dateFormater(task.dataFim)
+      }}</nz-tag>
+    </span>
+    } @else {
+    <span>{{ dateFormater(task.dataFim) }}</span>
+    }
+  </div>
+
+  <div class="linha">
+    <span class="label">Status:</span>
+    @if (task.status === "EM_ANDAMENTO") {
+    <td><nz-tag [nzColor]="presetColors[8]">Em andamento</nz-tag></td>
+    } @if (task.status === "ABERTA") {
+    <td><nz-tag [nzColor]="presetColors[6]">Aberta</nz-tag></td>
+    } @if (task.status === "CONCLUIDA") {
+    <td><nz-tag [nzColor]="presetColors[5]">Concluida</nz-tag></td>
+    } @if (task.status === "PAUSADA") {
+    <td><nz-tag [nzColor]="presetColors[1]">Pausada</nz-tag></td>
+    }
+  </div>
+
+  <div class="linha">
+    <span class="label">Data de Criação:</span>
+    <span class="valor">{{ dateFormater(task.dataCriacao) }}</span>
+  </div>
+
+  <div class="linha">
+    <span class="label">Usuários: ({{ usersData.length }})</span>
+    @if(usersData.length==0){
+    <span class="valor">Nenhum usuário vinculado</span>
+    }@else{ @for (usuario of usersData; track usuario.id){
+    <span class="valor">{{ usuario.nome }}</span
+    ><br />
+    } }
+  </div>
+</div>

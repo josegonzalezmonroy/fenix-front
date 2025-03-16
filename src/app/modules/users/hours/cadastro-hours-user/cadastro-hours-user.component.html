@@ -10,10 +10,10 @@
           nzPlaceHolder="Selecione o projeto"
         >
           @for (project of projectsByProfile; track project.id) {
-            <nz-option
-              [nzLabel]="project.nome"
-              [nzValue]="project.id"
-            ></nz-option>
+          <nz-option
+            [nzLabel]="project.nome"
+            [nzValue]="project.id"
+          ></nz-option>
           }
         </nz-select>
       </nz-input-group>
@@ -31,7 +31,7 @@
           nzPlaceHolder="Selecione a atividade"
         >
           @for (task of tasksName; track task.id) {
-            <nz-option [nzLabel]="task.nome" [nzValue]="task.id"></nz-option>
+          <nz-option [nzLabel]="task.nome" [nzValue]="task.id"></nz-option>
           }
         </nz-select>
       </nz-input-group>
@@ -84,12 +84,7 @@
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24">Tempo total</nz-form-label>
     <nz-form-control [nzSpan]="14">
-      <input
-        nz-input
-        [(ngModel)]="tempoTotal"
-        [ngModelOptions]="{ standalone: true }"
-        disabled
-      />
+      <span>{{ tempoTotal }}</span>
     </nz-form-control>
   </nz-form-item>
 
